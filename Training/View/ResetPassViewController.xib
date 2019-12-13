@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResetPassViewController" customModule="Training" customModuleProvider="target">
+            <connections>
+                <outlet property="btnResetPassword" destination="ag1-jg-UYv" id="ipf-qK-Kts"/>
+                <outlet property="containerView" destination="CKk-Of-HLd" id="2Kj-aw-42P"/>
+                <outlet property="txtEmail" destination="r1E-es-e6F" id="daU-f7-UTR"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CKk-Of-HLd">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ag1-jg-UYv">
+                            <rect key="frame" x="107" y="309.5" width="200" height="35"/>
+                            <color key="backgroundColor" red="0.19168053378266728" green="0.71110080212669347" blue="0.7328761556632124" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="JeP-rn-uce"/>
+                                <constraint firstAttribute="height" constant="35" id="P2u-N0-U8e"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                            <state key="normal" title="Reset password">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="resetPassword:" destination="-1" eventType="touchUpInside" id="W7S-1T-YtO"/>
+                            </connections>
+                        </button>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r1E-es-e6F">
+                            <rect key="frame" x="50" y="229.5" width="314" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="gOR-bE-bZp"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="ag1-jg-UYv" firstAttribute="top" secondItem="r1E-es-e6F" secondAttribute="bottom" constant="30" id="7Bu-Z3-Mrf"/>
+                        <constraint firstAttribute="trailing" secondItem="r1E-es-e6F" secondAttribute="trailing" constant="50" id="FEE-bR-ZTR"/>
+                        <constraint firstItem="r1E-es-e6F" firstAttribute="leading" secondItem="CKk-Of-HLd" secondAttribute="leading" constant="50" id="RLg-du-YCd"/>
+                        <constraint firstItem="ag1-jg-UYv" firstAttribute="centerX" secondItem="CKk-Of-HLd" secondAttribute="centerX" id="g9l-mh-dp9"/>
+                        <constraint firstItem="ag1-jg-UYv" firstAttribute="centerY" secondItem="CKk-Of-HLd" secondAttribute="centerY" multiplier="0.8" id="mVb-in-bDr"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="6QD-f2-n7c" appends="YES" id="EvP-is-jxY"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="CKk-Of-HLd" secondAttribute="bottom" id="4W3-Iq-CSz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="CKk-Of-HLd" secondAttribute="trailing" id="Ju3-3I-8Ze"/>
+                <constraint firstItem="CKk-Of-HLd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="S6Q-Dc-F8f"/>
+                <constraint firstItem="CKk-Of-HLd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="d6J-28-KDc"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="132" y="112"/>
+        </view>
+        <tapGestureRecognizer id="6QD-f2-n7c">
+            <connections>
+                <action selector="dismissKeyboard:" destination="-1" id="Qbk-kD-PHc"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>

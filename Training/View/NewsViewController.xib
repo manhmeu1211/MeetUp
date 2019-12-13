@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsViewController" customModule="Training" customModuleProvider="target">
+            <connections>
+                <outlet property="loading" destination="R9B-q8-epa" id="llk-QL-28X"/>
+                <outlet property="tableView" destination="TWb-Mq-FTY" id="D5C-d6-vYl"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TWb-Mq-FTY">
+                    <rect key="frame" x="5" y="49" width="404" height="793"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="R9B-q8-epa">
+                    <rect key="frame" x="197" y="842" width="20" height="20"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="R9B-q8-epa" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="4Qx-7z-rOY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TWb-Mq-FTY" secondAttribute="trailing" constant="5" id="5id-Ij-Zko"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="TWb-Mq-FTY" secondAttribute="bottom" constant="20" id="6sa-wL-b0r"/>
+                <constraint firstItem="R9B-q8-epa" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Dg2-9k-mAO"/>
+                <constraint firstItem="R9B-q8-epa" firstAttribute="top" secondItem="TWb-Mq-FTY" secondAttribute="bottom" id="MMa-oU-vdO"/>
+                <constraint firstItem="TWb-Mq-FTY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="dlz-oa-tTu"/>
+                <constraint firstItem="TWb-Mq-FTY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="sO6-aT-tkr"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="133" y="104"/>
+        </view>
+    </objects>
+</document>

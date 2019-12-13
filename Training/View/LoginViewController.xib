@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Training" customModuleProvider="target">
+            <connections>
+                <outlet property="containerView" destination="SCP-PW-qPk" id="j3R-Xh-MyU"/>
+                <outlet property="loading" destination="Yho-Eo-B2k" id="ZYv-Uu-AZA"/>
+                <outlet property="txtEmail" destination="JnK-GO-5WB" id="pya-02-BLY"/>
+                <outlet property="txtPassword" destination="qau-nG-Ayv" id="EdF-jA-UgN"/>
+                <outlet property="uiBtnLogin" destination="3Nw-cO-Z2M" id="3cy-km-doA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SCP-PW-qPk">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Nw-cO-Z2M">
+                            <rect key="frame" x="132" y="327.5" width="150" height="40"/>
+                            <color key="backgroundColor" red="0.15037407890600732" green="0.71630233085375894" blue="0.7328761556632124" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="T4H-zz-KBh"/>
+                                <constraint firstAttribute="width" constant="150" id="Vs4-CP-dwu"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                            <state key="normal" title="Login">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="login:" destination="-1" eventType="touchUpInside" id="Rqu-MU-MV8"/>
+                            </connections>
+                        </button>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qau-nG-Ayv">
+                            <rect key="frame" x="50" y="247.5" width="314" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="njN-Gg-T2T"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JnK-GO-5WB">
+                            <rect key="frame" x="50" y="167.5" width="314" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="jhy-qN-mXn"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BI3-Ox-OJw">
+                            <rect key="frame" x="132" y="387.5" width="150" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="0KW-7u-GR7"/>
+                                <constraint firstAttribute="height" constant="25" id="LQB-ST-NE3"/>
+                            </constraints>
+                            <state key="normal" title="Forgot password?"/>
+                            <connections>
+                                <action selector="forgotPass:" destination="-1" eventType="touchUpInside" id="p1B-RF-I6O"/>
+                            </connections>
+                        </button>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Yho-Eo-B2k">
+                            <rect key="frame" x="187" y="432.5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="GWk-8o-onA"/>
+                                <constraint firstAttribute="width" constant="40" id="hr2-56-GEh"/>
+                            </constraints>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="JnK-GO-5WB" firstAttribute="leading" secondItem="SCP-PW-qPk" secondAttribute="leading" constant="50" id="BbN-VK-2hb"/>
+                        <constraint firstItem="qau-nG-Ayv" firstAttribute="leading" secondItem="SCP-PW-qPk" secondAttribute="leading" constant="50" id="EZ5-f3-yAz"/>
+                        <constraint firstItem="3Nw-cO-Z2M" firstAttribute="centerY" secondItem="SCP-PW-qPk" secondAttribute="centerY" multiplier="0.85" id="KHh-in-mnA"/>
+                        <constraint firstItem="Yho-Eo-B2k" firstAttribute="centerX" secondItem="SCP-PW-qPk" secondAttribute="centerX" id="KuH-Gq-aEJ"/>
+                        <constraint firstAttribute="trailing" secondItem="qau-nG-Ayv" secondAttribute="trailing" constant="50" id="VPV-UM-S1n"/>
+                        <constraint firstItem="Yho-Eo-B2k" firstAttribute="top" secondItem="BI3-Ox-OJw" secondAttribute="bottom" constant="20" id="crT-mM-ZiK"/>
+                        <constraint firstItem="BI3-Ox-OJw" firstAttribute="centerX" secondItem="SCP-PW-qPk" secondAttribute="centerX" id="d4c-mO-Jfc"/>
+                        <constraint firstItem="qau-nG-Ayv" firstAttribute="top" secondItem="JnK-GO-5WB" secondAttribute="bottom" constant="30" id="dXk-gu-yrt"/>
+                        <constraint firstItem="3Nw-cO-Z2M" firstAttribute="top" secondItem="qau-nG-Ayv" secondAttribute="bottom" constant="30" id="iKd-HF-w2W"/>
+                        <constraint firstAttribute="trailing" secondItem="JnK-GO-5WB" secondAttribute="trailing" constant="50" id="nkD-vD-43M"/>
+                        <constraint firstItem="BI3-Ox-OJw" firstAttribute="top" secondItem="3Nw-cO-Z2M" secondAttribute="bottom" constant="20" id="pcs-dN-Veg"/>
+                        <constraint firstItem="3Nw-cO-Z2M" firstAttribute="centerX" secondItem="SCP-PW-qPk" secondAttribute="centerX" id="tsk-5p-gaA"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="5tA-hB-N4l" appends="YES" id="l5O-mf-4f5"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SCP-PW-qPk" secondAttribute="bottom" id="1hN-Q8-8qz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SCP-PW-qPk" secondAttribute="trailing" id="GEt-O0-zpW"/>
+                <constraint firstItem="SCP-PW-qPk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Joa-ZN-eFj"/>
+                <constraint firstItem="SCP-PW-qPk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Pbr-QN-e6g"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="132" y="112"/>
+        </view>
+        <tapGestureRecognizer id="5tA-hB-N4l">
+            <connections>
+                <action selector="dismissKeyboard:" destination="-1" id="bBO-WV-rfS"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>
