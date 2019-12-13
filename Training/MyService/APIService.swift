@@ -73,4 +73,17 @@ class getDataService {
             }
         }
     }
+    
+    func login(params : [String : String], completionHandler : @escaping (JSON?, Int) -> ()) {
+        Alamofire.request(baseURL + "login", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
+            switch response.result {
+            case .success(let value):
+            let response = JSON(value)
+            let data = response["response"]
+            completionHandler(data, 1)
+            case .failure( _):
+            completionHandler(nil, 0)
+            }
+        }
+    }
 }

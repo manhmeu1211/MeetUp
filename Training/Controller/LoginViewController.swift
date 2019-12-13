@@ -34,6 +34,37 @@ class LoginViewController: UIViewController {
     }
   
     @IBAction func login(_ sender: Any) {
+        guard let mail = txtEmail.text, let pass = txtPassword.text else { return }
+        let params = [
+                       "email": mail,
+                       "password": pass
+                    ]
+        if txtEmail.text!.isEmpty || txtPassword.text!.isEmpty  {
+            ToastView.shared.long(self.view, txt_msg: "Please fill your infomation")
+            handleLoading(isLoading: false, loading: loading)
+        } else if isValidPassword(stringPassword: pass) == false {
+            ToastView.shared.short(self.view, txt_msg: "Password must be 6-16 character, Try again!")
+            txtPassword.text = ""
+            handleLoading(isLoading: false, loading: loading)
+        } else if isValidEmail(stringEmail: mail) == false {
+            ToastView.shared.short(self.view, txt_msg: "Email is not correct, Try again!")
+            txtEmail.text = ""
+            handleLoading(isLoading: false, loading: loading)
+        } else {
+            let queue = DispatchQueue(label: "Login")
+            queue.async {
+                getDataService.getInstance.login(params: params) { (json, errcode) in
+                    if errcode == 1 {
+                        //TODO
+                        let data = json!
+                        print(data)
+                    } else {
+                        ToastView.shared.long(self.view, txt_msg: "Login Failed, try again!")
+                    }
+                }
+            }
+        }
+        
         
     }
     

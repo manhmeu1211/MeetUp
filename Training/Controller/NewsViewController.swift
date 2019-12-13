@@ -27,12 +27,12 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
+        updateObject()
         loading.isHidden = true
-        getNewsData(shoudLoadmore: false, page: currentPage)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        updateObject()
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
 
     func setUpTable() {
@@ -76,16 +76,16 @@ class NewsViewController: UIViewController {
                             self.newsResponse.removeAll()
                             _ = result.array?.forEach({ (news) in
                                 let news = NewsResDataBase(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
+                                print(news)
                                 RealmDataBaseQuery.getInstance.addData(object: news)
                             })
-                            self.updateObject()
                             } else {
                                 _ = result.array?.forEach({ (news) in
                                 let news = NewsResDataBase(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
                                 RealmDataBaseQuery.getInstance.addData(object: news)
                                 })
-                            self.updateObject()
                             }
+                        self.updateObject()
                         self.tableView.reloadData()
                     } else {
                         self.updateObject()
@@ -115,11 +115,11 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == newsResponse.count - 2 {
-            loading.isHidden = false
-            loading.startAnimating()
+            handleLoading(isLoading: true, loading: loading)
             self.getNewsData(shoudLoadmore: true, page: self.currentPage + 1)
             self.currentPage += 1
         }
+       
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

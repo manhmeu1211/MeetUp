@@ -27,8 +27,8 @@ class PopularsViewController: UIViewController {
         setUpTable()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        getPopularData(isLoadMore: false, page: currentPage)
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
     
     func setUpTable() {

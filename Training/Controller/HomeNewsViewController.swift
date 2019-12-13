@@ -14,7 +14,7 @@ class HomeNewsViewController: UIViewController, CarbonTabSwipeNavigationDelegate
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Home - News"
+        self.title = "Home"
         let tabSwipe = CarbonTabSwipeNavigation(items: ["NEWS", "POPULARS"], delegate: self)
         tabSwipe.setTabExtraWidth(40)
         tabSwipe.insert(intoRootViewController: self)

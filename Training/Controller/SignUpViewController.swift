@@ -24,7 +24,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "SignUp"
+        self.title = "Account"
         handleLoading(isLoading: false, loading: loading)
         setUpButton(button: btnSignUp)
     }
@@ -56,6 +56,7 @@ class SignUpViewController: UIViewController {
         } else if email.text!.isEmpty || password.text!.isEmpty || fullName.text!.isEmpty {
             ToastView.shared.long(self.view, txt_msg: "Please fill your infomation")
             handleLoading(isLoading: false, loading: loading)
+
         }
         else {
             let params = [
@@ -71,6 +72,7 @@ class SignUpViewController: UIViewController {
                         self.handleLoginView()
                         handleLoading(isLoading: false, loading: self.loading)
                     } else {
+                        handleLoading(isLoading: false, loading: self.loading)
                         ToastView.shared.short(self.view, txt_msg: "Register Failed, Check your network")
                     }
                 }

@@ -21,7 +21,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Map Events"
+        self.title = "Near"
         centerMapOnLocation(location: initialLocation)
         addArtwork()
     }
