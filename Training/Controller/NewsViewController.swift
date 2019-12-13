@@ -87,7 +87,7 @@ class NewsViewController: UIViewController {
                             self.updateObject()
                             }
                         self.tableView.reloadData()
-                        } else {
+                    } else {
                         self.updateObject()
                         print("Failed to load Data")
                         ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
