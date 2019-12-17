@@ -18,7 +18,6 @@ class BrowserViewController: UIViewController {
         super.viewDidLoad()
         setUpBarButton()
         setupTable()
-        getListCategories()
         updateObject()
     }
     

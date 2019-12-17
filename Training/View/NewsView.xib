@@ -10,7 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsViewController" customModule="Training" customModuleProvider="target">
             <connections>
                 <outlet property="loading" destination="R9B-q8-epa" id="llk-QL-28X"/>
-                <outlet property="tableView" destination="TWb-Mq-FTY" id="D5C-d6-vYl"/>
+                <outlet property="newsTable" destination="TWb-Mq-FTY" id="0Zk-rp-xRq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

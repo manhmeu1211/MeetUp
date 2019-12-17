@@ -11,7 +11,8 @@ import RealmSwift
 
 class NewsViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+ 
+    @IBOutlet weak var newsTable: UITableView!
     
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
@@ -21,29 +22,25 @@ class NewsViewController: UIViewController {
     
     private let refreshControl = UIRefreshControl()
     
-    var newsResponse : [NewsResDataBase] = []
+    var newsResponse : [NewsDataResponse] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpTable()
         updateObject()
+        setUpTable()
         loading.isHidden = true
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-
     func setUpTable() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
+        newsTable.dataSource = self
+        newsTable.delegate = self
+        newsTable.rowHeight = UITableView.automaticDimension
+        newsTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         if #available(iOS 10.0, *) {
-            self.tableView.refreshControl = refreshControl
+            self.newsTable.refreshControl = refreshControl
         } else {
-            self.tableView.addSubview(refreshControl)
+            self.newsTable.addSubview(refreshControl)
         }
         self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
     }
@@ -60,7 +57,7 @@ class NewsViewController: UIViewController {
     }
     
     func updateObject() {
-         self.newsResponse = RealmDataBaseQuery.getInstance.getObjects(type: NewsResDataBase.self)!.sorted(byKeyPath: "publishdate", ascending: false).toArray(ofType: NewsResDataBase.self)
+        self.newsResponse = RealmDataBaseQuery.getInstance.getObjects(type: NewsDataResponse.self)!.sorted(byKeyPath: "publishdate", ascending: false).toArray(ofType: NewsDataResponse.self)
     }
 
     func getNewsData(shoudLoadmore: Bool, page: Int) {
@@ -75,18 +72,18 @@ class NewsViewController: UIViewController {
                             self.deleteObject()
                             self.newsResponse.removeAll()
                             _ = result.array?.forEach({ (news) in
-                                let news = NewsResDataBase(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
-                                print(news)
+                                let news = NewsDataResponse(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
+                              
                                 RealmDataBaseQuery.getInstance.addData(object: news)
                             })
                             } else {
                                 _ = result.array?.forEach({ (news) in
-                                let news = NewsResDataBase(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
+                                let news = NewsDataResponse(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
                                 RealmDataBaseQuery.getInstance.addData(object: news)
                                 })
                             }
                         self.updateObject()
-                        self.tableView.reloadData()
+                        self.newsTable.reloadData()
                     } else {
                         self.updateObject()
                         print("Failed to load Data")
@@ -104,12 +101,13 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as! NewsTableViewCell
+        let cell = newsTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
         DispatchQueue.main.async {
             cell.imgNews.image = UIImage(data: self.newsResponse[indexPath.row].thumbImg)
         }
+        cell.lblDes.text = "By \(newsResponse[indexPath.row].author) - From \(newsResponse[indexPath.row].feed)"
         cell.title.text = newsResponse[indexPath.row].title
-        cell.date.text = "\(newsResponse[indexPath.row].publishdate) by \(newsResponse[indexPath.row].author) on \(newsResponse[indexPath.row].feed)"
+        cell.date.text = "\(newsResponse[indexPath.row].publishdate)"
         return cell
     }
 

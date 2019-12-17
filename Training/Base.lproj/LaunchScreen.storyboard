@@ -14,18 +14,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hi.gif" translatesAutoresizingMaskIntoConstraints="NO" id="pdN-xt-9nh">
-                                <rect key="frame" x="0.0" y="50" width="414" height="806"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="pdN-xt-9nh" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="3kl-YD-Th7"/>
-                            <constraint firstItem="pdN-xt-9nh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bJn-jr-crn"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pdN-xt-9nh" secondAttribute="trailing" id="f46-5C-F7Q"/>
-                            <constraint firstItem="pdN-xt-9nh" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.9" id="nAU-1M-10g"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -34,7 +23,4 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Hi.gif" width="1600" height="1200"/>
-    </resources>
 </document>

@@ -10,10 +10,12 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-var baseURL = "http://a1f66b60.ngrok.io/18175d1_mobile_100_fresher/public/api/v0/"
+var baseURL = "http://9c6e77c8.ngrok.io/18175d1_mobile_100_fresher/public/api/v0/"
+
+
 
 class getDataService {
-    
+   
     class var getInstance: getDataService {
          struct Static {
              static let instance: getDataService = getDataService()
@@ -79,10 +81,30 @@ class getDataService {
             switch response.result {
             case .success(let value):
             let response = JSON(value)
-            let data = response["response"]
-            completionHandler(data, 1)
+            let status = response["status"]
+            var data = response["response"]
+            if status == 0 {
+                data = response["error_message"]
+                completionHandler(data, 1)
+            } else {
+                data = response["response"]
+                completionHandler(data, 2)
+            }
             case .failure( _):
             completionHandler(nil, 0)
+            }
+        }
+    }
+    
+    func getListNearEvent(radius: Double, longitue : String, latitude : String, header: HTTPHeaders,completionHandler : @escaping (JSON?, Int) ->()) {
+        Alamofire.request(baseURL + "listNearlyEvents?radius=\(radius)&longitue=\(longitue)&latitude=\(latitude)", method: .get, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+            switch response.result {
+                case .success(let value):
+                    let response = JSON(value)
+                    let data = response["response"]["events"]
+                    completionHandler(data, 1)
+                case .failure( _):
+                    completionHandler(nil, 0)
             }
         }
     }

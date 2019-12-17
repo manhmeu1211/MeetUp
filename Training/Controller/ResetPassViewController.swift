@@ -19,6 +19,7 @@ class ResetPassViewController: UIViewController {
         super.viewDidLoad()
          self.title = "Reset password"
         setUpButton(button: btnResetPassword)
+        btnResetPassword.roundedButton()
     }
 
 
@@ -28,7 +29,7 @@ class ResetPassViewController: UIViewController {
     
 
     func handleLoginView() {
-        let loginVC = LoginViewController()
+        let loginVC = SignUpMainViewController()
         navigationController?.pushViewController(loginVC, animated: true)
     }
        

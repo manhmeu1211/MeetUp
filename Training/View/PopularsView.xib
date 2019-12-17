@@ -10,7 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopularsViewController" customModule="Training" customModuleProvider="target">
             <connections>
                 <outlet property="loading" destination="XU2-CE-wSB" id="DCm-JD-CVz"/>
-                <outlet property="popularsTable" destination="Oa9-rt-nOh" id="5NI-mc-QmH"/>
+                <outlet property="popularsTable" destination="Oa9-rt-nOh" id="9yM-pO-qcG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

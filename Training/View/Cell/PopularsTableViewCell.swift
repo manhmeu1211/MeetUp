@@ -25,6 +25,8 @@ class PopularsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpCardView(containerView: containerView)
+        imgPopulars.layer.cornerRadius = 20
+        imgPopulars.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

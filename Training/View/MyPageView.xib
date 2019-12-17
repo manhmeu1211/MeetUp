@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPageViewController" customModule="Training" customModuleProvider="target">
+            <connections>
+                <outlet property="uiBtnLogOut" destination="orh-fu-lyz" id="KpD-hS-SrQ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mask Group" translatesAutoresizingMaskIntoConstraints="NO" id="rcq-ka-XFk">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="179"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xq7-xz-gix">
+                    <rect key="frame" x="20" y="74" width="374" height="29"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orh-fu-lyz">
+                    <rect key="frame" x="30" y="812" width="349" height="50"/>
+                    <color key="backgroundColor" red="0.36470588235294116" green="0.12549019607843137" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Pod-We-R7R"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <state key="normal" title="LogOut">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="logOut:" destination="-1" eventType="touchUpInside" id="0oS-pH-xQY"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="xq7-xz-gix" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="5SK-n3-UUh"/>
+                <constraint firstItem="rcq-ka-XFk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7aK-pj-VvC"/>
+                <constraint firstItem="xq7-xz-gix" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="ISn-uS-KmU"/>
+                <constraint firstItem="rcq-ka-XFk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ndq-2J-dqw"/>
+                <constraint firstItem="orh-fu-lyz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="NhU-Rs-rbu"/>
+                <constraint firstItem="rcq-ka-XFk" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.2" id="Tyu-ru-dzB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="orh-fu-lyz" secondAttribute="trailing" constant="35" id="dWc-sh-8ti"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rcq-ka-XFk" secondAttribute="trailing" id="fgd-Gg-H9D"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xq7-xz-gix" secondAttribute="trailing" constant="20" id="v9J-ja-1Vn"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="orh-fu-lyz" secondAttribute="bottom" id="wjo-GL-Ofz"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="133" y="120"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Mask Group" width="375" height="132"/>
+    </resources>
+</document>

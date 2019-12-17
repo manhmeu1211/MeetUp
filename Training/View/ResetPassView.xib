@@ -25,7 +25,7 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ag1-jg-UYv">
                             <rect key="frame" x="107" y="309.5" width="200" height="35"/>
-                            <color key="backgroundColor" red="0.19168053378266728" green="0.71110080212669347" blue="0.7328761556632124" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="0.36470588240000001" green="0.12549019610000001" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="JeP-rn-uce"/>
                                 <constraint firstAttribute="height" constant="35" id="P2u-N0-U8e"/>

@@ -19,15 +19,15 @@ class var getInstance: DateTimeFormatterService {
      return Static.instance
  }
     
-    func StringToDate(date : String, output: @escaping (Date) -> () ) {
-        dateFormatter.dateFormat = "dd"
+   open func StringToDate(date : String, output: @escaping (Date) -> () ) {
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.locale = NSLocale(localeIdentifier: "vi_VN") as Locale
-        let dateOuput = dateFormatter.date(from:date)!
+        let dateOuput = dateFormatter.date(from: date)!
         output(dateOuput)
     }
     
-    func DateToString(date : Date, output: @escaping (String) -> () ) {
-        dateFormatter.dateFormat = "dd"
+  open func DateToString(date : Date, output: @escaping (String) -> () ) {
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         let outputDate = dateFormatter.string(from: date)
         output(outputDate)
     }

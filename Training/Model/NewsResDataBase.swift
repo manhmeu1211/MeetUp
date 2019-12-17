@@ -11,7 +11,8 @@
 import Foundation
 import RealmSwift
 
-class NewsResDataBase: Object {
+class NewsDataResponse: Object {
+    
     @objc dynamic var id = 0
     @objc dynamic var feed = ""
     @objc dynamic var title = ""

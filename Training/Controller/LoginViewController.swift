@@ -23,17 +23,45 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Login"
+        setUpItemBar()
         handleLoading(isLoading: false, loading: loading)
         setUpButton(button: uiBtnLogin)
+        uiBtnLogin.roundedButton()
+    }
+    
+    func setUpItemBar() {
+        self.title = "Login"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "SignUp", style: UIBarButtonItem.Style.plain, target: self, action: #selector(toRegister))
+    }
+    
+    @objc func toRegister() {
+        let regisVC = SignUpViewController()
+        navigationController?.pushViewController(regisVC, animated: true)
     }
 
     func handleForgotPass() {
         let resetPassVC = ResetPassViewController()
         navigationController?.pushViewController(resetPassVC, animated: true)
     }
+    
+    func handleMyPage() {
+        let myPageVC = MyPageViewController()
+        navigationController?.pushViewController(myPageVC, animated: true)
+    }
+    
+    func isLoggedIn() -> Bool {
+        return false
+    }
+    
+    
+    func saveLogginRes(token : String) {
+        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        UserDefaults.standard.set(token, forKey: "userToken")
+        UserDefaults.standard.synchronize()
+    }
   
     @IBAction func login(_ sender: Any) {
+        handleLoading(isLoading: true, loading: loading)
         guard let mail = txtEmail.text, let pass = txtPassword.text else { return }
         let params = [
                        "email": mail,
@@ -54,18 +82,22 @@ class LoginViewController: UIViewController {
             let queue = DispatchQueue(label: "Login")
             queue.async {
                 getDataService.getInstance.login(params: params) { (json, errcode) in
+                    let data = json!
                     if errcode == 1 {
-                        //TODO
-                        let data = json!
-                        print(data)
+                        self.present(alertView(titleAlert: "Login Failed", titleBTN: "OK", message: "\(data)"), animated: true, completion: nil)
+                        handleLoading(isLoading: false, loading: self.loading)
+                        self.txtPassword.text = ""
+                    } else if errcode == 2 {
+                        let token = data["token"].stringValue
+                        saveToken(token: token)
+                        self.handleMyPage()
                     } else {
-                        ToastView.shared.long(self.view, txt_msg: "Login Failed, try again!")
+                        ToastView.shared.long(self.view, txt_msg: "Login Failed, check your connection!")
+                        handleLoading(isLoading: false, loading: self.loading)
                     }
                 }
             }
         }
-        
-        
     }
     
     

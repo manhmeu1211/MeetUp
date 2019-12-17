@@ -27,26 +27,23 @@ class PopularsViewController: UIViewController {
         setUpTable()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
+ 
     func setUpTable() {
         popularsTable.dataSource = self
         popularsTable.delegate = self
         popularsTable.rowHeight = UITableView.automaticDimension
         popularsTable.register(UINib(nibName: "PopularsTableViewCell", bundle: nil), forCellReuseIdentifier: "PopularsTableViewCell")
         if #available(iOS 10.0, *) {
-                   self.popularsTable.refreshControl = refreshControl
-               } else {
-                   self.popularsTable.addSubview(refreshControl)
-               }
-               self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
+            self.popularsTable.refreshControl = refreshControl
+        } else {
+            self.popularsTable.addSubview(refreshControl)
+        }
+            self.refreshControl.addTarget(self, action: #selector(upDateDataV2), for: .valueChanged)
        }
     
-    
-    @objc func updateData() {
-        getPopularData(isLoadMore: false, page: currentPage)
+ 
+    @objc func upDateDataV2() {
+//        getPopularData(isLoadMore: false, page: currentPage)
         self.refreshControl.endRefreshing()
     }
     
@@ -75,17 +72,16 @@ class PopularsViewController: UIViewController {
                             _ = result.array?.forEach({ (populars) in
                                 let populars = PopularsResDatabase(id: populars["id"].intValue, photo: populars["photo"].stringValue, name: populars["name"].stringValue, descriptionHtml: populars["description_html"].stringValue, scheduleStartDate: populars["schedule_start_date"].stringValue, scheduleEndDate: populars["schedule_end_date"].stringValue, scheduleStartTime: populars["schedule_start_time"].stringValue, scheduleEndTime: populars["schedule_end_time"].stringValue, schedulePermanent: populars["schedule_permanent"].stringValue, goingCount: populars["going_count"].intValue)
                                 RealmDataBaseQuery.getInstance.addData(object: populars)
-                              
                             })
-                            self.popularResponse = (RealmDataBaseQuery.getInstance.getObjects(type: PopularsResDatabase.self)?.toArray(ofType: PopularsResDatabase.self))!
+                            self.popularsTable.reloadData()
                         } else {
                             _ = result.array?.forEach({ (populars) in
                                 let populars = PopularsResDatabase(id: populars["id"].intValue, photo: populars["photo"].stringValue, name: populars["name"].stringValue, descriptionHtml: populars["description_html"].stringValue, scheduleStartDate: populars["schedule_start_date"].stringValue, scheduleEndDate: populars["schedule_end_date"].stringValue, scheduleStartTime: populars["schedule_start_time"].stringValue, scheduleEndTime: populars["schedule_end_time"].stringValue, schedulePermanent: populars["schedule_permanent"].stringValue, goingCount: populars["going_count"].intValue)
                                     RealmDataBaseQuery.getInstance.addData(object: populars)
                             })
                             self.updateObject()
+                            self.popularsTable.reloadData()
                         }
-                        self.popularsTable.reloadData()
                     } else {
                         ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
                         print("Failed to load Data")
@@ -94,8 +90,6 @@ class PopularsViewController: UIViewController {
         }
     }
 }
-
-
 
 extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
     

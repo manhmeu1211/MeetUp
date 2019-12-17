@@ -8,6 +8,11 @@
 
 import Foundation
 import UIKit
+import Alamofire
+
+let token = UserDefaults.standard.string(forKey: "userToken")
+
+
 
 func handleLoading(isLoading : Bool, loading : UIActivityIndicatorView) {
     if isLoading == true {
@@ -17,6 +22,14 @@ func handleLoading(isLoading : Bool, loading : UIActivityIndicatorView) {
         loading.stopAnimating()
         loading.isHidden = true
     }
+}
+
+func alertView(titleAlert : String, titleBTN : String, message : String) -> UIAlertController {
+    let alertLoginFailed : UIAlertController = UIAlertController(title: titleAlert, message: message, preferredStyle: UIAlertController.Style.alert)
+    let btnOK: UIAlertAction = UIAlertAction(title: titleBTN, style: .default, handler: nil)
+    alertLoginFailed.addAction(btnOK)
+    
+    return alertLoginFailed
 }
 
 func setUpButton(button : UIButton) {
@@ -32,6 +45,7 @@ func setUpCardView(containerView : UIView) {
     containerView.layer.shadowRadius = 1.0
     containerView.layer.borderWidth = 1.0
 }
+
 
 func isValidEmail(stringEmail: String) -> Bool {
          let emailRegEx = "^(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?(?:(?:(?:[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+(?:\\.[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+)*)|(?:\"(?:(?:(?:(?: )*(?:(?:[!#-Z^-~]|\\[|\\])|(?:\\\\(?:\\t|[ -~]))))+(?: )*)|(?: )+)\"))(?:@)(?:(?:(?:[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)(?:\\.[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)*)|(?:\\[(?:(?:(?:(?:(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))\\.){3}(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))))|(?:(?:(?: )*[!-Z^-~])*(?: )*)|(?:[Vv][0-9A-Fa-f]+\\.[-A-Za-z0-9._~!$&'()*+,;=:]+))\\])))(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?$"
@@ -49,5 +63,25 @@ func isValidPassword(stringPassword: String) -> Bool {
          return result
 }
 
+func deleteToken() {
+    UserDefaults.standard.removeObject(forKey: "userToken")
+}
+
+func saveToken(token : String) {
+    UserDefaults.standard.set(token, forKey: "userToken")
+}
+
+
+extension UIButton {
+    func roundedButton(){
+        let maskPath1 = UIBezierPath(roundedRect: bounds,
+            byRoundingCorners: [.topLeft , .topRight],
+            cornerRadii: CGSize(width: 20, height: 20))
+        let maskLayer1 = CAShapeLayer()
+        maskLayer1.frame = bounds
+        maskLayer1.path = maskPath1.cgPath
+        layer.mask = maskLayer1
+    }
+}
 
 
