@@ -108,4 +108,26 @@ class getDataService {
             }
         }
     }
+    
+    
+    func search(pageIndex: Int, pageSize : Int, keyword : String, header: HTTPHeaders, completionHandler: @escaping (JSON?, Int) -> ()) {
+        Alamofire.request(baseURL + "search?pageIndex=\(pageIndex)&pageSize=\(pageSize)&keyword=\(keyword)", method: .get, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+            switch response.result {
+                case .success(let value):
+                    let response = JSON(value)
+                    let status = response["status"]
+                    var data = response["response"]
+                    if status == 0 {
+                        data = response["error_message"]
+                        completionHandler(data, 1)
+                    } else {
+                        data = response["response"]["events"]
+                        completionHandler(data, 2)
+                    }
+                    
+                case .failure( _):
+                    completionHandler(nil, 0)
+            }
+        }
+    }
 }

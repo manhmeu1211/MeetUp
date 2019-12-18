@@ -14,6 +14,8 @@
 		0D462B1523A734B4000332F4 /* MyPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D462B1323A734B4000332F4 /* MyPageView.xib */; };
 		0D462B1A23A76319000332F4 /* EventsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D462B1823A76319000332F4 /* EventsCell.swift */; };
 		0D462B1B23A76319000332F4 /* EventsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D462B1923A76319000332F4 /* EventsCell.xib */; };
+		0D478DF223A9CFD70061644E /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D478DF123A9CFD70061644E /* TabbarViewController.swift */; };
+		0D478DF423A9D9FE0061644E /* SearchResponseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D478DF323A9D9FE0061644E /* SearchResponseDatabase.swift */; };
 		0D4C0CCC239F92FF006976FF /* header.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D4C0CCB239F92FF006976FF /* header.jpg */; };
 		0D51DD2023A8B36000544A1B /* MyPageMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51DD1F23A8B36000544A1B /* MyPageMainViewController.swift */; };
 		0D51DD2223A8B39200544A1B /* SignUpMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D51DD2123A8B39200544A1B /* SignUpMainView.xib */; };
@@ -72,6 +74,8 @@
 		0D462B1323A734B4000332F4 /* MyPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageView.xib; sourceTree = "<group>"; };
 		0D462B1823A76319000332F4 /* EventsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCell.swift; sourceTree = "<group>"; };
 		0D462B1923A76319000332F4 /* EventsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsCell.xib; sourceTree = "<group>"; };
+		0D478DF123A9CFD70061644E /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		0D478DF323A9D9FE0061644E /* SearchResponseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseDatabase.swift; sourceTree = "<group>"; };
 		0D4C0CCB239F92FF006976FF /* header.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = header.jpg; sourceTree = "<group>"; };
 		0D51DD1F23A8B36000544A1B /* MyPageMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMainViewController.swift; sourceTree = "<group>"; };
 		0D51DD2123A8B39200544A1B /* SignUpMainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpMainView.xib; sourceTree = "<group>"; };
@@ -204,6 +208,7 @@
 				0DD8F5F723A246AB00C50F22 /* PopularsResDatabase.swift */,
 				0DE62E5B23A37BBB00D927FA /* Artwork.swift */,
 				0D51DD2B23A8E0C700544A1B /* EventsNearResponse.swift */,
+				0D478DF323A9D9FE0061644E /* SearchResponseDatabase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,19 +254,20 @@
 			isa = PBXGroup;
 			children = (
 				0DE62E5323A3500700D927FA /* Common.swift */,
-				0D462B1223A734B4000332F4 /* MyPageViewController.swift */,
-				0DE62E4F23A34DB000D927FA /* LoginViewController.swift */,
-				0DE3B8BF23A0E9BE00843C80 /* BrowserViewController.swift */,
 				0DC433E7239F43F7000C9505 /* HomeNewsViewController.swift */,
 				0D59675E23A07D490060015E /* NewsViewController.swift */,
 				0D59676223A07D690060015E /* PopularsViewController.swift */,
-				0DE3B8BB23A0E58100843C80 /* EvenDetailViewController.swift */,
-				0DD8F5F123A23C4100C50F22 /* SearchViewController.swift */,
-				0DE62E5523A370CF00D927FA /* ResetPassViewController.swift */,
 				0DE62E5923A373AB00D927FA /* NearViewController.swift */,
-				0D51DD1F23A8B36000544A1B /* MyPageMainViewController.swift */,
+				0DE3B8BF23A0E9BE00843C80 /* BrowserViewController.swift */,
+				0DD8F5F123A23C4100C50F22 /* SearchViewController.swift */,
+				0DE3B8BB23A0E58100843C80 /* EvenDetailViewController.swift */,
 				0D51DD2323A8B84500544A1B /* SignUpMainViewController.swift */,
 				0D51DD2923A8BF4A00544A1B /* SignUpViewController.swift */,
+				0D51DD1F23A8B36000544A1B /* MyPageMainViewController.swift */,
+				0D462B1223A734B4000332F4 /* MyPageViewController.swift */,
+				0DE62E4F23A34DB000D927FA /* LoginViewController.swift */,
+				0DE62E5523A370CF00D927FA /* ResetPassViewController.swift */,
+				0D478DF123A9CFD70061644E /* TabbarViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -419,6 +425,7 @@
 			files = (
 				0DE62E5C23A37BBB00D927FA /* Artwork.swift in Sources */,
 				0D59676423A07D690060015E /* PopularsViewController.swift in Sources */,
+				0D478DF223A9CFD70061644E /* TabbarViewController.swift in Sources */,
 				0DE3B8CA23A0FB2800843C80 /* RealmDataBaseQuery.swift in Sources */,
 				0D5E459023A875BA0029CE1A /* NewsCell.swift in Sources */,
 				0DE62E5123A34DB000D927FA /* LoginViewController.swift in Sources */,
@@ -448,6 +455,7 @@
 				0DE62E5A23A373AB00D927FA /* NearViewController.swift in Sources */,
 				0D51DD2C23A8E0C700544A1B /* EventsNearResponse.swift in Sources */,
 				0DD8F5EA23A235BB00C50F22 /* CategoriesResDatabase.swift in Sources */,
+				0D478DF423A9D9FE0061644E /* SearchResponseDatabase.swift in Sources */,
 				0DC433C1239F3BF1000C9505 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

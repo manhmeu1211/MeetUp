@@ -31,8 +31,11 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         updateObject()
         addArtwork()
         setUpCollectionView()
-        getListEventV2()
         print(events)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getListEventV2()
     }
     
     func getListEventV2() {
@@ -40,6 +43,8 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
             getListEvent()
         } else {
             ToastView.shared.short(self.view, txt_msg: "Not logged in!")
+            let event = EventsNearResponse(id: 0, photo: "https://agdetail.image-gmkt.com/105/092/472092105/img/cdn.shopify.com/s/files/1/0645/2551/files/qoo10_03ed8677a499a4fbc2e046a81ee99c7c.png", name: "You have to login first", descriptionHtml: "", scheduleStartDate: "", scheduleEndDate: "", scheduleStartTime: "", scheduleEndTime: "", schedulePermanent: "", goingCount: 0)
+            self.events.append(event)
         }
     }
 
@@ -77,6 +82,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         getDataService.getInstance.getListNearEvent(radius: 100, longitue: "105.875016", latitude: "21.044919", header: headers) { (json, errcode) in
             if errcode == 1 {
                 self.deleteObject()
+                self.events.removeAll()
                 let anotionLC = json!
                 _ = anotionLC.array?.forEach({ (anotion) in
                     let anotion = Artwork(title: anotion["venue"]["name"].stringValue, locationName: anotion["venue"]["name"].stringValue, discipline: anotion["venue"]["description"].stringValue, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
@@ -87,6 +93,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
                         RealmDataBaseQuery.getInstance.addData(object: events)
                 })
                 self.updateObject()
+                self.collectionVIew.reloadData()
             } else {
                 print("failed")
             }

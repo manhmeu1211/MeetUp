@@ -71,6 +71,11 @@ class BrowserViewController: UIViewController {
         let searchVC = SearchViewController()
         navigationController?.pushViewController(searchVC, animated: true)
     }
+    
+    @IBAction func handleSearchView(_ sender: Any) {
+        let searchView = SearchViewController()
+        navigationController?.pushViewController(searchView, animated: true)
+    }
 }
 
 extension BrowserViewController : UITableViewDelegate, UITableViewDataSource {

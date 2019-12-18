@@ -1,16 +1,16 @@
 //
-//  PopularsResDatabase.swift
+//  SearchResponseDatabase.swift
 //  Training
 //
-//  Created by ManhLD on 12/12/19.
+//  Created by ManhLD on 12/17/19.
 //  Copyright © 2019 ManhLD. All rights reserved.
 //
-
 
 import Foundation
 import RealmSwift
 
-class PopularsResDatabase: Object {
+
+class SearchResponseDatabase: Object {
     
     @objc dynamic var id = 0
     @objc dynamic var photo = Data()
@@ -37,11 +37,13 @@ class PopularsResDatabase: Object {
         } else {
             url = URL(string: "https://agdetail.image-gmkt.com/105/092/472092105/img/cdn.shopify.com/s/files/1/0645/2551/files/qoo10_03ed8677a499a4fbc2e046a81ee99c7c.png")
         }
+        
         do {
             self.photo = try Data(contentsOf: url!)
         } catch {
-            self.photo = (image?.pngData())!
+        self.photo = (image?.pngData())!
         }
+        
         self.name = name
         self.descriptionHtml = descriptionHtml
         self.scheduleStartDate = scheduleStartDate

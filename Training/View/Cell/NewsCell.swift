@@ -21,8 +21,9 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        imgNews.roundCorners()
         setUpCardView(containerView: containerView)
-        imgNews.roundCorners([.topLeft, .topRight], radius: 20)
+        containerView.roundCornersView(corners: [.topLeft, .topRight], radius: 20)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,13 +34,3 @@ class NewsCell: UITableViewCell {
     
 }
 
-extension UIImageView {
-    public func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-        let maskPath = UIBezierPath(roundedRect: bounds,
-                                    byRoundingCorners: corners,
-                                    cornerRadii: CGSize(width: radius, height: radius))
-        let shape = CAShapeLayer()
-        shape.path = maskPath.cgPath
-        layer.mask = shape
-    }
-}

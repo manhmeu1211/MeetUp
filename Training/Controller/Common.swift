@@ -12,7 +12,7 @@ import Alamofire
 
 let token = UserDefaults.standard.string(forKey: "userToken")
 
-
+var isSearchVC = false
 
 func handleLoading(isLoading : Bool, loading : UIActivityIndicatorView) {
     if isLoading == true {
@@ -73,7 +73,7 @@ func saveToken(token : String) {
 
 
 extension UIButton {
-    func roundedButton(){
+    func roundedButton() {
         let maskPath1 = UIBezierPath(roundedRect: bounds,
             byRoundingCorners: [.topLeft , .topRight],
             cornerRadii: CGSize(width: 20, height: 20))
@@ -82,6 +82,29 @@ extension UIButton {
         maskLayer1.path = maskPath1.cgPath
         layer.mask = maskLayer1
     }
+}
+
+extension UIImageView {
+    public func roundCorners() {
+      let maskPath1 = UIBezierPath(roundedRect: bounds,
+                   byRoundingCorners: [.topLeft , .topRight],
+                   cornerRadii: CGSize(width: 20, height: 20))
+               let maskLayer1 = CAShapeLayer()
+               maskLayer1.frame = bounds
+               maskLayer1.path = maskPath1.cgPath
+               layer.mask = maskLayer1
+    }
+}
+
+extension UIView
+{
+  func roundCornersView(corners:UIRectCorner, radius: CGFloat)
+  {
+    let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+    let mask = CAShapeLayer()
+    mask.path = path.cgPath
+    self.layer.mask = mask
+  }
 }
 
 
