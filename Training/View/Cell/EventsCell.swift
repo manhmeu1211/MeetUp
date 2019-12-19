@@ -18,7 +18,7 @@ class EventsCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpCardView(containerView: containerView)
+        containerView.setUpCardView()
     }
 
 }

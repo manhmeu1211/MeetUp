@@ -16,10 +16,24 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var uiBtn: UIButton!
     @IBOutlet weak var loading: UIActivityIndicatorView!
+    
+    @IBOutlet weak var nameView: UIView!
+    
+    @IBOutlet weak var emailView: UIView!
+    
+    
+    @IBOutlet weak var passwordView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpView()
+    }
+    
+    func setUpView() {
+        nameView.setUpCardView()
+        emailView.setUpCardView()
+        passwordView.setUpCardView()
         uiBtn.roundedButton()
-        handleLoading(isLoading: false, loading: loading!)
+        loading.handleLoading(isLoading: false)
     }
     
     
@@ -45,19 +59,19 @@ class SignUpViewController: UIViewController {
     
     
     @IBAction func signUp(_ sender: Any) {
-        handleLoading(isLoading: true, loading: loading)
+         loading.handleLoading(isLoading: true)
         guard let mail = email.text , let name = fullName.text, let pass = password.text else { return }
         if isValidEmail(stringEmail: mail) == false {
             ToastView.shared.short(self.view, txt_msg: "Email is not correct, Try again!")
             email.text = ""
-            handleLoading(isLoading: false, loading: loading)
+            loading.handleLoading(isLoading: false)
         } else if isValidPassword(stringPassword: pass) == false {
                         ToastView.shared.short(self.view, txt_msg: "Password must be 6-16 character, Try again!")
                         password.text = ""
-                        handleLoading(isLoading: false, loading: loading)
+                        loading.handleLoading(isLoading: false)
         } else if email.text!.isEmpty || password.text!.isEmpty || fullName.text!.isEmpty {
                         ToastView.shared.long(self.view, txt_msg: "Please fill your infomation")
-                        handleLoading(isLoading: false, loading: loading)
+                        loading.handleLoading(isLoading: false)
 
         } else {
             let params = [
@@ -71,9 +85,9 @@ class SignUpViewController: UIViewController {
                     if errcode == 1 {
                         ToastView.shared.short(self.view, txt_msg: "Register Success")
                         self.handleLoginView()
-                        handleLoading(isLoading: false, loading: self.loading)
+                        self.loading.handleLoading(isLoading: false)
                     } else {
-                        handleLoading(isLoading: false, loading: self.loading)
+                        self.loading.handleLoading(isLoading: false)
                         ToastView.shared.short(self.view, txt_msg: "Register Failed, Check your network")
                     }
                 }
@@ -81,4 +95,10 @@ class SignUpViewController: UIViewController {
         }
     }
  
+    @IBAction func btnIgnore(_ sender: Any) {
+        isSearchVC = false
+        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+        UIApplication.shared.windows.first?.rootViewController = vc
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+    }
 }

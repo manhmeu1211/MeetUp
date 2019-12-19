@@ -22,7 +22,7 @@ class NewsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imgNews.roundCorners()
-        setUpCardView(containerView: containerView)
+        containerView.setUpCardView()
         containerView.roundCornersView(corners: [.topLeft, .topRight], radius: 20)
     }
 

@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="Training" customModuleProvider="target">
             <connections>
                 <outlet property="loading" destination="JWO-Ra-7a7" id="su3-5D-5yR"/>
+                <outlet property="noResults" destination="c25-XC-O2L" id="OJ5-ra-5nX"/>
                 <outlet property="searchTable" destination="cHz-Sr-6kK" id="hBL-Dp-jZF"/>
                 <outlet property="txtSearch" destination="z7a-xK-UnQ" id="S2V-wn-Nj3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -30,9 +31,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Kk-0T-aIA">
-                    <rect key="frame" x="18" y="67.5" width="22" height="22"/>
+                    <rect key="frame" x="21" y="67.5" width="19" height="22"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" image="icons8-back-66">
+                    <state key="normal" image="Vector">
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -55,19 +56,27 @@
                         <action selector="clearText:" destination="-1" eventType="touchUpInside" id="VRF-UN-9mu"/>
                     </connections>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cHz-Sr-6kK">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cHz-Sr-6kK">
                     <rect key="frame" x="0.0" y="183.5" width="414" height="678.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="JWO-Ra-7a7">
-                    <rect key="frame" x="197" y="195" width="20" height="20"/>
+                    <rect key="frame" x="197" y="451" width="20" height="20"/>
                 </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c25-XC-O2L">
+                    <rect key="frame" x="160.5" y="486.5" width="93" height="24"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="24V-NA-Jww" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1f0-ls-5Aq"/>
                 <constraint firstItem="Ivm-df-P5C" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="6MK-LM-hht"/>
+                <constraint firstItem="c25-XC-O2L" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="7PZ-aL-HEg"/>
+                <constraint firstItem="c25-XC-O2L" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" multiplier="1.1" id="7RL-UY-KZX"/>
                 <constraint firstItem="3p9-Wk-5a0" firstAttribute="leading" secondItem="z7a-xK-UnQ" secondAttribute="trailing" constant="2" id="8Nj-fD-SWf"/>
                 <constraint firstItem="24V-NA-Jww" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Bm9-6X-tl5"/>
                 <constraint firstItem="Ivm-df-P5C" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="CfX-B0-O0d"/>
@@ -108,7 +117,7 @@
     </objects>
     <resources>
         <image name="Mask Group" width="375" height="132"/>
-        <image name="icons8-back-66" width="21.333333969116211" height="21.333333969116211"/>
+        <image name="Vector" width="19" height="19"/>
         <image name="icons8-search-64" width="32" height="32"/>
         <image name="x.circle" catalog="system" width="64" height="60"/>
     </resources>

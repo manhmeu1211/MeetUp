@@ -39,13 +39,11 @@ class NewsDataResponse: Object {
         } else {
             urlImg = URL(string: "https://agdetail.image-gmkt.com/105/092/472092105/img/cdn.shopify.com/s/files/1/0645/2551/files/qoo10_03ed8677a499a4fbc2e046a81ee99c7c.png")
         }
-        
         do {
             self.thumbImg = try Data(contentsOf: urlImg!)
         } catch {
             self.thumbImg = (image?.pngData())!
         }
-       
         self.author = author
         self.publishdate = publishdate
         self.url = url

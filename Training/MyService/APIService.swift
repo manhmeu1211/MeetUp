@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-var baseURL = "http://9c6e77c8.ngrok.io/18175d1_mobile_100_fresher/public/api/v0/"
+var baseURL = "http://b9acd944.ngrok.io/18175d1_mobile_100_fresher/public/api/v0/"
 
 
 

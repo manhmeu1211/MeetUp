@@ -29,7 +29,8 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
         updateObject()
         setUpTable()
-        loading.isHidden = true
+        loading.handleLoading(isLoading: false)
+        
     }
     
     func setUpTable() {
@@ -73,7 +74,6 @@ class NewsViewController: UIViewController {
                             self.newsResponse.removeAll()
                             _ = result.array?.forEach({ (news) in
                                 let news = NewsDataResponse(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
-                              
                                 RealmDataBaseQuery.getInstance.addData(object: news)
                             })
                             } else {
@@ -112,10 +112,11 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        loading.handleLoading(isLoading: true)
         if indexPath.row == newsResponse.count - 2 {
-            handleLoading(isLoading: true, loading: loading)
             self.getNewsData(shoudLoadmore: true, page: self.currentPage + 1)
             self.currentPage += 1
+            loading.handleLoading(isLoading: false)
         }
        
     }

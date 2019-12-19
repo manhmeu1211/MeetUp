@@ -10,7 +10,6 @@ import UIKit
 
 class PopularsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var containerView: UIView!
 
     @IBOutlet weak var imgPopulars: UIImageView!
     
@@ -24,9 +23,7 @@ class PopularsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpCardView(containerView: containerView)
-        imgPopulars.layer.cornerRadius = 20
-        imgPopulars.layer.masksToBounds = true
+        imgPopulars.roundCorners()
         
     }
 

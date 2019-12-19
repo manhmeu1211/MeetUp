@@ -28,8 +28,8 @@ class SplashScreen: UIViewController {
     }
     
     func setUpLoading() {
-        print(isFirtsLaunched)
         if (isFirtsLaunched == true) {
+            print("getData")
             self.setUpDataNews()
             self.setUpDataPopulars()
             self.setUpCategories()
@@ -59,7 +59,6 @@ class SplashScreen: UIViewController {
     }
     
     func setUpDataNews() {
-        print("getNews")
         let queue = DispatchQueue(label: "insertDB")
         queue.async {
             getDataService.getInstance.getListNews(pageIndex: 1, pageSize: 10) { (data, errcode) in
@@ -75,7 +74,6 @@ class SplashScreen: UIViewController {
     }
     
     func setUpDataPopulars() {
-        print("getPop")
         let queue = DispatchQueue(label: "insertDBPL")
         queue.async {
             getDataService.getInstance.getListPopular(pageIndex: 1, pageSize: 10) { (data, errcode) in
@@ -91,7 +89,6 @@ class SplashScreen: UIViewController {
     }
     
     func setUpCategories() {
-         print("setUpCategories")
          let queue = DispatchQueue(label: "loadCate")
          queue.async {
              getDataService.getInstance.getListCategories { (json, errcode) in

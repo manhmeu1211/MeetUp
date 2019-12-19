@@ -23,16 +23,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mask Group" translatesAutoresizingMaskIntoConstraints="NO" id="xEO-9t-np6">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="179"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="134.5"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SignUp - Login" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glS-f4-I4y">
-                    <rect key="frame" x="70" y="69" width="324" height="26.5"/>
+                    <rect key="frame" x="20" y="69" width="374" height="26.5"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcV-vv-aQT">
-                    <rect key="frame" x="0.0" y="174" width="414" height="50"/>
+                    <rect key="frame" x="0.0" y="129.5" width="414" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEN-xN-18H">
                             <rect key="frame" x="0.0" y="0.0" width="207" height="45"/>
@@ -77,17 +77,17 @@
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iqg-G2-Rz7">
-                    <rect key="frame" x="0.0" y="224" width="414" height="638"/>
+                    <rect key="frame" x="0.0" y="179.5" width="414" height="682.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2FV-oO-5Xh">
-                            <rect key="frame" x="0.0" y="0.0" width="836" height="638"/>
+                            <rect key="frame" x="0.0" y="0.0" width="836" height="682.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mby-cg-kpi">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="638"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="682.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orr-XD-eXI">
-                                    <rect key="frame" x="422" y="0.0" width="414" height="638"/>
+                                    <rect key="frame" x="422" y="0.0" width="414" height="682.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
                             </subviews>
@@ -104,36 +104,24 @@
                         <constraint firstAttribute="bottom" secondItem="2FV-oO-5Xh" secondAttribute="bottom" id="sVh-Fy-io2"/>
                     </constraints>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM6-cG-OAY">
-                    <rect key="frame" x="20" y="68" width="50" height="29"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" image="icons8-back-66"/>
-                    <connections>
-                        <action selector="backToHome:" destination="-1" eventType="touchUpInside" id="Gde-i8-Nwz"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="IM6-cG-OAY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="3xp-sP-gtx"/>
                 <constraint firstItem="xEO-9t-np6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5JP-SU-0SY"/>
                 <constraint firstItem="glS-f4-I4y" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="25" id="6Zb-Sw-L8x"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="wcV-vv-aQT" secondAttribute="trailing" id="8q4-n7-KFJ"/>
-                <constraint firstItem="IM6-cG-OAY" firstAttribute="centerY" secondItem="glS-f4-I4y" secondAttribute="centerY" id="ArN-ge-M56"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xEO-9t-np6" secondAttribute="trailing" id="FBm-tG-xwR"/>
                 <constraint firstItem="wcV-vv-aQT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WGf-Qm-7eQ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Iqg-G2-Rz7" secondAttribute="trailing" id="Ws6-e1-LZh"/>
-                <constraint firstItem="glS-f4-I4y" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="70" id="eoZ-YA-jfp"/>
+                <constraint firstItem="glS-f4-I4y" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="eoZ-YA-jfp"/>
                 <constraint firstItem="xEO-9t-np6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="gsW-zZ-Ge9"/>
                 <constraint firstItem="Iqg-G2-Rz7" firstAttribute="top" secondItem="wcV-vv-aQT" secondAttribute="bottom" id="mZ1-9d-NSI"/>
                 <constraint firstItem="Iqg-G2-Rz7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="omx-Yl-4x3"/>
-                <constraint firstItem="glS-f4-I4y" firstAttribute="leading" secondItem="IM6-cG-OAY" secondAttribute="trailing" id="tml-DB-SM5"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Iqg-G2-Rz7" secondAttribute="bottom" id="vCL-3e-OLo"/>
                 <constraint firstItem="wcV-vv-aQT" firstAttribute="top" secondItem="xEO-9t-np6" secondAttribute="bottom" constant="-5" id="weh-xi-uFS"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="glS-f4-I4y" secondAttribute="trailing" constant="20" id="xAU-yz-5D7"/>
-                <constraint firstItem="xEO-9t-np6" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.2" id="zoO-q3-3lc"/>
+                <constraint firstItem="xEO-9t-np6" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.15" id="zoO-q3-3lc"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="131.8840579710145" y="122.54464285714285"/>
@@ -141,6 +129,5 @@
     </objects>
     <resources>
         <image name="Mask Group" width="375" height="132"/>
-        <image name="icons8-back-66" width="21.333333969116211" height="21.333333969116211"/>
     </resources>
 </document>

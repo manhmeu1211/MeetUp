@@ -31,7 +31,6 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         updateObject()
         addArtwork()
         setUpCollectionView()
-        print(events)
     }
     
     override func viewWillAppear(_ animated: Bool) {

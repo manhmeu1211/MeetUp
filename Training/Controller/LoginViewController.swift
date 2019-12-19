@@ -12,6 +12,10 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
     
+    @IBOutlet weak var emailView: UIView!
+    
+    @IBOutlet weak var passwordView: UIView!
+    
     @IBOutlet weak var uiBtnLogin: UIButton!
     
     @IBOutlet weak var txtEmail: UITextField!
@@ -24,11 +28,16 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpItemBar()
-        handleLoading(isLoading: false, loading: loading)
-        setUpButton(button: uiBtnLogin)
-        uiBtnLogin.roundedButton()
+        loading.handleLoading(isLoading: false)
+        setupView()
     }
     
+    
+    func setupView() {
+        uiBtnLogin.roundedButton()
+        emailView.setUpCardView()
+        passwordView.setUpCardView()
+    }
     func setUpItemBar() {
         self.title = "Login"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "SignUp", style: UIBarButtonItem.Style.plain, target: self, action: #selector(toRegister))
@@ -59,9 +68,13 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(token, forKey: "userToken")
         UserDefaults.standard.synchronize()
     }
+    
+    func saveToken(token : String) {
+          UserDefaults.standard.set(token, forKey: "userToken")
+      }
   
     @IBAction func login(_ sender: Any) {
-        handleLoading(isLoading: true, loading: loading)
+        loading.handleLoading(isLoading: true)
         guard let mail = txtEmail.text, let pass = txtPassword.text else { return }
         let params = [
                        "email": mail,
@@ -69,15 +82,15 @@ class LoginViewController: UIViewController {
                     ]
         if txtEmail.text!.isEmpty || txtPassword.text!.isEmpty  {
             ToastView.shared.long(self.view, txt_msg: "Please fill your infomation")
-            handleLoading(isLoading: false, loading: loading)
+            loading.handleLoading(isLoading: false)
         } else if isValidPassword(stringPassword: pass) == false {
             ToastView.shared.short(self.view, txt_msg: "Password must be 6-16 character, Try again!")
             txtPassword.text = ""
-            handleLoading(isLoading: false, loading: loading)
+            loading.handleLoading(isLoading: false)
         } else if isValidEmail(stringEmail: mail) == false {
             ToastView.shared.short(self.view, txt_msg: "Email is not correct, Try again!")
             txtEmail.text = ""
-            handleLoading(isLoading: false, loading: loading)
+            loading.handleLoading(isLoading: false)
         } else {
             let queue = DispatchQueue(label: "Login")
             queue.async {
@@ -85,19 +98,27 @@ class LoginViewController: UIViewController {
                     let data = json!
                     if errcode == 1 {
                         self.present(alertView(titleAlert: "Login Failed", titleBTN: "OK", message: "\(data)"), animated: true, completion: nil)
-                        handleLoading(isLoading: false, loading: self.loading)
+                        self.loading.handleLoading(isLoading: false)
                         self.txtPassword.text = ""
                     } else if errcode == 2 {
                         let token = data["token"].stringValue
-                        saveToken(token: token)
+                        self.saveToken(token: token)
                         self.handleMyPage()
                     } else {
                         ToastView.shared.long(self.view, txt_msg: "Login Failed, check your connection!")
-                        handleLoading(isLoading: false, loading: self.loading)
+                        self.loading.handleLoading(isLoading: false)
                     }
                 }
             }
         }
+    }
+    
+  
+    @IBAction func ignore(_ sender: Any) {
+        isSearchVC = false
+              let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+                      UIApplication.shared.windows.first?.rootViewController = vc
+                      UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
     
     
@@ -111,3 +132,5 @@ class LoginViewController: UIViewController {
     }
     
 }
+
+

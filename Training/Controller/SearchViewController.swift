@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITextFieldDelegate {
+class SearchViewController: UIViewController {
     
     var searchResponse : [SearchResponseDatabase] = []
 
@@ -20,15 +20,19 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     
     var currentPage = 1
     
+    @IBOutlet weak var noResults: UILabel!
+    
     @IBOutlet weak var loading: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.isHidden = true
-        handleLoading(isLoading: false, loading: loading)
-        setUpTable()
+        setUpVỉew()
     }
     
-    func setUpTable() {
+    func setUpVỉew() {
+        self.tabBarController?.tabBar.isHidden = true
+        loading.handleLoading(isLoading: false)
+        noResults.isHidden = true
         txtSearch.delegate = self
         searchTable.dataSource = self
         searchTable.delegate = self
@@ -42,23 +46,18 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
     }
     
-    
     func updateObject() {
           self.searchResponse = RealmDataBaseQuery.getInstance.getObjects(type: SearchResponseDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: SearchResponseDatabase.self)
       }
       
-      
-      func deleteObject() {
-          for i in self.searchResponse {
-              RealmDataBaseQuery.getInstance.deleteData(object: i)
-          }
-      }
-    
-    @IBAction func dismissKeyboard(_ sender: Any) {
-        view.endEditing(true)
+    func deleteObject() {
+        for i in self.searchResponse {
+            RealmDataBaseQuery.getInstance.deleteData(object: i)
+        }
     }
     
-     func handleSearch(isLoadMore : Bool, page : Int) {
+    
+    func handleSearch(isLoadMore : Bool, page : Int) {
         let keyword = txtSearch.text!
         let usertoken = token
         if usertoken == nil {
@@ -68,32 +67,39 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
                                "token": token!,
                                "Content-Type": "application/json"
                             ]
-            let queue = DispatchQueue(label: "searchData")
-            queue.async {
-                getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
-                    if errcode == 1 {
-                        
-                    } else if errcode == 2 {
-                        let data = json!
-                        if isLoadMore == false {
-                            self.deleteObject()
-                            self.searchResponse.removeAll()
-                            _ = data.array?.forEach({ (search) in
-                            let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
-                                RealmDataBaseQuery.getInstance.addData(object: searchRes)
-                            })
-                        } else {
-                            _ = data.array?.forEach({ (search) in
-                            let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
+        let queue = DispatchQueue(label: "searchData")
+        queue.async {
+            getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
+                if errcode == 1 {
+                } else if errcode == 2 {
+                    let data = json!
+                    if isLoadMore == false {
+                        self.deleteObject()
+                        self.searchResponse.removeAll()
+                        _ = data.array?.forEach({ (search) in
+                        let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
                             RealmDataBaseQuery.getInstance.addData(object: searchRes)
-                            })
-                        }
-                        self.updateObject()
-                        self.searchTable.reloadData()
-                        handleLoading(isLoading: false, loading: self.loading)
+                        })
                     } else {
-                        ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
+                        _ = data.array?.forEach({ (search) in
+                        let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
+                        RealmDataBaseQuery.getInstance.addData(object: searchRes)
+                        })
                     }
+                    self.updateObject()
+                    self.searchTable.reloadData()
+                    self.loading.handleLoading(isLoading: false)
+                    if self.searchResponse.isEmpty {
+                        self.noResults.isHidden = false
+                    } else {
+                        self.noResults.isHidden = true
+                    }
+                } else {
+                    self.loading.handleLoading(isLoading: false)
+                    ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
+                    self.noResults.text = "Failed to load data from sever"
+                    self.noResults.isHidden = false
+                }
             }
         }
     }
@@ -105,11 +111,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     }
      
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    @IBAction func dismissKeyboard(_ sender: Any) {
         view.endEditing(true)
-        handleLoading(isLoading: true, loading: loading)
-        handleSearch(isLoadMore: false, page: currentPage)
-        return true
     }
  
     @IBAction func backBtn(_ sender: Any) {
@@ -118,13 +121,20 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         UIApplication.shared.windows.first?.rootViewController = vc
         UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
-    
-
  
     @IBAction func clearText(_ sender: Any) {
         txtSearch.text = ""
     }
     
+}
+
+extension SearchViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+         view.endEditing(true)
+         loading.handleLoading(isLoading: true)
+         handleSearch(isLoadMore: false, page: currentPage)
+         return true
+     }
 }
 
 extension SearchViewController : UITableViewDelegate, UITableViewDataSource {

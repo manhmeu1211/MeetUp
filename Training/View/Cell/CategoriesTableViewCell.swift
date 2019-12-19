@@ -16,7 +16,7 @@ class CategoriesTableViewCell: UITableViewCell {
     @IBOutlet weak var imgLogo: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpCardView(containerView: containerView)
+        containerView.setUpCardView()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

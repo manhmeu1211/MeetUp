@@ -17,20 +17,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEo-By-A7G">
-                        <rect key="frame" x="0.0" y="2" width="406" height="46"/>
+                        <rect key="frame" x="5" y="5" width="396" height="40"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMq-Gq-dWs">
-                                <rect key="frame" x="5" y="10" width="351" height="26"/>
+                                <rect key="frame" x="80" y="10" width="266" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-more-than-64" translatesAutoresizingMaskIntoConstraints="NO" id="0VS-7Y-ar1">
-                                <rect key="frame" x="371" y="8" width="30" height="30"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle 12.1" translatesAutoresizingMaskIntoConstraints="NO" id="0VS-7Y-ar1">
+                                <rect key="frame" x="361" y="5" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="FKc-YX-25i"/>
                                     <constraint firstAttribute="width" constant="30" id="NMe-N1-mZI"/>
                                 </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle 279" translatesAutoresizingMaskIntoConstraints="NO" id="VWW-It-cWr">
+                                <rect key="frame" x="5" y="5" width="70" height="30"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -38,17 +41,22 @@
                             <constraint firstItem="0VS-7Y-ar1" firstAttribute="centerY" secondItem="SEo-By-A7G" secondAttribute="centerY" id="1XS-5m-XG8"/>
                             <constraint firstItem="CMq-Gq-dWs" firstAttribute="top" secondItem="SEo-By-A7G" secondAttribute="top" constant="10" id="DRW-X7-xfA"/>
                             <constraint firstAttribute="trailing" secondItem="0VS-7Y-ar1" secondAttribute="trailing" constant="5" id="DZZ-kt-CX6"/>
-                            <constraint firstItem="CMq-Gq-dWs" firstAttribute="leading" secondItem="SEo-By-A7G" secondAttribute="leading" constant="5" id="ltE-un-pXZ"/>
+                            <constraint firstAttribute="bottom" secondItem="VWW-It-cWr" secondAttribute="bottom" constant="5" id="NY9-3f-6Rd"/>
+                            <constraint firstItem="VWW-It-cWr" firstAttribute="top" secondItem="SEo-By-A7G" secondAttribute="top" constant="5" id="Nlb-1G-9Mk"/>
+                            <constraint firstItem="VWW-It-cWr" firstAttribute="leading" secondItem="SEo-By-A7G" secondAttribute="leading" constant="5" id="UER-VA-Ohq"/>
+                            <constraint firstItem="CMq-Gq-dWs" firstAttribute="leading" secondItem="VWW-It-cWr" secondAttribute="trailing" constant="5" id="XWS-iD-G30"/>
+                            <constraint firstItem="CMq-Gq-dWs" firstAttribute="leading" secondItem="SEo-By-A7G" secondAttribute="leading" constant="80" id="ltE-un-pXZ"/>
                             <constraint firstAttribute="trailing" secondItem="CMq-Gq-dWs" secondAttribute="trailing" constant="50" id="rAk-p2-hwd"/>
+                            <constraint firstItem="VWW-It-cWr" firstAttribute="centerY" secondItem="CMq-Gq-dWs" secondAttribute="centerY" id="t4c-cK-Eoh"/>
                             <constraint firstAttribute="bottom" secondItem="CMq-Gq-dWs" secondAttribute="bottom" constant="10" id="ydX-tB-F8h"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="SEo-By-A7G" secondAttribute="bottom" constant="2" id="5Ac-ys-c3x"/>
-                    <constraint firstItem="SEo-By-A7G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="b5m-UQ-ZFC"/>
-                    <constraint firstItem="SEo-By-A7G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="dD8-i3-VpH"/>
-                    <constraint firstAttribute="trailing" secondItem="SEo-By-A7G" secondAttribute="trailing" id="pMd-Ag-njL"/>
+                    <constraint firstAttribute="bottom" secondItem="SEo-By-A7G" secondAttribute="bottom" constant="5" id="5Ac-ys-c3x"/>
+                    <constraint firstItem="SEo-By-A7G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="b5m-UQ-ZFC"/>
+                    <constraint firstItem="SEo-By-A7G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="dD8-i3-VpH"/>
+                    <constraint firstAttribute="trailing" secondItem="SEo-By-A7G" secondAttribute="trailing" constant="5" id="pMd-Ag-njL"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -57,10 +65,11 @@
                 <outlet property="imgLogo" destination="0VS-7Y-ar1" id="lnn-oj-piB"/>
                 <outlet property="lblName" destination="CMq-Gq-dWs" id="UPN-bF-VcD"/>
             </connections>
-            <point key="canvasLocation" x="194.20289855072465" y="142.63392857142856"/>
+            <point key="canvasLocation" x="194.20289855072465" y="141.29464285714286"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icons8-more-than-64" width="64" height="64"/>
+        <image name="Rectangle 12.1" width="10" height="16.5"/>
+        <image name="Rectangle 279" width="84" height="59"/>
     </resources>
 </document>

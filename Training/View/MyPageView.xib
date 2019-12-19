@@ -19,10 +19,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mask Group" translatesAutoresizingMaskIntoConstraints="NO" id="rcq-ka-XFk">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="179"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="134.5"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xq7-xz-gix">
-                    <rect key="frame" x="20" y="74" width="374" height="29"/>
+                    <rect key="frame" x="20" y="64" width="374" height="29"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -44,12 +44,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="xq7-xz-gix" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="5SK-n3-UUh"/>
+                <constraint firstItem="xq7-xz-gix" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="5SK-n3-UUh"/>
                 <constraint firstItem="rcq-ka-XFk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7aK-pj-VvC"/>
                 <constraint firstItem="xq7-xz-gix" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="ISn-uS-KmU"/>
                 <constraint firstItem="rcq-ka-XFk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ndq-2J-dqw"/>
                 <constraint firstItem="orh-fu-lyz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="NhU-Rs-rbu"/>
-                <constraint firstItem="rcq-ka-XFk" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.2" id="Tyu-ru-dzB"/>
+                <constraint firstItem="rcq-ka-XFk" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.15" id="Tyu-ru-dzB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="orh-fu-lyz" secondAttribute="trailing" constant="35" id="dWc-sh-8ti"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rcq-ka-XFk" secondAttribute="trailing" id="fgd-Gg-H9D"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xq7-xz-gix" secondAttribute="trailing" constant="20" id="v9J-ja-1Vn"/>

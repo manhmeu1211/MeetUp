@@ -15,6 +15,8 @@ class TabbarViewController: UITabBarController {
 
         if isSearchVC == true {
             self.selectedIndex = 2
+        } else if isLoginVC == true {
+            self.selectedIndex = 3
         } else {
             self.selectedIndex = 0
         }
