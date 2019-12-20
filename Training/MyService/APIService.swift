@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class getDataService {
     
-   let baseURL = "http://meetup.rikkei.org/api/v0/"
+   let baseURL = "http://b9acd944.ngrok.io/18175d1_mobile_100_fresher/public/api/v0/"
     
     class var getInstance: getDataService {
          struct Static {

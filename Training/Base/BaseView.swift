@@ -14,7 +14,6 @@ var isSearchVC = false
 var isLoginVC = false
 
 extension UIActivityIndicatorView {
-    
     func handleLoading(isLoading : Bool) {
         if isLoading == true {
             isHidden = false
@@ -28,7 +27,6 @@ extension UIActivityIndicatorView {
 
 
 extension UIButton {
-    
     func setUpButton() {
           layer.borderWidth = 0.5
           layer.cornerRadius = 5
@@ -44,7 +42,6 @@ extension UIButton {
 }
 
 extension UIImageView {
-    
     public func roundCorners() {
         let maskPath1 = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft , .topRight], cornerRadii: CGSize(width: 20, height: 20))
         let maskLayer1 = CAShapeLayer()
@@ -56,7 +53,6 @@ extension UIImageView {
 }
 
 extension UIView {
-    
     func roundCornersView(corners:UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
@@ -91,6 +87,23 @@ extension UIColor {
        )
    }
 }
+
+extension UIAlertController {
+    func createAlert(target: UIViewController, title : String? = nil, message : String? = nil, titleBtn: String? = nil) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let btnOK: UIAlertAction = UIAlertAction(title: titleBtn, style: .default, handler: nil)
+        alertVC.addAction(btnOK)
+        target.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func createAlertWithHandle(target: UIViewController, title : String? = nil, message : String? = nil, titleBtn: String? = nil, handler: @escaping () -> Void) {
+           let alertVC = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+           let btnOK: UIAlertAction = UIAlertAction(title: titleBtn, style: .default, handler: {(alert: UIAlertAction!) in handler()})
+           alertVC.addAction(btnOK)
+           target.present(alertVC, animated: true, completion: nil)
+       }
+}
+
 
 
 

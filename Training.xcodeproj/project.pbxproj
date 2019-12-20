@@ -16,9 +16,15 @@
 		0D44379A23AC6F7B003A8D96 /* MyPageGoingResDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44379923AC6F7B003A8D96 /* MyPageGoingResDatabase.swift */; };
 		0D44379D23AC7402003A8D96 /* TextAreaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44379B23AC7402003A8D96 /* TextAreaCell.swift */; };
 		0D44379E23AC7402003A8D96 /* TextAreaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D44379C23AC7402003A8D96 /* TextAreaCell.xib */; };
-		0D4437A123AC747A003A8D96 /* MyPageCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44379F23AC747A003A8D96 /* MyPageCellTableViewCell.swift */; };
-		0D4437A223AC747A003A8D96 /* MyPageCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D4437A023AC747A003A8D96 /* MyPageCellTableViewCell.xib */; };
 		0D4437A423AC886D003A8D96 /* MyPageWentResDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4437A323AC886D003A8D96 /* MyPageWentResDatabase.swift */; };
+		0D45DC0023ACCCBB006C6CB7 /* DetailVenueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D45DBFE23ACCCBB006C6CB7 /* DetailVenueCell.swift */; };
+		0D45DC0123ACCCBB006C6CB7 /* DetailVenueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D45DBFF23ACCCBB006C6CB7 /* DetailVenueCell.xib */; };
+		0D45DC0423ACCD90006C6CB7 /* DetailNearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D45DC0223ACCD90006C6CB7 /* DetailNearCell.swift */; };
+		0D45DC0523ACCD90006C6CB7 /* DetailNearCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D45DC0323ACCD90006C6CB7 /* DetailNearCell.xib */; };
+		0D45DC0C23ACD655006C6CB7 /* ButtonFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D45DC0A23ACD655006C6CB7 /* ButtonFooterCell.swift */; };
+		0D45DC0D23ACD655006C6CB7 /* ButtonFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D45DC0B23ACD655006C6CB7 /* ButtonFooterCell.xib */; };
+		0D45DC1023ACD951006C6CB7 /* EventDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D45DC0E23ACD951006C6CB7 /* EventDetailController.swift */; };
+		0D45DC1123ACD951006C6CB7 /* EventDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D45DC0F23ACD951006C6CB7 /* EventDetailView.xib */; };
 		0D462B1023A71A1A000332F4 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D462B0E23A71A1A000332F4 /* SplashScreen.swift */; };
 		0D462B1123A71A1A000332F4 /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D462B0F23A71A1A000332F4 /* SplashScreen.xib */; };
 		0D462B1423A734B4000332F4 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D462B1223A734B4000332F4 /* MyPageViewController.swift */; };
@@ -59,8 +65,6 @@
 		0DD8F5FA23A24A5400C50F22 /* noImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8F5F923A24A5400C50F22 /* noImage.png */; };
 		0DE3B8B623A0CCAF00843C80 /* DateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8B523A0CCAF00843C80 /* DateTimeFormatter.swift */; };
 		0DE3B8B923A0D15F00843C80 /* PopularsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8B723A0D15F00843C80 /* PopularsTableViewCell.swift */; };
-		0DE3B8BD23A0E58100843C80 /* EvenDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8BB23A0E58100843C80 /* EvenDetailViewController.swift */; };
-		0DE3B8BE23A0E58100843C80 /* EvenDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3B8BC23A0E58100843C80 /* EvenDetailView.xib */; };
 		0DE3B8C023A0E9BE00843C80 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8BF23A0E9BE00843C80 /* BrowserViewController.swift */; };
 		0DE3B8C323A0F05E00843C80 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8C123A0F05E00843C80 /* CategoriesTableViewCell.swift */; };
 		0DE3B8C423A0F05E00843C80 /* CategoriesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3B8C223A0F05E00843C80 /* CategoriesTableViewCell.xib */; };
@@ -89,9 +93,15 @@
 		0D44379923AC6F7B003A8D96 /* MyPageGoingResDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageGoingResDatabase.swift; sourceTree = "<group>"; };
 		0D44379B23AC7402003A8D96 /* TextAreaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaCell.swift; sourceTree = "<group>"; };
 		0D44379C23AC7402003A8D96 /* TextAreaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextAreaCell.xib; sourceTree = "<group>"; };
-		0D44379F23AC747A003A8D96 /* MyPageCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCellTableViewCell.swift; sourceTree = "<group>"; };
-		0D4437A023AC747A003A8D96 /* MyPageCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageCellTableViewCell.xib; sourceTree = "<group>"; };
 		0D4437A323AC886D003A8D96 /* MyPageWentResDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageWentResDatabase.swift; sourceTree = "<group>"; };
+		0D45DBFE23ACCCBB006C6CB7 /* DetailVenueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVenueCell.swift; sourceTree = "<group>"; };
+		0D45DBFF23ACCCBB006C6CB7 /* DetailVenueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailVenueCell.xib; sourceTree = "<group>"; };
+		0D45DC0223ACCD90006C6CB7 /* DetailNearCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNearCell.swift; sourceTree = "<group>"; };
+		0D45DC0323ACCD90006C6CB7 /* DetailNearCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailNearCell.xib; sourceTree = "<group>"; };
+		0D45DC0A23ACD655006C6CB7 /* ButtonFooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterCell.swift; sourceTree = "<group>"; };
+		0D45DC0B23ACD655006C6CB7 /* ButtonFooterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonFooterCell.xib; sourceTree = "<group>"; };
+		0D45DC0E23ACD951006C6CB7 /* EventDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailController.swift; sourceTree = "<group>"; };
+		0D45DC0F23ACD951006C6CB7 /* EventDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailView.xib; sourceTree = "<group>"; };
 		0D462B0E23A71A1A000332F4 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		0D462B0F23A71A1A000332F4 /* SplashScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreen.xib; sourceTree = "<group>"; };
 		0D462B1223A734B4000332F4 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -134,8 +144,6 @@
 		0DD8F5F923A24A5400C50F22 /* noImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noImage.png; sourceTree = "<group>"; };
 		0DE3B8B523A0CCAF00843C80 /* DateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeFormatter.swift; sourceTree = "<group>"; };
 		0DE3B8B723A0D15F00843C80 /* PopularsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularsTableViewCell.swift; sourceTree = "<group>"; };
-		0DE3B8BB23A0E58100843C80 /* EvenDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvenDetailViewController.swift; sourceTree = "<group>"; };
-		0DE3B8BC23A0E58100843C80 /* EvenDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EvenDetailView.xib; sourceTree = "<group>"; };
 		0DE3B8BF23A0E9BE00843C80 /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		0DE3B8C123A0F05E00843C80 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		0DE3B8C223A0F05E00843C80 /* CategoriesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoriesTableViewCell.xib; sourceTree = "<group>"; };
@@ -226,8 +234,8 @@
 				0DC433D2239F3C1F000C9505 /* Home.storyboard */,
 				0D59675F23A07D490060015E /* NewsView.xib */,
 				0D59676323A07D690060015E /* PopularsView.xib */,
+				0D45DC0F23ACD951006C6CB7 /* EventDetailView.xib */,
 				0DD8F5F223A23C4100C50F22 /* SearchView.xib */,
-				0DE3B8BC23A0E58100843C80 /* EvenDetailView.xib */,
 				0DECAD9223AB2D10008BC805 /* EventsByCategoriesView.xib */,
 				0D44379223AC6AB0003A8D96 /* MyPageGoingViewController.xib */,
 				0D44379623AC6AC4003A8D96 /* MyPageWentViewController.xib */,
@@ -280,8 +288,12 @@
 				0D5E458F23A875BA0029CE1A /* NewsCell.xib */,
 				0D44379B23AC7402003A8D96 /* TextAreaCell.swift */,
 				0D44379C23AC7402003A8D96 /* TextAreaCell.xib */,
-				0D44379F23AC747A003A8D96 /* MyPageCellTableViewCell.swift */,
-				0D4437A023AC747A003A8D96 /* MyPageCellTableViewCell.xib */,
+				0D45DBFE23ACCCBB006C6CB7 /* DetailVenueCell.swift */,
+				0D45DBFF23ACCCBB006C6CB7 /* DetailVenueCell.xib */,
+				0D45DC0223ACCD90006C6CB7 /* DetailNearCell.swift */,
+				0D45DC0323ACCD90006C6CB7 /* DetailNearCell.xib */,
+				0D45DC0A23ACD655006C6CB7 /* ButtonFooterCell.swift */,
+				0D45DC0B23ACD655006C6CB7 /* ButtonFooterCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -300,11 +312,11 @@
 				0DC433E7239F43F7000C9505 /* HomeNewsViewController.swift */,
 				0D59675E23A07D490060015E /* NewsViewController.swift */,
 				0D59676223A07D690060015E /* PopularsViewController.swift */,
+				0D45DC0E23ACD951006C6CB7 /* EventDetailController.swift */,
 				0DE62E5923A373AB00D927FA /* NearViewController.swift */,
 				0DE3B8BF23A0E9BE00843C80 /* BrowserViewController.swift */,
 				0DECAD9123AB2D10008BC805 /* EventsByCategoriesViewController.swift */,
 				0DD8F5F123A23C4100C50F22 /* SearchViewController.swift */,
-				0DE3B8BB23A0E58100843C80 /* EvenDetailViewController.swift */,
 				0D51DD2323A8B84500544A1B /* SignUpMainViewController.swift */,
 				0D51DD2923A8BF4A00544A1B /* SignUpViewController.swift */,
 				0D51DD1F23A8B36000544A1B /* MyPageMainViewController.swift */,
@@ -396,24 +408,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D45DC1123ACD951006C6CB7 /* EventDetailView.xib in Resources */,
 				0D462B1B23A76319000332F4 /* EventsCell.xib in Resources */,
 				0D59676523A07D690060015E /* PopularsView.xib in Resources */,
 				0DC433CB239F3BF4000C9505 /* LaunchScreen.storyboard in Resources */,
 				0D44379023AC56AD003A8D96 /* WebViewController.xib in Resources */,
+				0D45DC0123ACCCBB006C6CB7 /* DetailVenueCell.xib in Resources */,
 				0D44379423AC6AB0003A8D96 /* MyPageGoingViewController.xib in Resources */,
 				0DD8F5F423A23C4100C50F22 /* SearchView.xib in Resources */,
 				0DC433D3239F3C1F000C9505 /* Home.storyboard in Resources */,
 				0D44379E23AC7402003A8D96 /* TextAreaCell.xib in Resources */,
 				0D462B1523A734B4000332F4 /* MyPageView.xib in Resources */,
 				0DECAD9423AB2D10008BC805 /* EventsByCategoriesView.xib in Resources */,
-				0D4437A223AC747A003A8D96 /* MyPageCellTableViewCell.xib in Resources */,
 				0DE62E5823A370CF00D927FA /* ResetPassView.xib in Resources */,
 				0DE62E5223A34DB000D927FA /* LoginView.xib in Resources */,
+				0D45DC0D23ACD655006C6CB7 /* ButtonFooterCell.xib in Resources */,
 				0D44379823AC6AC4003A8D96 /* MyPageWentViewController.xib in Resources */,
+				0D45DC0523ACCD90006C6CB7 /* DetailNearCell.xib in Resources */,
 				0D5E459123A875BA0029CE1A /* NewsCell.xib in Resources */,
 				0D462B1123A71A1A000332F4 /* SplashScreen.xib in Resources */,
 				0DE3B8C423A0F05E00843C80 /* CategoriesTableViewCell.xib in Resources */,
-				0DE3B8BE23A0E58100843C80 /* EvenDetailView.xib in Resources */,
 				0DECAD8C23AB08F8008BC805 /* PopularsTableViewCell.xib in Resources */,
 				0DC433C8239F3BF4000C9505 /* Assets.xcassets in Resources */,
 				0D51DD2623A8B95F00544A1B /* SignUpView.xib in Resources */,
@@ -474,7 +488,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DE62E5C23A37BBB00D927FA /* Artwork.swift in Sources */,
-				0D4437A123AC747A003A8D96 /* MyPageCellTableViewCell.swift in Sources */,
 				0D59676423A07D690060015E /* PopularsViewController.swift in Sources */,
 				0D478DF223A9CFD70061644E /* TabbarViewController.swift in Sources */,
 				0DE3B8CA23A0FB2800843C80 /* RealmDataBaseQuery.swift in Sources */,
@@ -491,23 +504,26 @@
 				0DD8F5F823A246AB00C50F22 /* PopularsResDatabase.swift in Sources */,
 				0DECAD9323AB2D10008BC805 /* EventsByCategoriesViewController.swift in Sources */,
 				0DE3B8B623A0CCAF00843C80 /* DateTimeFormatter.swift in Sources */,
+				0D45DC1023ACD951006C6CB7 /* EventDetailController.swift in Sources */,
 				0D44379323AC6AB0003A8D96 /* MyPageGoingViewController.swift in Sources */,
 				0DE62E5723A370CF00D927FA /* ResetPassViewController.swift in Sources */,
 				0DE3B8C323A0F05E00843C80 /* CategoriesTableViewCell.swift in Sources */,
 				0D51DD2023A8B36000544A1B /* MyPageMainViewController.swift in Sources */,
 				0DC433E8239F43F7000C9505 /* HomeNewsViewController.swift in Sources */,
+				0D45DC0C23ACD655006C6CB7 /* ButtonFooterCell.swift in Sources */,
 				0D59676023A07D490060015E /* NewsViewController.swift in Sources */,
 				0DE3B8C023A0E9BE00843C80 /* BrowserViewController.swift in Sources */,
 				0D44378F23AC56AD003A8D96 /* WebViewController.swift in Sources */,
 				0D462B1023A71A1A000332F4 /* SplashScreen.swift in Sources */,
 				0D51DD2A23A8BF4A00544A1B /* SignUpViewController.swift in Sources */,
+				0D45DC0423ACCD90006C6CB7 /* DetailNearCell.swift in Sources */,
 				0DC433D9239F3CF6000C9505 /* BaseNetWork.swift in Sources */,
-				0DE3B8BD23A0E58100843C80 /* EvenDetailViewController.swift in Sources */,
 				0DC433BF239F3BF1000C9505 /* AppDelegate.swift in Sources */,
 				0DE62E5423A3500700D927FA /* BaseView.swift in Sources */,
 				0DD8F5F323A23C4100C50F22 /* SearchViewController.swift in Sources */,
 				0D462B1A23A76319000332F4 /* EventsCell.swift in Sources */,
 				0DC433EF239F5388000C9505 /* APIService.swift in Sources */,
+				0D45DC0023ACCCBB006C6CB7 /* DetailVenueCell.swift in Sources */,
 				0DC433DB239F3D67000C9505 /* ShowToastMessage.swift in Sources */,
 				0D51DD2423A8B84500544A1B /* SignUpMainViewController.swift in Sources */,
 				0D462B1423A734B4000332F4 /* MyPageViewController.swift in Sources */,

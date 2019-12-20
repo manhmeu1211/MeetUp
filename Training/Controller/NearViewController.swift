@@ -31,6 +31,8 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     
     var initLong, initLat : Double?
     
+    let alertNotLogin = UIAlertController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateObject()
@@ -63,10 +65,9 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
             getListEvent()
         } else {
             print("token is null")
-            let alertLoginFailed : UIAlertController = UIAlertController(title: "Not logged in", message: "You must to login", preferredStyle: UIAlertController.Style.alert)
-            let btnOK: UIAlertAction = UIAlertAction(title: "Login", style: .default, handler: {(alert: UIAlertAction!) in self.handleLoginView()})
-            alertLoginFailed.addAction(btnOK)
-            present(alertLoginFailed, animated: true, completion: nil)
+            alertNotLogin.createAlertWithHandle(target: self, title: "Not logged in", message: "You must to login", titleBtn: "Login") {
+                self.handleLoginView()
+            }
         }
     }
     

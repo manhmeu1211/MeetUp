@@ -144,8 +144,10 @@ extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let name = popularResponse[indexPath.row].name
-        print(name)
+        let id = popularResponse[indexPath.row].id
+        let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
+        vc.id = id
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
