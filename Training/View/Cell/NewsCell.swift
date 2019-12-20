@@ -12,6 +12,8 @@ class NewsCell: UITableViewCell {
 
     @IBOutlet weak var containerView: UIView!
     
+    @IBOutlet weak var imgTimer: UIImageView!
+    
     @IBOutlet weak var imgNews: UIImageView!
     
     @IBOutlet weak var date: UILabel!
@@ -23,9 +25,14 @@ class NewsCell: UITableViewCell {
         super.awakeFromNib()
         imgNews.roundCorners()
         containerView.setUpCardView()
-        containerView.roundCornersView(corners: [.topLeft, .topRight], radius: 20)
+        
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        containerView.layoutIfNeeded()
+        containerView.roundCornersView(corners: [.topLeft, .topRight], radius: 30)
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

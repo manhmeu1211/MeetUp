@@ -10,7 +10,8 @@ import UIKit
 import RealmSwift
 
 class NewsViewController: UIViewController {
-
+    
+    let realm = try! Realm()
  
     @IBOutlet weak var newsTable: UITableView!
     
@@ -24,14 +25,32 @@ class NewsViewController: UIViewController {
     
     var newsResponse : [NewsDataResponse] = []
     
+    let dateformatted = DateFormatter()
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateObject()
         setUpTable()
-        loading.handleLoading(isLoading: false)
-        
+        if detechDailyFirstLaunch() == false {
+            updateObject()
+            loading.handleLoading(isLoading: false)
+        } else {
+            loading.handleLoading(isLoading: true)
+            updateData()
+        }
     }
+    
+    func detechDailyFirstLaunch() -> Bool {
+         let today = NSDate().formatted
+         if (UserDefaults.standard.string(forKey: "FIRSTLAUNCHNEWS") == today) {
+             print("already launched")
+             return false
+         } else {
+             print("first launch")
+             UserDefaults.standard.setValue(today, forKey:"FIRSTLAUNCHNEWS")
+             return true
+         }
+     }
     
     func setUpTable() {
         newsTable.dataSource = self
@@ -51,14 +70,18 @@ class NewsViewController: UIViewController {
         self.refreshControl.endRefreshing()
     }
     
+       
     func deleteObject() {
-        for i in self.newsResponse {
-            RealmDataBaseQuery.getInstance.deleteData(object: i)
+        let list = realm.objects(NewsDataResponse.self).toArray(ofType: NewsDataResponse.self)
+        try! realm.write {
+            realm.delete(list)
         }
     }
     
     func updateObject() {
-        self.newsResponse = RealmDataBaseQuery.getInstance.getObjects(type: NewsDataResponse.self)!.sorted(byKeyPath: "publishdate", ascending: false).toArray(ofType: NewsDataResponse.self)
+        let list = realm.objects(NewsDataResponse.self).toArray(ofType: NewsDataResponse.self)
+        newsResponse = list
+        newsTable.reloadData()
     }
 
     func getNewsData(shoudLoadmore: Bool, page: Int) {
@@ -66,30 +89,34 @@ class NewsViewController: UIViewController {
         loading.isHidden = true
         let queue = DispatchQueue(label: "appendData")
             queue.async {
-                getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10) { (data, isSuccess) in
-                    if isSuccess == 1 {
-                        let result = data!
+                getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10) { (json, errCode) in
+                    if errCode == 1 {
+                        let result = json!
                         if shoudLoadmore == false {
                             self.deleteObject()
                             self.newsResponse.removeAll()
                             _ = result.array?.forEach({ (news) in
                                 let news = NewsDataResponse(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
-                                RealmDataBaseQuery.getInstance.addData(object: news)
+                                try! self.realm.write {
+                                    self.realm.add(news)
+                                }
                             })
-                            } else {
-                                _ = result.array?.forEach({ (news) in
-                                let news = NewsDataResponse(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
-                                RealmDataBaseQuery.getInstance.addData(object: news)
-                                })
+                        } else {
+                            _ = result.array?.forEach({ (news) in
+                            let news = NewsDataResponse(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
+                            try! self.realm.write {
+                                self.realm.add(news)
                             }
+                            })
+                        }
                         self.updateObject()
                         self.newsTable.reloadData()
                     } else {
                         self.updateObject()
                         print("Failed to load Data")
                         ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
-                   }
-               }
+                    }
+                }
            }
        }
 }
@@ -112,7 +139,6 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        loading.handleLoading(isLoading: true)
         if indexPath.row == newsResponse.count - 2 {
             self.getNewsData(shoudLoadmore: true, page: self.currentPage + 1)
             self.currentPage += 1
@@ -122,9 +148,10 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let url = URL(string: newsResponse[indexPath.row + 1].url) else { return }
-        print(url)
-        UIApplication.shared.open(url)
+        let url = newsResponse[indexPath.row + 1].url
+        let vc = WebViewController()
+        vc.urlToOpen = url
+        present(vc, animated: true, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

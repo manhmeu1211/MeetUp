@@ -48,9 +48,6 @@ class SignUpMainViewController: UIViewController {
     }
     
  
-        
-      
- 
     @IBAction func loginBtn(_ sender: Any) {
          scrollView.setContentOffset(CGPoint(x: 0.0, y: 0.0), animated: true)
     }

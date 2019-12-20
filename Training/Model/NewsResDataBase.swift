@@ -12,7 +12,6 @@ import Foundation
 import RealmSwift
 
 class NewsDataResponse: Object {
-    
     @objc dynamic var id = 0
     @objc dynamic var feed = ""
     @objc dynamic var title = ""
@@ -20,8 +19,7 @@ class NewsDataResponse: Object {
     @objc dynamic var author = ""
     @objc dynamic var publishdate = ""
     @objc dynamic var url = ""
- 
-    
+   
     convenience init(id: Int, feed :String , title: String, thumbImg : String, author : String, publishdate : String, url: String) {
         self.init()
         self.id = id

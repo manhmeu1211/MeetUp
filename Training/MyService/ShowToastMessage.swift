@@ -15,6 +15,7 @@ open class ToastView: UILabel {
     var lbl = UILabel()
     
     class var shared: ToastView {
+        
         struct Static {
             static let instance: ToastView = ToastView()
         }
@@ -31,7 +32,7 @@ open class ToastView: UILabel {
         view.addSubview(backView)
         
         overlayView.frame = CGRect(x: 0, y: 0, width: view.frame.width - 60  , height: 50)
-        overlayView.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height - 100)
+        overlayView.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height - 70)
         overlayView.backgroundColor = UIColor.black
         overlayView.clipsToBounds = true
         overlayView.layer.cornerRadius = 10

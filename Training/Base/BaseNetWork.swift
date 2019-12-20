@@ -20,8 +20,6 @@ class NetWorkService {
          return Static.instance
      }
     
-    
-    
     open func getRequestAPI(url: String, completionHandler: @escaping (JSON?, String) -> ()) {
         Alamofire.request(url , method: .get, encoding: JSONEncoding.default).responseJSON { response in
             switch response.result {

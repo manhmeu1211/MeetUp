@@ -43,6 +43,8 @@ class RealmDataBaseQuery {
              }
     }
     
+    
+ 
 
     func getObjects(type: Object.Type) -> Results<Object>? {
           return realm.objects(type)

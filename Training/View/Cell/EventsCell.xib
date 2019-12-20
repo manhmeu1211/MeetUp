@@ -10,14 +10,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EventsCell" id="gTV-IL-0wX" customClass="EventsCell" customModule="Training" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="188"/>
+            <rect key="frame" x="0.0" y="0.0" width="476" height="178"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="188"/>
+                <rect key="frame" x="0.0" y="0.0" width="476" height="178"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHL-YP-QwN">
-                        <rect key="frame" x="5" y="5" width="490" height="178"/>
+                        <rect key="frame" x="0.0" y="0.0" width="476" height="178"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="mAk-W5-bst">
                                 <rect key="frame" x="10" y="0.0" width="150" height="124.5"/>
@@ -26,19 +26,19 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u3f-TJ-YxL">
-                                <rect key="frame" x="50" y="134.5" width="340" height="20"/>
+                                <rect key="frame" x="50" y="134.5" width="326" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaW-GL-rVV">
-                                <rect key="frame" x="165" y="10" width="320" height="21.5"/>
+                                <rect key="frame" x="165" y="10" width="306" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xm6-Z0-0kZ">
-                                <rect key="frame" x="165" y="36.5" width="320" height="18"/>
+                                <rect key="frame" x="165" y="36.5" width="306" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -84,13 +84,13 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="aHL-YP-QwN" secondAttribute="trailing" constant="5" id="2jB-oD-AJd"/>
-                <constraint firstItem="aHL-YP-QwN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="C1g-YW-YZk"/>
-                <constraint firstAttribute="bottom" secondItem="aHL-YP-QwN" secondAttribute="bottom" constant="5" id="bx0-Vz-f7x"/>
-                <constraint firstItem="aHL-YP-QwN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="ihB-R2-ova"/>
+                <constraint firstAttribute="trailing" secondItem="aHL-YP-QwN" secondAttribute="trailing" id="2jB-oD-AJd"/>
+                <constraint firstItem="aHL-YP-QwN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="C1g-YW-YZk"/>
+                <constraint firstAttribute="bottom" secondItem="aHL-YP-QwN" secondAttribute="bottom" id="bx0-Vz-f7x"/>
+                <constraint firstItem="aHL-YP-QwN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ihB-R2-ova"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="397" height="188"/>
+            <size key="customSize" width="373" height="178"/>
             <connections>
                 <outlet property="containerView" destination="aHL-YP-QwN" id="tOR-MM-Ju2"/>
                 <outlet property="eventCount" destination="u3f-TJ-YxL" id="EBu-gu-9i9"/>
@@ -98,7 +98,7 @@
                 <outlet property="eventName" destination="iaW-GL-rVV" id="0FM-wY-ZXI"/>
                 <outlet property="imgEvent" destination="mAk-W5-bst" id="mMl-I2-zfv"/>
             </connections>
-            <point key="canvasLocation" x="198.55072463768118" y="133.92857142857142"/>
+            <point key="canvasLocation" x="181.15942028985509" y="172.76785714285714"/>
         </collectionViewCell>
     </objects>
     <resources>

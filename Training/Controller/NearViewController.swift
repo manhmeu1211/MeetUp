@@ -10,41 +10,73 @@ import UIKit
 import MapKit
 import CoreLocation
 import Alamofire
+import RealmSwift
 
 class NearViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var collectionVIew: UICollectionView!
- 
-    
     @IBOutlet weak var map: MKMapView!
-
-    let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 1000
-    let initialLocation = CLLocation(latitude: 21.044919, longitude: 105.875016)
-    var latValue, longValue : Double!
+    
+    let realm = try! Realm()
+    
     var events : [EventsNearResponse] = []
-
+    
+    let locationManager = CLLocationManager()
+    
+    let regionRadius: CLLocationDistance = 1000
+        
+    var centralLocationCoordinate : CLLocationCoordinate2D!
+    
+    var currentLocation: CLLocation!
+    
+    var initLong, initLat : Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        centerMapOnLocation(location: initialLocation)
         updateObject()
-        addArtwork()
         setUpCollectionView()
+        locationManager.requestWhenInUseAuthorization()
+        if( CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() ==  .authorizedAlways){
+            currentLocation = locationManager.location
+            if initLong == nil || initLat == nil {
+                initLong = 105.874993
+                initLat =  21.044895
+            } else {
+                initLong = currentLocation.coordinate.longitude
+                initLat = currentLocation.coordinate.latitude
+            }
+            centerMapOnLocation(location: CLLocation(latitude: initLat!, longitude: initLong!))
+        }
+        addArtwork()
+        getListEventV2()
+        print(getRadius(centralLocation: CLLocation(latitude: initLat!, longitude: initLong!)))
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getListEventV2()
+        
     }
-    
+
     func getListEventV2() {
+        let token = UserDefaults.standard.string(forKey: "userToken")
         if token != nil {
             getListEvent()
         } else {
-            ToastView.shared.short(self.view, txt_msg: "Not logged in!")
-            let event = EventsNearResponse(id: 0, photo: "https://agdetail.image-gmkt.com/105/092/472092105/img/cdn.shopify.com/s/files/1/0645/2551/files/qoo10_03ed8677a499a4fbc2e046a81ee99c7c.png", name: "You have to login first", descriptionHtml: "", scheduleStartDate: "", scheduleEndDate: "", scheduleStartTime: "", scheduleEndTime: "", schedulePermanent: "", goingCount: 0)
-            self.events.append(event)
+            print("token is null")
+            let alertLoginFailed : UIAlertController = UIAlertController(title: "Not logged in", message: "You must to login", preferredStyle: UIAlertController.Style.alert)
+            let btnOK: UIAlertAction = UIAlertAction(title: "Login", style: .default, handler: {(alert: UIAlertAction!) in self.handleLoginView()})
+            alertLoginFailed.addAction(btnOK)
+            present(alertLoginFailed, animated: true, completion: nil)
         }
+    }
+    
+    
+    @objc func handleLoginView() {
+        isLoginVC = true
+        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+        UIApplication.shared.windows.first?.rootViewController = vc
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        
     }
 
     func setUpCollectionView() {
@@ -55,59 +87,74 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     
     func addArtwork() {
         map.mapType = MKMapType.standard
-        let artwork = Artwork(title: "MM's House",
-               locationName: "Home",
-               discipline: "My Home",
-               coordinate: CLLocationCoordinate2D(latitude: 21.044919, longitude: 105.875016))
-             map.addAnnotation(artwork)
+        let artwork = Artwork(title: "My Location",
+               locationName: "My Location",
+               discipline: "My Location",
+               coordinate: CLLocationCoordinate2D(latitude: initLat!, longitude: initLong!))
+        map.addAnnotation(artwork)
     }
     
     func updateObject() {
           self.events = RealmDataBaseQuery.getInstance.getObjects(type: EventsNearResponse.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsNearResponse.self)
       }
       
-      
-      func deleteObject() {
-          for i in self.events {
-              RealmDataBaseQuery.getInstance.deleteData(object: i)
-          }
-      }
+    func deleteObject() {
+        let list = realm.objects(EventsNearResponse.self).toArray(ofType: EventsNearResponse.self)
+        try! realm.write {
+            realm.delete(list)
+        }
+    }
 
     func getListEvent() {
-          let headers = [
-              "token": token!,
-              "Content-Type": "application/json"
-          ]
-        getDataService.getInstance.getListNearEvent(radius: 100, longitue: "105.875016", latitude: "21.044919", header: headers) { (json, errcode) in
-            if errcode == 1 {
-                self.deleteObject()
-                self.events.removeAll()
-                let anotionLC = json!
-                _ = anotionLC.array?.forEach({ (anotion) in
-                    let anotion = Artwork(title: anotion["venue"]["name"].stringValue, locationName: anotion["venue"]["name"].stringValue, discipline: anotion["venue"]["description"].stringValue, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
-                    self.map.addAnnotation(anotion)
-                })
-                _ = anotionLC.array?.forEach({ (events) in
-                    let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
-                        RealmDataBaseQuery.getInstance.addData(object: events)
-                })
-                self.updateObject()
-                self.collectionVIew.reloadData()
-            } else {
-                print("failed")
+        let token = UserDefaults.standard.string(forKey: "userToken")
+        let headers = [ "token": token!,
+                        "Content-Type": "application/json" ]
+        let queue = DispatchQueue(label: "getMap")
+        queue.async {
+            getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (json, errcode) in
+                if errcode == 1 {
+                    self.deleteObject()
+                    self.events.removeAll()
+                    let anotionLC = json!
+                    _ = anotionLC.array?.forEach({ (anotion) in
+                        let anotion = Artwork(title: anotion["venue"]["name"].stringValue, locationName: anotion["venue"]["name"].stringValue, discipline: anotion["venue"]["description"].stringValue, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
+                        self.map.addAnnotation(anotion)
+                    })
+                    _ = anotionLC.array?.forEach({ (events) in
+                        let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
+                    RealmDataBaseQuery.getInstance.addData(object: events)
+                    })
+                    self.updateObject()
+                    self.collectionVIew.reloadData()
+                    print(self.events)
+                } else {
+                    print("failed")
+                }
             }
         }
     }
     
-    
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                                  latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         map.setRegion(coordinateRegion, animated: true)
     }
     
-    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            let centralLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude:  mapView.centerCoordinate.longitude)
+            self.centralLocationCoordinate = mapView.centerCoordinate
+           print("Radius - \(self.getRadius(centralLocation: centralLocation))")
+    }
+
+
+    func getRadius(centralLocation: CLLocation) -> Double {
+        let topCentralLat:Double = centralLocation.coordinate.latitude -  map.region.span.latitudeDelta/2
+        let topCentralLocation = CLLocation(latitude: topCentralLat, longitude: centralLocation.coordinate.longitude)
+        let radius = centralLocation.distance(from: topCentralLocation)
+        return radius / 1000.0
+    }
 }
+
+
 
 
 extension NearViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -128,8 +175,8 @@ extension NearViewController : UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.collectionVIew.frame.size.width, height: self.collectionVIew.frame.size.height)
+        return CGSize(width: self.collectionVIew.frame.width, height: self.collectionVIew.frame.height)
     }
-
-    
 }
+
+

@@ -9,27 +9,14 @@
 import UIKit
 import RealmSwift
 
-public var isFirtsLaunched = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        detechDailyFirstLaunch()
         return true
     }
-    
-   func detechDailyFirstLaunch() {
-        let today = NSDate().formatted
-        if (UserDefaults.standard.string(forKey: "FIRSTLAUNCH") == today) {
-            print("already launched")
-            isFirtsLaunched = false
-        } else {
-            print("first launch")
-            UserDefaults.standard.setValue(today, forKey:"FIRSTLAUNCH")
-            isFirtsLaunched = true
-        }
-    }
+ 
 
     // MARK: UISceneSession Lifecycle
 
@@ -46,13 +33,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-}
-
-extension NSDate {
-    var formatted: String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MM/dd/yyyy"
-        return formatter.string(from: self as Date)
-    }
 }
 

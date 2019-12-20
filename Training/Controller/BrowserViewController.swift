@@ -7,27 +7,33 @@
 //
 
 import UIKit
+import RealmSwift
 
 class BrowserViewController: UIViewController {
 
     @IBOutlet weak var categoriesTable: UITableView!
     
     var cateList : [CategoriesResDatabase] = []
-    
+    let realm = try! Realm()
+    let userToken = UserDefaults.standard.string(forKey: "userToken")
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpBarButton()
         setupTable()
-        updateObject()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-         self.tabBarController?.tabBar.isHidden = false
+        if userToken != nil {
+            getListCategories()
+        } else {
+            updateObject()
+        }
     }
     
     func setUpBarButton() {
         self.title = "Categories"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.search, target: self, action: #selector(handleSearchViewController))
+          self.tabBarController?.tabBar.isHidden = false
     }
 
   
@@ -62,10 +68,11 @@ class BrowserViewController: UIViewController {
     }
     
     func deleteObject() {
-        for i in cateList {
-            RealmDataBaseQuery.getInstance.deleteData(object: i)
-        }
-    }
+          let list = realm.objects(CategoriesResDatabase.self).toArray(ofType: CategoriesResDatabase.self)
+          try! realm.write {
+              realm.delete(list)
+          }
+      }
     
     @objc func handleSearchViewController() {
         let searchVC = SearchViewController()
@@ -89,6 +96,13 @@ extension BrowserViewController : UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let id = cateList[indexPath.row].id
+        let title = cateList[indexPath.row].name
+        let vc = EventsByCategoriesViewController()
+        vc.id = id
+        vc.headerTitle = title
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
 }

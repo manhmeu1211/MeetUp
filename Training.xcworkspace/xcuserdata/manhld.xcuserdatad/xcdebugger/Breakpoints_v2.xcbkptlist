@@ -243,63 +243,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3657489D-5D50-403C-9030-1707EC6C18FC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Training/Controller/NewsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "getNewsData(shoudLoadmore:page:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "33E2062D-8C93-4CA1-834E-0FCFCA7367BA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Training/Controller/NewsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "getNewsData(shoudLoadmore:page:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "70D08DB9-91EC-4722-AEBA-88C9482658DD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Training/MyService/DateTimeFormatterService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "DateTimeFormatterService"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "4010972F-D142-4EFE-B03D-AA429662185D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Training/MyService/APIService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "getListNearEvent(radius:longitue:latitude:header:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -308,22 +260,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "EB670C19-0397-410B-94CC-264F26A51237"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Training/MyService/APIService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "getListNearEvent(radius:longitue:latitude:header:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5ED182A7-515E-47C8-A221-7D985E81964A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -339,24 +275,40 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BB2BC80F-DC78-474A-9661-04A1BE6307FC"
-            shouldBeEnabled = "Yes"
+            uuid = "5ED182A7-515E-47C8-A221-7D985E81964A"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Training/MyService/APIService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "getListNearEvent(radius:longitue:latitude:header:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BB2BC80F-DC78-474A-9661-04A1BE6307FC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/MyService/APIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "getListNearEvent(radius:longitue:latitude:header:completionHandler:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "BB2BC80F-DC78-474A-9661-04A1BE6307FC - c11a32b1e60b4c9a"
-                  shouldBeEnabled = "Yes"
+                  uuid = "BB2BC80F-DC78-474A-9661-04A1BE6307FC - 1836de3c7aa5aa95"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Training.getDataService.getListNearEvent(radius: Swift.Double, longitue: Swift.Double, latitude: Swift.Double, header: Swift.Dictionary&lt;Swift.String, Swift.String&gt;, completionHandler: (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; ()) -&gt; ()"
+                  symbolName = "Training.getDataService.getListNearEvent(radius: Swift.Double, longitue: Swift.String, latitude: Swift.String, header: Swift.Dictionary&lt;Swift.String, Swift.String&gt;, completionHandler: (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; ()) -&gt; ()"
                   moduleName = "Training"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/manhld/Desktop/Training/Training/MyService/APIService.swift"
@@ -364,14 +316,14 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "100"
                   endingLineNumber = "100"
-                  offsetFromSymbolStart = "143">
+                  offsetFromSymbolStart = "157">
                </Location>
                <Location
-                  uuid = "BB2BC80F-DC78-474A-9661-04A1BE6307FC - d4457e2ef53dc6f1"
-                  shouldBeEnabled = "Yes"
+                  uuid = "BB2BC80F-DC78-474A-9661-04A1BE6307FC - 5ce6ef99f9f780f9"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in Training.getDataService.getListNearEvent(radius: Swift.Double, longitue: Swift.Double, latitude: Swift.Double, header: Swift.Dictionary&lt;Swift.String, Swift.String&gt;, completionHandler: (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; ()) -&gt; ()"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in Training.getDataService.getListNearEvent(radius: Swift.Double, longitue: Swift.String, latitude: Swift.String, header: Swift.Dictionary&lt;Swift.String, Swift.String&gt;, completionHandler: (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; ()) -&gt; ()"
                   moduleName = "Training"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/manhld/Desktop/Training/Training/MyService/APIService.swift"
@@ -394,8 +346,8 @@
             filePath = "Training/View/Cell/PopularsTableViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37">
+            startingLineNumber = "43"
+            endingLineNumber = "43">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -520,9 +472,9 @@
             filePath = "Training/Controller/PopularsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "getPopularData(isLoadMore:page:)"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "getListPopularData(isLoadMore:page:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -530,23 +482,23 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "655B4C6B-383D-4361-B3E8-1735D98FDD82"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Training/Controller/PopularsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "getPopularData(isLoadMore:page:)"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "getListPopularData(isLoadMore:page:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "655B4C6B-383D-4361-B3E8-1735D98FDD82 - 730687b5913fc52f"
-                  shouldBeEnabled = "Yes"
+                  uuid = "655B4C6B-383D-4361-B3E8-1735D98FDD82 - 4e3fed5b9c900336"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Training.PopularsViewController.getPopularData(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  symbolName = "closure #1 () -&gt; () in Training.PopularsViewController.getListPopularData(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
                   moduleName = "Training"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/PopularsViewController.swift"
@@ -557,11 +509,11 @@
                   offsetFromSymbolStart = "54">
                </Location>
                <Location
-                  uuid = "655B4C6B-383D-4361-B3E8-1735D98FDD82 - c09c3a3e5c33e4c9"
-                  shouldBeEnabled = "Yes"
+                  uuid = "655B4C6B-383D-4361-B3E8-1735D98FDD82 - 198a8974f6ad1748"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.PopularsViewController.getPopularData(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  symbolName = "closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.PopularsViewController.getListPopularData(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
                   moduleName = "Training"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/PopularsViewController.swift"
@@ -572,6 +524,406 @@
                   offsetFromSymbolStart = "98">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1F2E266D-D50E-4D28-821F-181F20835BC7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NewsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "getNewsData(shoudLoadmore:page:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "89C7CFEA-FA47-4209-A03E-53DCFEB29B67"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NewsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "getNewsData(shoudLoadmore:page:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "89C7CFEA-FA47-4209-A03E-53DCFEB29B67 - 1ada41be22f6bdcc"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Training.NewsViewController.getNewsData(shoudLoadmore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/NewsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "89C7CFEA-FA47-4209-A03E-53DCFEB29B67 - 13b00d6dd99a64e0"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.NewsViewController.getNewsData(shoudLoadmore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/NewsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D9B231E-D20D-4B25-A015-87946FF8971F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/PopularsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "getListPopularData(isLoadMore:page:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4D9B231E-D20D-4B25-A015-87946FF8971F - 989326917f5a3485"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Training.PopularsViewController.getListPopularData(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/PopularsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "545">
+               </Location>
+               <Location
+                  uuid = "4D9B231E-D20D-4B25-A015-87946FF8971F - 4e3fed5b9c900336"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Training.PopularsViewController.getListPopularData(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/PopularsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "54">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C9156B48-EEBC-4809-A754-5D29F61938B7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/EventsByCategoriesController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "setupView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "62298BBB-53B5-4EEA-9295-780C2176267B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/EventsByCategoriesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "62298BBB-53B5-4EEA-9295-780C2176267B - 39b7c9f455a5bd56"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Training.EventsByCategoriesViewController.getDataEventsByCategories(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/EventsByCategoriesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "78">
+               </Location>
+               <Location
+                  uuid = "62298BBB-53B5-4EEA-9295-780C2176267B - 9a8e04605e83d670"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.EventsByCategoriesViewController.getDataEventsByCategories(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/EventsByCategoriesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "190">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0A8C064D-B46A-4F8A-951B-0A68E0DCBC3B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/EventsByCategoriesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0A8C064D-B46A-4F8A-951B-0A68E0DCBC3B - 9a8e04605e83d670"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.EventsByCategoriesViewController.getDataEventsByCategories(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/EventsByCategoriesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "117"
+                  endingLineNumber = "117"
+                  offsetFromSymbolStart = "648">
+               </Location>
+               <Location
+                  uuid = "0A8C064D-B46A-4F8A-951B-0A68E0DCBC3B - ff69e757674cd5af"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftyJSON.JSON) -&gt; () in closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.EventsByCategoriesViewController.getDataEventsByCategories(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/EventsByCategoriesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "49">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "279AC73A-09C1-46F3-AD97-ED89B632417E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/EventsByCategoriesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "551B1342-29F7-47F2-BC46-4DCF8F080FCC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/EventsByCategoriesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9120C58B-FE3D-43C2-890E-70D3BD5B496F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/EventsByCategoriesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CFF4E290-2180-4F66-A3EE-543C9DF6B58D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/EventsByCategoriesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B1878A79-D6AC-4D3F-8A06-00538F71D6E6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/MyPageGoingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "getListGoingEvent()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0CD2F14F-8244-43E2-90E5-6A11D1DA8AE8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NewsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "getNewsData(shoudLoadmore:page:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0CD2F14F-8244-43E2-90E5-6A11D1DA8AE8 - 5d52be2b4cb3cac7"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftyJSON.JSON) -&gt; () in closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.NewsViewController.getNewsData(shoudLoadmore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/NewsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "1316">
+               </Location>
+               <Location
+                  uuid = "0CD2F14F-8244-43E2-90E5-6A11D1DA8AE8 - 410e883c68f2be98"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (SwiftyJSON.JSON) -&gt; () in closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.NewsViewController.getNewsData(shoudLoadmore: Swift.Bool, page: Swift.Int) -&gt; ()"
+                  moduleName = "Training"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/NewsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "116">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "16A490EC-02AC-443C-BD3C-5F644C8171DA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NewsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "getNewsData(shoudLoadmore:page:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "92E00C75-4516-422C-845E-98A4CC33AA0A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NewsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "getNewsData(shoudLoadmore:page:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D4223A2C-708D-4EE3-91DF-ADEADE5E4AA2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NearViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "getListEvent()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

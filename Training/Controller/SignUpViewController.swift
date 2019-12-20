@@ -38,6 +38,7 @@ class SignUpViewController: UIViewController {
     
     
     func handleLogged() {
+        let token = UserDefaults.standard.string(forKey: "userToken")
            if token != nil {
                let vc = MyPageViewController()
                navigationController?.pushViewController(vc, animated: false)

@@ -7,22 +7,32 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SearchViewController: UIViewController {
-    
-    var searchResponse : [SearchResponseDatabase] = []
 
     @IBOutlet weak var txtSearch: UITextField!
     
     @IBOutlet weak var searchTable: UITableView!
     
-    private let refreshControl = UIRefreshControl()
+    @IBOutlet weak var viewBtn: UIView!
+ 
+    @IBOutlet weak var incaditorView: UIView!
     
-    var currentPage = 1
+    
+    @IBOutlet weak var incaditorLeading: NSLayoutConstraint!
     
     @IBOutlet weak var noResults: UILabel!
     
     @IBOutlet weak var loading: UIActivityIndicatorView!
+    
+    private let refreshControl = UIRefreshControl()
+     
+    var currentPage = 1
+    var currentClick = false
+    var pastClick = false
+    var searchResponse : [SearchResponseDatabase] = []
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +53,8 @@ class SearchViewController: UIViewController {
         } else {
             self.searchTable.addSubview(refreshControl)
         }
-            self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
+            self.refreshControl.addTarget(self, action: #selector(updateDataSeacrch), for: .valueChanged)
+        
     }
     
     func updateObject() {
@@ -51,26 +62,26 @@ class SearchViewController: UIViewController {
       }
       
     func deleteObject() {
-        for i in self.searchResponse {
-            RealmDataBaseQuery.getInstance.deleteData(object: i)
+        let list = realm.objects(SearchResponseDatabase.self).toArray(ofType: SearchResponseDatabase.self)
+        try! realm.write {
+            realm.delete(list)
         }
     }
     
-    
     func handleSearch(isLoadMore : Bool, page : Int) {
         let keyword = txtSearch.text!
-        let usertoken = token
+        let usertoken = UserDefaults.standard.string(forKey: "userToken")
         if usertoken == nil {
-            ToastView.shared.short(self.view, txt_msg: "Not logged in")
+            self.loading.handleLoading(isLoading: false)
+            ToastView.shared.short(self.view, txt_msg: "Not need to login first !")
         } else {
-            let headers = [
-                               "token": token!,
-                               "Content-Type": "application/json"
-                            ]
+            let headers = [ "token": usertoken!,
+                            "Content-Type": "application/json"  ]
         let queue = DispatchQueue(label: "searchData")
         queue.async {
             getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
                 if errcode == 1 {
+    
                 } else if errcode == 2 {
                     let data = json!
                     if isLoadMore == false {
@@ -86,14 +97,15 @@ class SearchViewController: UIViewController {
                         RealmDataBaseQuery.getInstance.addData(object: searchRes)
                         })
                     }
+                    self.loading.handleLoading(isLoading: false)
                     self.updateObject()
                     self.searchTable.reloadData()
-                    self.loading.handleLoading(isLoading: false)
                     if self.searchResponse.isEmpty {
                         self.noResults.isHidden = false
                     } else {
                         self.noResults.isHidden = true
                     }
+                  
                 } else {
                     self.loading.handleLoading(isLoading: false)
                     ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
@@ -105,7 +117,7 @@ class SearchViewController: UIViewController {
     }
 }
     
-    @objc func updateData() {
+    @objc func updateDataSeacrch() {
         handleSearch(isLoadMore: false, page: currentPage)
         refreshControl.endRefreshing()
     }
@@ -126,6 +138,15 @@ class SearchViewController: UIViewController {
         txtSearch.text = ""
     }
     
+    
+    @IBAction func incomingBtn(_ sender: Any) {
+        incaditorLeading.constant = 0
+    }
+    
+    
+    @IBAction func pastBtn(_ sender: Any) {
+        incaditorLeading.constant = viewBtn.frame.width/2
+    }
 }
 
 extension SearchViewController : UITextFieldDelegate {

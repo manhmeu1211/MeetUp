@@ -23,8 +23,14 @@ class PopularsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imgPopulars.roundCorners()
+       
         
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imgPopulars.layoutIfNeeded()
+        imgPopulars.roundCorners()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

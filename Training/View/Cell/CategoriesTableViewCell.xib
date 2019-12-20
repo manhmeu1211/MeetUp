@@ -35,12 +35,21 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle 279" translatesAutoresizingMaskIntoConstraints="NO" id="VWW-It-cWr">
                                 <rect key="frame" x="5" y="5" width="70" height="30"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group" translatesAutoresizingMaskIntoConstraints="NO" id="eXo-rm-BTM">
+                                <rect key="frame" x="26" y="10" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="FdN-FM-9fo"/>
+                                    <constraint firstAttribute="height" constant="20" id="SNP-QR-TJH"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="0VS-7Y-ar1" firstAttribute="centerY" secondItem="SEo-By-A7G" secondAttribute="centerY" id="1XS-5m-XG8"/>
+                            <constraint firstItem="eXo-rm-BTM" firstAttribute="centerX" secondItem="VWW-It-cWr" secondAttribute="centerX" multiplier="0.9" id="9Kv-Wx-dJR"/>
                             <constraint firstItem="CMq-Gq-dWs" firstAttribute="top" secondItem="SEo-By-A7G" secondAttribute="top" constant="10" id="DRW-X7-xfA"/>
                             <constraint firstAttribute="trailing" secondItem="0VS-7Y-ar1" secondAttribute="trailing" constant="5" id="DZZ-kt-CX6"/>
+                            <constraint firstItem="eXo-rm-BTM" firstAttribute="centerY" secondItem="VWW-It-cWr" secondAttribute="centerY" id="GaM-0T-HnJ"/>
                             <constraint firstAttribute="bottom" secondItem="VWW-It-cWr" secondAttribute="bottom" constant="5" id="NY9-3f-6Rd"/>
                             <constraint firstItem="VWW-It-cWr" firstAttribute="top" secondItem="SEo-By-A7G" secondAttribute="top" constant="5" id="Nlb-1G-9Mk"/>
                             <constraint firstItem="VWW-It-cWr" firstAttribute="leading" secondItem="SEo-By-A7G" secondAttribute="leading" constant="5" id="UER-VA-Ohq"/>
@@ -69,6 +78,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Group" width="24" height="24"/>
         <image name="Rectangle 12.1" width="10" height="16.5"/>
         <image name="Rectangle 279" width="84" height="59"/>
     </resources>
