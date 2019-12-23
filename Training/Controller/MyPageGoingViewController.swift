@@ -14,8 +14,6 @@ class MyPageGoingViewController: UIViewController {
 
     @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var goingTable: UITableView!
-    
-    
     private let refreshControl = UIRefreshControl()
     let status = 1
     var goingEvents : [MyPageGoingResDatabase] = []
@@ -77,7 +75,6 @@ class MyPageGoingViewController: UIViewController {
                         ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
                     } else if errCode == 2 {
                         let data = json!
-                        print(data)
                         self.deleteObject()
                         self.goingEvents.removeAll()
                         _ = data.array?.forEach({ (goingEvents) in
@@ -116,5 +113,13 @@ extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let id = goingEvents[indexPath.row + 1].id
+        print(id)
+        let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
+        vc.id = id
+        navigationController?.pushViewController(vc, animated: true)
+       
+    }
     
 }

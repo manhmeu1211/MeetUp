@@ -13,17 +13,22 @@ class EventDetailController: UIViewController {
     
     let realm = try! Realm()
  
-    
     @IBOutlet weak var detailTable: UITableView!
     
     var eventDetail = EventDetail()
+    var events : [EventsNearResponse] = []
     var id : Int?
     let userToken = UserDefaults.standard.string(forKey: "userToken")
+    var alertLogin = UIAlertController()
+
+    var headers : [String : String] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self)
         setUpView()
         getDetailEvent()
+        setHeaders()
+        getListEvent()
     }
     
     func setUpView() {
@@ -36,8 +41,19 @@ class EventDetailController: UIViewController {
         detailTable.register(UINib(nibName: "ButtonFooterCell", bundle: nil), forCellReuseIdentifier: "ButtonFooterCell")
         detailTable.rowHeight = UITableView.automaticDimension
         detailTable.allowsSelection = false
+        detailTable.showsVerticalScrollIndicator = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
+    func setHeaders() {
+        if userToken == nil {
+            headers = [ "Authorization": "No Auth",
+                        "Content-Type": "application/json"  ]
+        } else {
+            headers = [ "Authorization": "Bearer \(userToken!)",
+                        "Content-Type": "application/json"  ]
+        }
+    }
     
     func checkLoggedIn() -> Bool {
         if userToken != nil {
@@ -45,7 +61,7 @@ class EventDetailController: UIViewController {
         }
         return false
     }
-     
+    
     func deleteObject() {
        let list = realm.objects(EventDetail.self).toArray(ofType: EventDetail.self)
         try! realm.write {
@@ -53,35 +69,88 @@ class EventDetailController: UIViewController {
         }
     }
     
-    func getDetailEvent() {
-        let usertoken = UserDefaults.standard.string(forKey: "userToken")
-
-        let headers = [ "Authorization": "Bearer \(usertoken!)",
-                        "Content-Type": "application/json"  ]
-        
-        getDataService.getInstance.getEventDetail(idEvent: id!, headers: headers) { (json, errcode) in
+    func handleLoginView() {
+         isLoginVC = true
+         let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+         UIApplication.shared.windows.first?.rootViewController = vc
+         UIApplication.shared.windows.first?.makeKeyAndVisible()
+     }
+    
+    func goingEvent() {
+        let params = ["status": 1, "event_id": id! ]
+        getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
-                print("Lỗi")
+                ToastView.shared.short(self.view, txt_msg: "System error")
             } else if errcode == 2 {
-                self.deleteObject()
-//                self.eventDetail.removeAll()
-                let detail = json!
-                let detailVenue = detail["venue"]
-                let detailGenre = detail["category"]
-                print(detailVenue)
-                print(detailGenre)
-              
-                self.eventDetail = EventDetail(id: detail["id"].intValue, photo: detail["photo"].stringValue, name: detail["name"].stringValue, descriptionHtml: detail["description_html"].stringValue, scheduleStartDate: detail["schedule_start_date"].stringValue, scheduleEndDate: detail["schedule_end_date"].stringValue, scheduleStartTime: detail["schedule_start_time"].stringValue, scheduleEndTime: detail["schedule_end_time"].stringValue, schedulePermanent: detail["schedule_permanent"].stringValue, goingCount: detail["going_count"].intValue, nameGenre: detailGenre["name"].stringValue, vnLocation: detailVenue["contact_address"].stringValue, vnContact: detailVenue["contact_phone"].stringValue, vnName: detailVenue["name"].stringValue)
-
-                RealmDataBaseQuery.getInstance.addData(object: self.eventDetail)
-              
-                print(self.eventDetail)
-                self.detailTable.reloadData()
-               
+                self.alertLogin.createAlert(target: self, title: "Success", message: "You're going this event", titleBtn: "OK")
+                 self.getDetailEvent()
             } else {
-                print("Connection")
+                ToastView.shared.short(self.view, txt_msg: "Check your connection")
             }
         }
+    }
+    
+    func wentEvent() {
+        let params = ["status": 2, "event_id": id! ]
+        getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
+            if errcode == 1 {
+                ToastView.shared.short(self.view, txt_msg: "System error")
+            } else if errcode == 2 {
+                self.alertLogin.createAlert(target: self, title: "Success", message: "You went this event", titleBtn: "OK")
+                self.getDetailEvent()
+            } else {
+                ToastView.shared.short(self.view, txt_msg: "Check your connection")
+            }
+        }
+    }
+    
+    func getDetailEvent() {
+        let queue = DispatchQueue(label: "getDetailEvent")
+        queue.async {
+            getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (json, errcode) in
+                if errcode == 1 {
+                    ToastView.shared.short(self.view, txt_msg: "System error")
+                } else if errcode == 2 {
+                    self.deleteObject()
+                    let detail = json!
+                    let detailVenue = detail["venue"]
+                    let detailGenre = detail["category"]
+                    self.eventDetail = EventDetail(id: detail["id"].intValue, photo: detail["photo"].stringValue, name: detail["name"].stringValue, descriptionHtml: detail["description_html"].stringValue, scheduleStartDate: detail["schedule_start_date"].stringValue, scheduleEndDate: detail["schedule_end_date"].stringValue, scheduleStartTime: detail["schedule_start_time"].stringValue, scheduleEndTime: detail["schedule_end_time"].stringValue, schedulePermanent: detail["schedule_permanent"].stringValue, goingCount: detail["going_count"].intValue, nameGenre: detailGenre["name"].stringValue, vnLocation: detailVenue["contact_address"].stringValue, vnContact: detailVenue["contact_phone"].stringValue, vnName: detailVenue["name"].stringValue, latValue: detailVenue["geo_lat"].doubleValue, longValue: detailVenue["geo_long"].doubleValue, mystatus: detail["my_status"].intValue )
+         
+                    RealmDataBaseQuery.getInstance.addData(object: self.eventDetail)
+                    self.detailTable.reloadData()
+                } else {
+                    ToastView.shared.short(self.view, txt_msg: "Check your connection")
+                }
+            }
+        }
+    }
+    
+
+    func getListEvent() {
+        let queue = DispatchQueue(label: "getListNearV2")
+        queue.async {
+            getDataService.getInstance.getListNearEvent(radius: 5000, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: self.headers) { (json, errcode) in
+                  if errcode == 1 {
+                      self.events.removeAll()
+                      let anotionLC = json!
+                      _ = anotionLC.array?.forEach({ (events) in
+                          let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
+                       self.events.append(events)
+                      })
+                  } else {
+                      print("failed")
+                  }
+              }
+          }
+      }
+
+    
+    
+    @IBAction func backtoHome(_ sender: Any) {
+        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+        UIApplication.shared.windows.first?.rootViewController = vc
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
 }
 
@@ -110,7 +179,7 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
         }
         else if indexPath.row == 1 {
             let cell = detailTable.dequeueReusableCell(withIdentifier: "TextAreaCell", for: indexPath) as! TextAreaCell
-            cell.txtView.text = eventDetail.descriptionHtml
+            cell.txtView.text = eventDetail.descriptionHtml.replacingOccurrences(of: "[|<>/]", with: "", options: [.regularExpression])
             return cell
         } else if indexPath.row == 2 {
             let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
@@ -118,6 +187,9 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
             cell.vnName.text = "Venue: "
             cell.vnDetail.text = eventDetail.vnName
             cell.btnFollow.addTarget(self, action: #selector(handleFollow), for: .touchUpInside)
+            if eventDetail.mystatus == 2 {
+                cell.btnFollow.setTitle("Followed", for: .normal)
+            }
             return cell
         }  else if indexPath.row == 3 {
            let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
@@ -133,18 +205,24 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
             return cell
         } else if indexPath.row == 6  {
             let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailNearCell", for: indexPath) as! DetailNearCell
-           
+            cell.updateData(eventLoaded: events)
             return cell
         } else if indexPath.row == 7  {
             let cell = detailTable.dequeueReusableCell(withIdentifier: "ButtonFooterCell", for: indexPath) as! ButtonFooterCell
-            if checkLoggedIn() == true {
-                cell.btnWent.addTarget(self, action: #selector(handleWent), for: UIControl.Event.touchUpInside)
-                cell.btnGoing.addTarget(self, action: #selector(handleGoing), for: UIControl.Event.touchUpInside)
+            cell.btnWent.addTarget(self, action: #selector(handleWent), for: UIControl.Event.touchUpInside)
+            cell.btnGoing.addTarget(self, action: #selector(handleGoing), for: UIControl.Event.touchUpInside)
+            if checkLoggedIn() == false {
+                cell.btnGoing.backgroundColor = UIColor.systemGray6
+                cell.btnWent.backgroundColor = UIColor.systemGray6
             } else {
-                cell.btnWent.isEnabled = false
-                cell.btnGoing.isEnabled = false
+                if eventDetail.mystatus == 1 {
+                     cell.btnGoing.backgroundColor = UIColor.red
+                } else if eventDetail.mystatus == 2 {
+                    cell.btnWent.backgroundColor = UIColor.systemOrange
+                    cell.btnWent.isEnabled = false
+                    cell.btnGoing.isEnabled = false
+                }
             }
-            
             return cell
         } else {
            let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
@@ -165,22 +243,46 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.row == 7  {
             return 50
         } else if indexPath.row == 6  {
-            return 150
+            return 200
         } else {
             return 50
         }
     }
     
+    
     @objc func handleFollow() {
-        print("follow")
+         if checkLoggedIn() == false {
+            alertLogin.createAlertWithHandle(target: self, title: "Not logged in", message: "You have to login", titleBtn: "OK") {
+                self.handleLoginView()
+            }
+        }
     }
     
     @objc func handleGoing() {
-           print("going")
-       }
+        if checkLoggedIn() == false {
+            alertLogin.createAlertWithHandle(target: self, title: "Not logged in", message: "You have to login", titleBtn: "LOGIN") {
+                self.handleLoginView()
+            }
+        } else {
+            if eventDetail.mystatus != 1 {
+                self.goingEvent()
+            } else {
+                ToastView.shared.short(self.view, txt_msg: "Already join this event")
+            }
+        }
+    }
     
     @objc func handleWent() {
-           print("went")
-       }
-    
+        if checkLoggedIn() == false {
+            alertLogin.createAlertWithHandle(target: self, title: "Not logged in", message: "You have to login", titleBtn: "LOGIN") {
+                self.handleLoginView()
+            }
+        } else {
+            if eventDetail.mystatus != 2 {
+                self.wentEvent()
+            } else {
+                ToastView.shared.short(self.view, txt_msg: "Already join this event")
+            }
+        }
+    }
 }

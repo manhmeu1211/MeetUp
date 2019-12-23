@@ -59,7 +59,21 @@ class EventsByCategoriesViewController: UIViewController {
         eventTable.rowHeight = UITableView.automaticDimension
         eventTable.register(UINib(nibName: "PopularsTableViewCell", bundle: nil), forCellReuseIdentifier: "PopularsTableViewCell")
         titleCategories.text = "\(headerTitle!)(\(eventsByCate.count))"
+        if #available(iOS 10.0, *) {
+            self.eventTable.refreshControl = refreshControl
+        } else {
+            self.eventTable.addSubview(refreshControl)
+        }
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing data")
+        refreshControl.addTarget(self, action: #selector(upDateData), for: .valueChanged)
     }
+    
+    
+    @objc func upDateData() {
+          getDataEventsByCategories(isLoadMore: false, page: currentPage)
+          refreshControl.endRefreshing()
+      }
+      
     
     func loadingHubShow() {
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
@@ -99,7 +113,6 @@ class EventsByCategoriesViewController: UIViewController {
         print("getData")
         let categoriesID = id!
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
-      
         let headers = [ "token": usertoken!,
                         "Content-Type": "application/json" ]
         

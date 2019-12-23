@@ -103,5 +103,11 @@ extension MyPageWentViewController : UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let id = wentEvents[indexPath.row].id
+        let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
+        vc.id = id
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
 }

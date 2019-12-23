@@ -105,7 +105,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
 
     func getListEvent() {
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
-       let headers = [ "Authorization": "Bearer \(usertoken!)",
+        let headers = [ "Authorization": "Bearer \(usertoken!)",
         "Content-Type": "application/json"  ]
         let queue = DispatchQueue(label: "getMap")
         queue.async {
@@ -175,6 +175,8 @@ extension NearViewController : UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.collectionVIew.frame.width, height: self.collectionVIew.frame.height)
     }
+    
+    
 }
 
 

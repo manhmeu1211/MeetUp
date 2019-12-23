@@ -26,9 +26,12 @@ class EventDetail: Object {
     @objc dynamic var vnLocation = ""
     @objc dynamic var vnContact = ""
     @objc dynamic var vnName = ""
+    @objc dynamic var latValue = 0.0
+    @objc dynamic var longValue = 0.0
+    @objc dynamic var mystatus = 0
     
     
-    convenience init(id: Int, photo :String , name: String, descriptionHtml : String, scheduleStartDate : String, scheduleEndDate : String, scheduleStartTime: String, scheduleEndTime : String, schedulePermanent : String, goingCount: Int, nameGenre : String, vnLocation : String, vnContact : String, vnName : String ) {
+    convenience init(id: Int, photo :String , name: String, descriptionHtml : String, scheduleStartDate : String, scheduleEndDate : String, scheduleStartTime: String, scheduleEndTime : String, schedulePermanent : String, goingCount: Int, nameGenre : String, vnLocation : String, vnContact : String, vnName : String, latValue : Double, longValue : Double, mystatus : Int) {
         self.init()
         self.id = id
         var url = URL(string: photo)
@@ -59,6 +62,9 @@ class EventDetail: Object {
         self.vnContact = vnContact
         self.vnLocation = vnLocation
         self.nameGenre = nameGenre
+        self.latValue = latValue
+        self.longValue = longValue
+        self.mystatus = mystatus
     }
 }
 

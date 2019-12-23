@@ -210,4 +210,24 @@ class getDataService {
             }
         }
     }
+    
+    func doUpdateEvent(params : [String : Any], headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> ()) {
+        Alamofire.request(baseURL + "doUpdateEvent", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+              switch response.result {
+                case .success(let value):
+                let response = JSON(value)
+                let status = response["status"]
+                if status == 0 {
+                    let data = response["error_message"]
+                    completionHandler(data, 1)
+                } else {
+                    completionHandler(status, 2)
+                }
+                case .failure( _):
+                completionHandler(nil, 0)
+            }
+        }
+    }
+    
+
 }
