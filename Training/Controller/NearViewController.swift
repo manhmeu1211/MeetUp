@@ -55,9 +55,6 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         print(getRadius(centralLocation: CLLocation(latitude: initLat!, longitude: initLong!)))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
 
     func getListEventV2() {
         let token = UserDefaults.standard.string(forKey: "userToken")
@@ -107,9 +104,9 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     func getListEvent() {
-        let token = UserDefaults.standard.string(forKey: "userToken")
-        let headers = [ "token": token!,
-                        "Content-Type": "application/json" ]
+        let usertoken = UserDefaults.standard.string(forKey: "userToken")
+       let headers = [ "Authorization": "Bearer \(usertoken!)",
+        "Content-Type": "application/json"  ]
         let queue = DispatchQueue(label: "getMap")
         queue.async {
             getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (json, errcode) in

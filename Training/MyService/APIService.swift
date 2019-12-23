@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class getDataService {
     
-   let baseURL = "http://b9acd944.ngrok.io/18175d1_mobile_100_fresher/public/api/v0/"
+   let baseURL = "http://meetup.rikkei.org/api/v0/"
     
     class var getInstance: getDataService {
          struct Static {
@@ -62,7 +62,7 @@ class getDataService {
         }
     }
     
-    func register(params: [String : String], completionHandler : @escaping (JSON?, Int) -> ()) {
+    open func register(params: [String : String], completionHandler : @escaping (JSON?, Int) -> ()) {
         Alamofire.request(baseURL + "register", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result {
             case .success(let value):
@@ -95,7 +95,7 @@ class getDataService {
         }
     }
     
-    func getListNearEvent(radius: Double, longitue : Double, latitude : Double, header: HTTPHeaders,completionHandler : @escaping (JSON?, Int) ->()) {
+    open func getListNearEvent(radius: Double, longitue : Double, latitude : Double, header: HTTPHeaders,completionHandler : @escaping (JSON?, Int) ->()) {
         Alamofire.request(baseURL + "listNearlyEvents?radius=\(radius)&longitue=\(longitue)&latitude=\(latitude)", method: .get, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
             switch response.result {
                 case .success(let value):
@@ -151,18 +151,17 @@ class getDataService {
         }
     }
     
-    func getMyEventGoing(status : Int, headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> ()) {
+   open func getMyEventGoing(status : Int, headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> ()) {
         Alamofire.request(baseURL + "listMyEvents?status=\(status)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
              switch response.result {
                 case .success(let value):
                 let response = JSON(value)
                 let status = response["status"]
-                var data = response["response"]
                 if status == 0 {
-                    data = response["error_message"]
+                    let data = response["error_message"]
                     completionHandler(data, 1)
                 } else {
-                    data = response["response"]["events"]
+                    let data = response["response"]["events"]
                     completionHandler(data, 2)
                 }
             case .failure( _):
@@ -191,4 +190,24 @@ class getDataService {
                }
            }
        }
+    
+    func getEventDetail(idEvent : Int, headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> () ) {
+        Alamofire.request(baseURL + "getDetailEvent?event_id=\(idEvent)", method: .get, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+             switch response.result {
+                case .success(let value):
+                let response = JSON(value)
+                let status = response["status"]
+                var data = response["response"]
+                if status == 0 {
+                    data = response["error_message"]
+                    completionHandler(data, 1)
+                } else {
+                    data = response["response"]["events"]
+                    completionHandler(data, 2)
+                }
+                case .failure( _):
+                completionHandler(nil, 0)
+            }
+        }
+    }
 }

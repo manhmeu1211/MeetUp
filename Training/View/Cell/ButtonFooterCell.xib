@@ -9,35 +9,45 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ButtonFooterCell" id="KGk-i7-Jjw" customClass="ButtonFooterCell" customModule="Training" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ButtonFooterCell" rowHeight="51" id="KGk-i7-Jjw" customClass="ButtonFooterCell" customModule="Training" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="335" height="51"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="335" height="51"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vlb-Fn-ob1">
-                        <rect key="frame" x="0.0" y="0.0" width="160" height="44"/>
-                        <state key="normal" title="I'm going"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vhq-VS-8ff">
+                        <rect key="frame" x="5" y="5" width="161" height="41"/>
+                        <color key="backgroundColor" red="0.36470588240000001" green="0.12549019610000001" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <state key="normal" title="I'm going">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEu-iT-edR">
-                        <rect key="frame" x="159" y="0.0" width="161" height="44"/>
-                        <state key="normal" title="I went"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50W-Hj-i5k">
+                        <rect key="frame" x="169" y="5" width="161" height="41"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="I went">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="kEu-iT-edR" secondAttribute="trailing" id="3J4-jN-tPc"/>
-                    <constraint firstItem="kEu-iT-edR" firstAttribute="width" secondItem="Vlb-Fn-ob1" secondAttribute="width" constant="1" id="8wL-6Q-9gP"/>
-                    <constraint firstItem="Vlb-Fn-ob1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Kee-d3-Ycb"/>
-                    <constraint firstItem="Vlb-Fn-ob1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="V9Q-H6-3HQ"/>
-                    <constraint firstItem="Vlb-Fn-ob1" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="1/2" id="Zu0-pY-G2J"/>
-                    <constraint firstAttribute="bottom" secondItem="Vlb-Fn-ob1" secondAttribute="bottom" id="rRM-iu-rUM"/>
-                    <constraint firstItem="kEu-iT-edR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tkS-oW-WyO"/>
-                    <constraint firstAttribute="bottom" secondItem="kEu-iT-edR" secondAttribute="bottom" id="vhe-yh-PR5"/>
+                    <constraint firstAttribute="bottom" secondItem="50W-Hj-i5k" secondAttribute="bottom" constant="5" id="1sx-Sa-hbK"/>
+                    <constraint firstAttribute="bottom" secondItem="Vhq-VS-8ff" secondAttribute="bottom" constant="5" id="Ap0-A1-RA1"/>
+                    <constraint firstItem="Vhq-VS-8ff" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.48" id="XlU-fI-NU3"/>
+                    <constraint firstItem="50W-Hj-i5k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ZNr-h4-eIk"/>
+                    <constraint firstAttribute="trailing" secondItem="50W-Hj-i5k" secondAttribute="trailing" constant="5" id="t9U-Hr-3rY"/>
+                    <constraint firstItem="Vhq-VS-8ff" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="vGc-BR-zxL"/>
+                    <constraint firstItem="50W-Hj-i5k" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.48" id="vd4-cx-Kn0"/>
+                    <constraint firstItem="Vhq-VS-8ff" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="yjR-wq-jRz"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="131.8840579710145" y="111.83035714285714"/>
+            <connections>
+                <outlet property="btnGoing" destination="Vhq-VS-8ff" id="ESg-Ou-R2V"/>
+                <outlet property="btnWent" destination="50W-Hj-i5k" id="6hc-gY-o8U"/>
+            </connections>
+            <point key="canvasLocation" x="142.75362318840581" y="114.17410714285714"/>
         </tableViewCell>
     </objects>
 </document>

@@ -39,7 +39,7 @@ class NewsViewController: UIViewController {
             updateData()
         }
     }
-    
+   
     func detechDailyFirstLaunch() -> Bool {
          let today = NSDate().formatted
          if (UserDefaults.standard.string(forKey: "FIRSTLAUNCHNEWS") == today) {

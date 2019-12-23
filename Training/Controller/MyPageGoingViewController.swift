@@ -14,8 +14,10 @@ class MyPageGoingViewController: UIViewController {
 
     @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var goingTable: UITableView!
-    let status = 1
     
+    
+    private let refreshControl = UIRefreshControl()
+    let status = 1
     var goingEvents : [MyPageGoingResDatabase] = []
     let userToken = UserDefaults.standard.string(forKey: "userToken")
     let realm = try! Realm()
@@ -23,7 +25,6 @@ class MyPageGoingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
         if userToken != nil {
             getListGoingEvent()
         } else {
@@ -36,6 +37,16 @@ class MyPageGoingViewController: UIViewController {
         goingTable.dataSource = self
         goingTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         self.loading.handleLoading(isLoading: true)
+        if #available(iOS 10.0, *) {
+            self.goingTable.refreshControl = refreshControl
+        } else {
+            self.goingTable.addSubview(refreshControl)
+        }
+            self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
+    }
+    
+    @objc func updateData() {
+       getListGoingEvent()
     }
     
     func updateObject() {
@@ -52,13 +63,13 @@ class MyPageGoingViewController: UIViewController {
 
     
     func getListGoingEvent() {
-        let usertoken = UserDefaults.standard.string(forKey: "userToken")
-        if usertoken == nil {
+        if userToken == nil {
             self.loading.handleLoading(isLoading: false)
-            ToastView.shared.short(self.view, txt_msg: "Not need to login first !")
+            ToastView.shared.short(self.view, txt_msg: "You need to login first !")
         } else {
-            let headers = [ "Authorization": "Bearer \(usertoken!)",
+            let headers = [ "Authorization": "Bearer \(userToken!)",
                             "Content-Type": "application/json"  ]
+            
             let queue = DispatchQueue(label: "getListGoingEvent")
             queue.async {
                 getDataService.getInstance.getMyEventGoing(status: self.status, headers: headers) { (json, errCode) in
@@ -66,6 +77,7 @@ class MyPageGoingViewController: UIViewController {
                         ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
                     } else if errCode == 2 {
                         let data = json!
+                        print(data)
                         self.deleteObject()
                         self.goingEvents.removeAll()
                         _ = data.array?.forEach({ (goingEvents) in
@@ -75,7 +87,7 @@ class MyPageGoingViewController: UIViewController {
                         self.updateObject()
                         self.goingTable.reloadData()
                         self.loading.handleLoading(isLoading: false)
-                     
+                    
                     }  else {
                         self.updateObject()
                         ToastView.shared.short(self.view, txt_msg: "Check your connetion !")

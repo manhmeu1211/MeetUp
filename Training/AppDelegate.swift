@@ -14,6 +14,11 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        try! FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+//        let realm = try! Realm()
+//        try! realm.write {
+//          realm.deleteAll()
+//        }
         return true
     }
  

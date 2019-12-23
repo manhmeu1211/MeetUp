@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPageGoingViewController" customModule="Training" customModuleProvider="target">
+            <connections>
+                <outlet property="goingTable" destination="zB9-xo-ZeH" id="oav-3Y-J8y"/>
+                <outlet property="loading" destination="KiT-V2-N2N" id="UGI-AM-elW"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zB9-xo-ZeH">
+                    <rect key="frame" x="10" y="44" width="394" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="KiT-V2-N2N">
+                    <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zB9-xo-ZeH" secondAttribute="trailing" constant="10" id="49r-dS-hsZ"/>
+                <constraint firstItem="KiT-V2-N2N" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="DCa-JR-WCp"/>
+                <constraint firstItem="zB9-xo-ZeH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="PQu-DL-49b"/>
+                <constraint firstItem="zB9-xo-ZeH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="cp1-qB-49y"/>
+                <constraint firstItem="KiT-V2-N2N" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="lZT-zd-xZ1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="zB9-xo-ZeH" secondAttribute="bottom" id="zJ4-om-c2k"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="132" y="112"/>
+        </view>
+    </objects>
+</document>
