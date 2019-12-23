@@ -39,16 +39,14 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         setUpCollectionView()
         locationManager.requestWhenInUseAuthorization()
         if( CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-                CLLocationManager.authorizationStatus() ==  .authorizedAlways){
+                CLLocationManager.authorizationStatus() ==  .authorizedAlways) {
             currentLocation = locationManager.location
-            if initLong == nil || initLat == nil {
-                initLong = 105.874993
-                initLat =  21.044895
-            } else {
-                initLong = currentLocation.coordinate.longitude
-                initLat = currentLocation.coordinate.latitude
-            }
+            initLong = currentLocation.coordinate.longitude
+            initLat = currentLocation.coordinate.latitude
             centerMapOnLocation(location: CLLocation(latitude: initLat!, longitude: initLong!))
+        } else {
+            initLong = 105.874993
+            initLat =  21.044895
         }
         addArtwork()
         getListEventV2()

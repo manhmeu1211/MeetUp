@@ -34,12 +34,14 @@ class NewsViewController: UIViewController {
         if detechDailyFirstLaunch() == false {
             updateObject()
             loading.handleLoading(isLoading: false)
+            print(newsResponse.count)
         } else {
             loading.handleLoading(isLoading: true)
-            updateData()
+            getNewsData(shoudLoadmore: false, page: currentPage)
         }
     }
-   
+    
+  
     func detechDailyFirstLaunch() -> Bool {
          let today = NSDate().formatted
          if (UserDefaults.standard.string(forKey: "FIRSTLAUNCHNEWS") == today) {
@@ -79,15 +81,15 @@ class NewsViewController: UIViewController {
     }
     
     func updateObject() {
-        let list = realm.objects(NewsDataResponse.self).toArray(ofType: NewsDataResponse.self)
+        let list = RealmDataBaseQuery.getInstance.getObjects(type: NewsDataResponse.self)!.toArray(ofType: NewsDataResponse.self)
         newsResponse = list
         newsTable.reloadData()
     }
 
     func getNewsData(shoudLoadmore: Bool, page: Int) {
-        loading.stopAnimating()
-        loading.isHidden = true
-        let queue = DispatchQueue(label: "appendData")
+        print("getData", shoudLoadmore)
+        loading.handleLoading(isLoading: false)
+        let queue = DispatchQueue(label: "appendDataNews")
             queue.async {
                 getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10) { (json, errCode) in
                     if errCode == 1 {
@@ -97,20 +99,15 @@ class NewsViewController: UIViewController {
                             self.newsResponse.removeAll()
                             _ = result.array?.forEach({ (news) in
                                 let news = NewsDataResponse(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
-                                try! self.realm.write {
-                                    self.realm.add(news)
-                                }
+                               RealmDataBaseQuery.getInstance.addData(object: news)
                             })
                         } else {
                             _ = result.array?.forEach({ (news) in
                             let news = NewsDataResponse(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
-                            try! self.realm.write {
-                                self.realm.add(news)
-                            }
+                                RealmDataBaseQuery.getInstance.addData(object: news)
                             })
                         }
                         self.updateObject()
-                        self.newsTable.reloadData()
                     } else {
                         self.updateObject()
                         print("Failed to load Data")
@@ -140,11 +137,10 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == newsResponse.count - 2 {
-            self.getNewsData(shoudLoadmore: true, page: self.currentPage + 1)
-            self.currentPage += 1
+            currentPage += 1
+            self.getNewsData(shoudLoadmore: true, page: currentPage)
             loading.handleLoading(isLoading: false)
         }
-       
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

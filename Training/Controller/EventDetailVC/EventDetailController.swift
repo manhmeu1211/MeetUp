@@ -109,7 +109,7 @@ class EventDetailController: UIViewController {
         queue.async {
             getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (json, errcode) in
                 if errcode == 1 {
-                    ToastView.shared.short(self.view, txt_msg: "System error")
+                    ToastView.shared.short(self.view, txt_msg: "You need to login first")
                 } else if errcode == 2 {
                     self.deleteObject()
                     let detail = json!
@@ -120,7 +120,7 @@ class EventDetailController: UIViewController {
                     RealmDataBaseQuery.getInstance.addData(object: self.eventDetail)
                     self.detailTable.reloadData()
                 } else {
-                    ToastView.shared.short(self.view, txt_msg: "Check your connection")
+                    ToastView.shared.short(self.view, txt_msg: "Check your internet connection !")
                 }
             }
         }
