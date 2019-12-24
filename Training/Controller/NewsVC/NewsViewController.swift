@@ -179,7 +179,6 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let vc = WebViewController()
         vc.urlToOpen = newsResponse[indexPath.row].url
-        vc.modalPresentationStyle = .overCurrentContext
         present(vc, animated: true, completion: nil)
     }
 

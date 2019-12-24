@@ -151,7 +151,7 @@ extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
         let id = popularResponse[indexPath.row].id
         let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
         vc.id = id
-        navigationController?.pushViewController(vc, animated: true)
+        present(vc, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

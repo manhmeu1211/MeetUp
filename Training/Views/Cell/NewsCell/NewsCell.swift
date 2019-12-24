@@ -33,10 +33,15 @@ class NewsCell: UITableViewCell {
         containerView.layoutIfNeeded()
         containerView.roundCornersView(corners: [.topLeft, .topRight], radius: 30)
     }
+   
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        if selected {
+            contentView.backgroundColor = UIColor.white
+        } else {
+            contentView.backgroundColor = UIColor.white
+        }
     }
     
 }

@@ -21,11 +21,14 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     // MARK: - Varribles
     let realm = try! Realm()
     var events : [EventsNearResponse] = []
+    var anotion : [Artwork] = []
     let locationManager = CLLocationManager()
     let regionRadius: CLLocationDistance = 1000
     var centralLocationCoordinate : CLLocationCoordinate2D!
     var currentLocation: CLLocation!
     var initLong, initLat : Double?
+    var eventLong : [Double] = []
+    var eventLat : [Double] = []
     let alertNotLogin = UIAlertController()
     
     override func viewDidLoad() {
@@ -122,8 +125,10 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
                 self.events.removeAll()
                 let anotionLC = json!
                 _ = anotionLC.array?.forEach({ (anotion) in
-                    let anotion = Artwork(title: anotion["venue"]["name"].stringValue, locationName: anotion["venue"]["name"].stringValue, discipline: anotion["venue"]["description"].stringValue, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
-                    self.map.addAnnotation(anotion)
+                    let anotionArt = Artwork(title: anotion["venue"]["name"].stringValue, locationName: anotion["venue"]["name"].stringValue, discipline: anotion["venue"]["description"].stringValue, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
+                    self.map.addAnnotation(anotionArt)
+                    self.eventLong.append(anotion["venue"]["geo_long"].doubleValue)
+                    self.eventLat.append(anotion["venue"]["geo_lat"].doubleValue)
                 })
                 _ = anotionLC.array?.forEach({ (events) in
                     let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
@@ -183,6 +188,11 @@ extension NearViewController : UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.collectionVIew.frame.width, height: self.collectionVIew.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        centerMapOnLocation(location: CLLocation(latitude: eventLat[indexPath.row], longitude: eventLong[indexPath.row]))
+        print(eventLat[indexPath.row], eventLong[indexPath.row])
     }
     
     

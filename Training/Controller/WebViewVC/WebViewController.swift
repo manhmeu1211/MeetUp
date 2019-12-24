@@ -26,9 +26,7 @@ class WebViewController: UIViewController {
         webViewV2.load(request)
     }
    
-    @IBAction func btnDismiss(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+
 }
 
 

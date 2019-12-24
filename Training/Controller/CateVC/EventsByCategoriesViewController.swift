@@ -118,12 +118,12 @@ class EventsByCategoriesViewController: UIViewController {
                     RealmDataBaseQuery.getInstance.addData(object: eventsRes)
                     })
                 }
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 self.updateObjectByPopulars()
                 self.eventTable.reloadData()
-                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
             } else {
-                self.updateObjectByPopulars()
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+                self.updateObjectByPopulars()
                 ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
             }
         }
@@ -192,8 +192,8 @@ extension EventsByCategoriesViewController : UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
            if indexPath.row == eventsByCate.count - 2 {
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
-               self.getDataEventsByCategories(isLoadMore: true, page: self.currentPage + 1 )
-               self.currentPage += 1
+                self.getDataEventsByCategories(isLoadMore: true, page: self.currentPage + 1 )
+                self.currentPage += 1
            }
        }
        

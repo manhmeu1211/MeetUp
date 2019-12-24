@@ -143,9 +143,7 @@ class EventDetailController: UIViewController {
     
     
     @IBAction func backtoHome(_ sender: Any) {
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        dismiss(animated: true, completion: nil)
     }
 }
 

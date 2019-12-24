@@ -19,62 +19,23 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Dn-hX-7iV">
-                    <rect key="frame" x="0.0" y="184" width="414" height="678"/>
+                    <rect key="frame" x="0.0" y="94" width="414" height="768"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <wkWebViewConfiguration key="configuration">
                         <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                         <wkPreferences key="preferences"/>
                     </wkWebViewConfiguration>
                 </wkWebView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JmY-7d-dfB">
-                    <rect key="frame" x="0.0" y="130" width="414" height="54"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Anf-lZ-wca">
-                            <rect key="frame" x="5" y="10" width="40" height="34"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="iIW-zb-K1F"/>
-                            </constraints>
-                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <state key="normal" backgroundImage="icons8-back-66">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="btnDismiss:" destination="-1" eventType="touchUpInside" id="3Dv-xw-c5H"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoC-gN-5N7">
-                            <rect key="frame" x="50" y="16.5" width="38" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <constraints>
-                        <constraint firstItem="Anf-lZ-wca" firstAttribute="top" secondItem="JmY-7d-dfB" secondAttribute="top" constant="10" id="Emy-Jg-qdw"/>
-                        <constraint firstItem="uoC-gN-5N7" firstAttribute="leading" secondItem="Anf-lZ-wca" secondAttribute="trailing" constant="5" id="OT8-DN-dqk"/>
-                        <constraint firstAttribute="bottom" secondItem="Anf-lZ-wca" secondAttribute="bottom" constant="10" id="PEG-2v-lPT"/>
-                        <constraint firstItem="Anf-lZ-wca" firstAttribute="leading" secondItem="JmY-7d-dfB" secondAttribute="leading" constant="5" id="QTk-v2-ljf"/>
-                        <constraint firstItem="uoC-gN-5N7" firstAttribute="centerY" secondItem="Anf-lZ-wca" secondAttribute="centerY" id="ziG-1E-z87"/>
-                    </constraints>
-                </view>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="0.30102882922535212" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="0.023740096830985914" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="1Dn-hX-7iV" secondAttribute="bottom" id="5Vt-au-k50"/>
-                <constraint firstItem="JmY-7d-dfB" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.06" id="IFR-14-UZM"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JmY-7d-dfB" secondAttribute="trailing" id="NTo-KU-gRx"/>
-                <constraint firstItem="1Dn-hX-7iV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="140" id="OuN-D9-cha"/>
-                <constraint firstItem="1Dn-hX-7iV" firstAttribute="top" secondItem="JmY-7d-dfB" secondAttribute="bottom" id="mrt-hk-rPw"/>
+                <constraint firstItem="1Dn-hX-7iV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="OuN-D9-cha"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1Dn-hX-7iV" secondAttribute="trailing" id="rmp-zT-0b6"/>
-                <constraint firstItem="JmY-7d-dfB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="tvI-4J-DQj"/>
                 <constraint firstItem="1Dn-hX-7iV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vqg-BQ-Ytg"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="133" y="112"/>
         </view>
     </objects>
-    <resources>
-        <image name="icons8-back-66" width="21.333333969116211" height="21.333333969116211"/>
-    </resources>
 </document>
