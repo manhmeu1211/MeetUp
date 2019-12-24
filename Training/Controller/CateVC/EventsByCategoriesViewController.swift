@@ -11,12 +11,17 @@ import RealmSwift
 
 class EventsByCategoriesViewController: UIViewController {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var noResults: UILabel!
     @IBOutlet weak var titleCategories: UILabel!
     @IBOutlet weak var incaditorLeading: NSLayoutConstraint!
     @IBOutlet weak var incaditorView: UIView!
     @IBOutlet weak var eventTable: UITableView!
     private let refreshControl = UIRefreshControl()
+    
+    // MARK: - Varribles
+    
     var alertLoading = UIAlertController()
     var id : Int?
     var headerTitle : String?
@@ -26,12 +31,15 @@ class EventsByCategoriesViewController: UIViewController {
     let realm = try! Realm()
     let token = UserDefaults.standard.string(forKey: "userToken")
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupVỉew()
         getDataEventV2()
     }
 
+    
+    // MARK: - Function setup views and data
     
     func getDataEventV2() {
         if token != nil {
@@ -122,6 +130,7 @@ class EventsByCategoriesViewController: UIViewController {
     }
     
     
+    // MARK: - Actions
     
     @IBAction func byPopulars(_ sender: Any) {
         eventsByCate.removeAll()
@@ -152,6 +161,8 @@ class EventsByCategoriesViewController: UIViewController {
     }
 }
 
+
+// MARK: - Extension tableview
 
 extension EventsByCategoriesViewController : UITableViewDataSource, UITableViewDelegate {
     

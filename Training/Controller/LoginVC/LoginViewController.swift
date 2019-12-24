@@ -11,17 +11,11 @@ import UIKit
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
-    
     @IBOutlet weak var emailView: UIView!
-    
     @IBOutlet weak var passwordView: UIView!
-    
     @IBOutlet weak var uiBtnLogin: UIButton!
-    
     @IBOutlet weak var txtEmail: UITextField!
-    
     @IBOutlet weak var txtPassword: UITextField!
-    
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
     var alertLoginFailed = UIAlertController()
@@ -83,11 +77,11 @@ class LoginViewController: UIViewController {
         if txtEmail.text!.isEmpty || txtPassword.text!.isEmpty  {
             ToastView.shared.long(self.view, txt_msg: "Please fill your infomation")
             loading.handleLoading(isLoading: false)
-        } else if isValidPassword(stringPassword: pass) == false {
+        } else if ValidatedString.getInstance.isValidPassword(stringPassword: pass) == false {
             ToastView.shared.short(self.view, txt_msg: "Password must be 6-16 character, Try again!")
             txtPassword.text = ""
             loading.handleLoading(isLoading: false)
-        } else if isValidEmail(stringEmail: mail) == false {
+        } else if ValidatedString.getInstance.isValidEmail(stringEmail: mail) == false {
             ToastView.shared.short(self.view, txt_msg: "Email is not correct, Try again!")
             txtEmail.text = ""
             loading.handleLoading(isLoading: false)

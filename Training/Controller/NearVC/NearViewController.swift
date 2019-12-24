@@ -14,23 +14,18 @@ import RealmSwift
 
 class NearViewController: UIViewController, CLLocationManagerDelegate {
     
+    // MARK: - Outlets
     @IBOutlet weak var collectionVIew: UICollectionView!
     @IBOutlet weak var map: MKMapView!
     
+    // MARK: - Varribles
     let realm = try! Realm()
-    
     var events : [EventsNearResponse] = []
-    
     let locationManager = CLLocationManager()
-    
     let regionRadius: CLLocationDistance = 1000
-        
     var centralLocationCoordinate : CLLocationCoordinate2D!
-    
     var currentLocation: CLLocation!
-    
     var initLong, initLat : Double?
-    
     let alertNotLogin = UIAlertController()
     
     override func viewDidLoad() {
@@ -41,6 +36,9 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         getLocation()
         getListEventV2()
     }
+    
+    
+    // MARK: - Setup Location - MapView
     
     func getLocation() {
         locationManager.requestWhenInUseAuthorization()
@@ -57,6 +55,23 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         addArtwork()
          alertNotLogin.createAlertLoading(target: self, isShowLoading: false)
     }
+    
+    func addArtwork() {
+          map.mapType = MKMapType.standard
+          let artwork = Artwork(title: "My Location",
+                 locationName: "My Location",
+                 discipline: "My Location",
+                 coordinate: CLLocationCoordinate2D(latitude: initLat!, longitude: initLong!))
+          map.addAnnotation(artwork)
+    }
+    
+    // MARK: - Setup views
+    
+    func setUpCollectionView() {
+          collectionVIew.dataSource = self
+          collectionVIew.delegate = self
+          collectionVIew.register(UINib(nibName: "EventsCell", bundle: nil), forCellWithReuseIdentifier: "EventsCell")
+      }
     
 
     func getListEventV2() {
@@ -79,20 +94,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         
     }
 
-    func setUpCollectionView() {
-        collectionVIew.dataSource = self
-        collectionVIew.delegate = self
-        collectionVIew.register(UINib(nibName: "EventsCell", bundle: nil), forCellWithReuseIdentifier: "EventsCell")
-    }
-    
-    func addArtwork() {
-        map.mapType = MKMapType.standard
-        let artwork = Artwork(title: "My Location",
-               locationName: "My Location",
-               discipline: "My Location",
-               coordinate: CLLocationCoordinate2D(latitude: initLat!, longitude: initLong!))
-        map.addAnnotation(artwork)
-    }
+  // MARK: - getData
     
     func updateObject() {
         let list = RealmDataBaseQuery.getInstance.getObjects(type: EventsNearResponse.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsNearResponse.self)
@@ -157,7 +159,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
 }
 
 
-
+// MARK: - Extension collection view
 
 extension NearViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     

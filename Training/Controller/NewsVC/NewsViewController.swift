@@ -146,6 +146,8 @@ class NewsViewController: UIViewController {
     }
 }
 
+// MARK: - Extension table
+
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -8,6 +8,9 @@
 
 import UIKit
 
+var isSearchVC = false
+var isLoginVC = false
+
 class TabbarViewController: UITabBarController {
     // MARK: - Check index tabbar view
     override func viewDidLoad() {

@@ -9,31 +9,31 @@
 import UIKit
 
 class SignUpViewController: UIViewController {
-
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var fullName: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var email: UITextField!
-    
     @IBOutlet weak var uiBtn: UIButton!
-    @IBOutlet weak var loading: UIActivityIndicatorView!
-    
     @IBOutlet weak var nameView: UIView!
-    
     @IBOutlet weak var emailView: UIView!
-    
-    
     @IBOutlet weak var passwordView: UIView!
+    var alert = UIAlertController()
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
     }
+    
+    
+    // MARK: - Function setup view
     
     func setUpView() {
         nameView.setUpCardView()
         emailView.setUpCardView()
         passwordView.setUpCardView()
         uiBtn.roundedButton()
-        loading.handleLoading(isLoading: false)
+        alert.createAlertLoading(target: self, isShowLoading: false)
     }
     
     
@@ -53,6 +53,8 @@ class SignUpViewController: UIViewController {
     }
        
     
+    
+    // MARK: - Actions
 
     @IBAction func dismissKeyBoard(_ sender: Any) {
         view.endEditing(true)
@@ -60,20 +62,19 @@ class SignUpViewController: UIViewController {
     
     
     @IBAction func signUp(_ sender: Any) {
-         loading.handleLoading(isLoading: true)
+        alert.createAlertLoading(target: self, isShowLoading: true)
         guard let mail = email.text , let name = fullName.text, let pass = password.text else { return }
-        if isValidEmail(stringEmail: mail) == false {
+        if ValidatedString.getInstance.isValidEmail(stringEmail: mail) == false {
             ToastView.shared.short(self.view, txt_msg: "Email is not correct, Try again!")
             email.text = ""
-            loading.handleLoading(isLoading: false)
-        } else if isValidPassword(stringPassword: pass) == false {
+            alert.createAlertLoading(target: self, isShowLoading: false)
+        } else if ValidatedString.getInstance.isValidPassword(stringPassword: pass) == false {
                         ToastView.shared.short(self.view, txt_msg: "Password must be 6-16 character, Try again!")
                         password.text = ""
-                        loading.handleLoading(isLoading: false)
+                        alert.createAlertLoading(target: self, isShowLoading: false)
         } else if email.text!.isEmpty || password.text!.isEmpty || fullName.text!.isEmpty {
                         ToastView.shared.long(self.view, txt_msg: "Please fill your infomation")
-                        loading.handleLoading(isLoading: false)
-
+                        alert.createAlertLoading(target: self, isShowLoading: false)
         } else {
             let params = [
                 "name": name,
@@ -86,9 +87,9 @@ class SignUpViewController: UIViewController {
                     if errcode == 1 {
                         ToastView.shared.short(self.view, txt_msg: "Register Success")
                         self.handleLoginView()
-                        self.loading.handleLoading(isLoading: false)
+                        self.alert.createAlertLoading(target: self, isShowLoading: false)
                     } else {
-                        self.loading.handleLoading(isLoading: false)
+                        self.alert.createAlertLoading(target: self, isShowLoading: false)
                         ToastView.shared.short(self.view, txt_msg: "Register Failed, Check your network")
                     }
                 }

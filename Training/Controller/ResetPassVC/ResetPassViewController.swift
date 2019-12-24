@@ -9,15 +9,12 @@
 import UIKit
 
 class ResetPassViewController: UIViewController {
+    // MARK: - Outlets
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var btnResetPassword: UIButton!
-    
     @IBOutlet weak var txtEmail: UITextField!
-    
     @IBOutlet weak var emailView: UIView!
-    
-    
     var alert = UIAlertController()
     
     override func viewDidLoad() {
@@ -27,6 +24,7 @@ class ResetPassViewController: UIViewController {
         setUpKeyBoardObservers()
     }
     
+    // MARK: - Function setup keyboard
     
     func setUpKeyBoardObservers() {
         let notificationCenter = NotificationCenter.default
@@ -47,6 +45,8 @@ class ResetPassViewController: UIViewController {
         }
     }
     
+    // MARK: - Function reset password
+    
     func handleLoginView() {
          isLoginVC = true
         let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
@@ -56,7 +56,7 @@ class ResetPassViewController: UIViewController {
     
     func resetPassword() {
         let email = txtEmail.text
-        if isValidEmail(stringEmail: email!) == false || email!.isEmpty  {
+        if ValidatedString.getInstance.isValidEmail(stringEmail: email!) == false || email!.isEmpty  {
             ToastView.shared.short(self.view, txt_msg: "Email is not correct")
             txtEmail.text = ""
         } else {
@@ -72,6 +72,8 @@ class ResetPassViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - Actions
 
 
     @IBAction func resetPassword(_ sender: Any) {
@@ -87,9 +89,10 @@ class ResetPassViewController: UIViewController {
         view.endEditing(true)
         containerView.endEditing(true)
     }
-    
-    
+
 }
+
+// MARK: - Extension textfied
 
 extension ResetPassViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

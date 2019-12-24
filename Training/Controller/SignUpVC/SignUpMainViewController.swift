@@ -10,22 +10,20 @@ import UIKit
 
 class SignUpMainViewController: UIViewController {
 
+    // MARK: - Outlets
     
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var incaditor: UIView!
-    
     @IBOutlet weak var incaditorLeading: NSLayoutConstraint!
-    
     @IBOutlet weak var leftView: UIView!
-    
     @IBOutlet weak var rightView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-      
     }
+    
+    // MARK: - Function setup views
     
     func setUpView() {
         tabBarController?.tabBar.isHidden = true
@@ -47,6 +45,7 @@ class SignUpMainViewController: UIViewController {
        
     }
     
+    // MARK: - Actions
  
     @IBAction func loginBtn(_ sender: Any) {
          scrollView.setContentOffset(CGPoint(x: 0.0, y: 0.0), animated: true)
@@ -58,6 +57,8 @@ class SignUpMainViewController: UIViewController {
     }
     
 }
+
+// MARK: - Extension scrollview
 
 extension SignUpMainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

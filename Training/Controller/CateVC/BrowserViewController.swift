@@ -10,11 +10,15 @@ import UIKit
 import RealmSwift
 
 class BrowserViewController: UIViewController {
-
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var categoriesTable: UITableView!
+    
+     // MARK: - Varribles
+    
     var alertLoading = UIAlertController()
     let refreshControl = UIRefreshControl()
-    
     var cateList : [CategoriesResDatabase] = []
     let realm = try! Realm()
     let userToken = UserDefaults.standard.string(forKey: "userToken")
@@ -35,6 +39,7 @@ class BrowserViewController: UIViewController {
         }
     }
     
+     // MARK: - setup View
     
     func setUpBarButton() {
         self.title = "Categories"
@@ -54,6 +59,8 @@ class BrowserViewController: UIViewController {
                }
                self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
     }
+    
+     // MARK: - getData
     
     @objc func updateData() {
         getListCategories()
@@ -95,18 +102,20 @@ class BrowserViewController: UIViewController {
         }
     }
     
-  
-    
     @objc func handleSearchViewController() {
         let searchVC = SearchViewController()
         navigationController?.pushViewController(searchVC, animated: true)
     }
     
+    
+      // MARK: - Actions
     @IBAction func handleSearchView(_ sender: Any) {
         let searchView = SearchViewController()
         navigationController?.pushViewController(searchView, animated: true)
     }
 }
+
+  // MARK: - Extension tableview
 
 extension BrowserViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
