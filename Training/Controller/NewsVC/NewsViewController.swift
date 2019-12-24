@@ -11,26 +11,60 @@ import RealmSwift
 
 class NewsViewController: UIViewController {
     
-    let realm = try! Realm()
+  // MARK: - Outlets
  
     @IBOutlet weak var newsTable: UITableView!
-    
+    let refreshControl = UIRefreshControl()
     var alertLoading = UIAlertController()
+    
+    // MARK: - Varrible
+    
+    let realm = try! Realm()
     var currentPage = 1
     var newsResponse : [NewsDataResponse] = []
     let dateformatted = DateFormatter()
-    let refreshControl = UIRefreshControl()
+    let userToken = UserDefaults.standard.string(forKey: "userToken")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
+        checkFirstLaunchDaily()
+        checkTokenExpired()
+    }
+    
+    // MARK: - Function check before get data
+    
+    func checkFirstLaunchDaily() {
         if detechDailyFirstLaunch() == false {
+            checkTokenExpired()
             updateObject()
             alertLoading.createAlertLoading(target: self, isShowLoading: false)
         } else {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             getNewsData(shoudLoadmore: false, page: currentPage)
         }
+    }
+    
+    func checkTokenExpired() {
+        if userToken != nil {
+            let headers = [ "Authorization": "Bearer \(userToken!)",
+                        "Content-Type": "application/json"  ]
+            getDataService.getInstance.getMyEventGoing(status: 1, headers: headers) { (json, errCode) in
+                if errCode == 1 {
+                    self.alertLoading.createAlertWithHandle(target: self, title: "Login session expired", message: "Please re-login !", titleBtn: "OK") {
+                        self.handleLogOut()
+                    }
+                } else {
+                    print("Token is avaible")
+                }
+            }
+        } else {
+            print("Not logged in")
+        }
+    }
+    
+    func handleLogOut() {
+        UserDefaults.standard.removeObject(forKey: "userToken")
     }
     
   
@@ -46,6 +80,8 @@ class NewsViewController: UIViewController {
          }
      }
     
+    // MARK: - Function set up table and get data
+    
     func setUpTable() {
         newsTable.dataSource = self
         newsTable.delegate = self
@@ -58,6 +94,7 @@ class NewsViewController: UIViewController {
         }
         self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
     }
+    
     
     @objc func updateData() {
         getNewsData(shoudLoadmore: false, page: currentPage)
@@ -75,10 +112,10 @@ class NewsViewController: UIViewController {
     func updateObject() {
         let list = RealmDataBaseQuery.getInstance.getObjects(type: NewsDataResponse.self)!.toArray(ofType: NewsDataResponse.self)
         newsResponse = list
-        newsTable.reloadData()
     }
 
     func getNewsData(shoudLoadmore: Bool, page: Int) {
+        print("getNewsData")
         getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10) { (json, errCode) in
             if errCode == 1 {
                 let result = json!
@@ -96,9 +133,11 @@ class NewsViewController: UIViewController {
                     })
                 }
                 self.updateObject()
+                self.newsTable.reloadData()
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
             } else {
                 self.updateObject()
+                self.newsTable.reloadData()
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 print("Failed to load Data")
                 ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
@@ -136,9 +175,9 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let url = newsResponse[indexPath.row + 1].url
         let vc = WebViewController()
-        vc.urlToOpen = url
+        vc.urlToOpen = newsResponse[indexPath.row].url
+        vc.modalPresentationStyle = .overCurrentContext
         present(vc, animated: true, completion: nil)
     }
 

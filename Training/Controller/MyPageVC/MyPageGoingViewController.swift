@@ -59,6 +59,14 @@ class MyPageGoingViewController: UIViewController {
             realm.delete(list)
         }
     }
+    
+    func handleLogOut() {
+        isLoginVC = true
+        UserDefaults.standard.removeObject(forKey: "userToken")
+        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+        UIApplication.shared.windows.first?.rootViewController = vc
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+    }
 
     
     func getListGoingEvent() {
@@ -69,8 +77,9 @@ class MyPageGoingViewController: UIViewController {
                             "Content-Type": "application/json"  ]
             getDataService.getInstance.getMyEventGoing(status: self.status, headers: headers) { (json, errCode) in
                 if errCode == 1 {
-                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
-                    ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
+                    self.alertLoading.createAlertWithHandle(target: self, title: "Login session expired", message: "Please re-login !", titleBtn: "OK") {
+                        self.handleLogOut()
+                    }
                 } else if errCode == 2 {
                     let data = json!
                     self.deleteObject()

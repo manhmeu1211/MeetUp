@@ -9,11 +9,9 @@
 import UIKit
 
 class TabbarViewController: UITabBarController {
-  
-    
+    // MARK: - Check index tabbar view
     override func viewDidLoad() {
         super.viewDidLoad()
-
         if isSearchVC == true {
             self.selectedIndex = 2
         } else if isLoginVC == true {

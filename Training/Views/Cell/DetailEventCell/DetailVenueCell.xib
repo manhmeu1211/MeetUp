@@ -17,19 +17,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rikkei soft" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMf-EC-ecp">
-                        <rect key="frame" x="70" y="20" width="347" height="19.5"/>
+                        <rect key="frame" x="90" y="20" width="327" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sm-pU-76R">
-                        <rect key="frame" x="5" y="20" width="60" height="21"/>
+                        <rect key="frame" x="5" y="20" width="80" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <color key="textColor" red="0.36470588240000001" green="0.12549019610000001" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="me8-FT-cha">
-                        <rect key="frame" x="175.5" y="49.5" width="231.5" height="33"/>
+                        <rect key="frame" x="189" y="49.5" width="218" height="33"/>
                         <color key="backgroundColor" red="0.36470588240000001" green="0.12549019610000001" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <state key="normal" title="Follow this">
@@ -65,7 +65,7 @@
                     <constraint firstItem="c8L-hA-UoP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9Ap-yI-uTU"/>
                     <constraint firstItem="c8L-hA-UoP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="B8f-T3-I8O"/>
                     <constraint firstItem="me8-FT-cha" firstAttribute="top" secondItem="pMf-EC-ecp" secondAttribute="bottom" constant="10" id="BCI-LE-axI"/>
-                    <constraint firstItem="pMf-EC-ecp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="70" id="DzH-nl-HRR"/>
+                    <constraint firstItem="pMf-EC-ecp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="DzH-nl-HRR"/>
                     <constraint firstAttribute="trailing" secondItem="me8-FT-cha" secondAttribute="trailing" constant="20" id="E6c-ey-dyi"/>
                     <constraint firstAttribute="trailing" secondItem="v4V-ex-gHP" secondAttribute="trailing" id="Io5-J9-Xob"/>
                     <constraint firstAttribute="trailing" secondItem="me8-FT-cha" secondAttribute="trailing" constant="20" id="JY6-kk-UPr"/>

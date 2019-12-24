@@ -22,7 +22,7 @@ class getDataService {
          return Static.instance
      }
     
-    open func getListNews(pageIndex : Int, pageSize : Int, completionHandler: @escaping (JSON?, Int) -> ()) {
+    func getListNews(pageIndex : Int, pageSize : Int, completionHandler: @escaping (JSON?, Int) -> ()) {
         Alamofire.request(baseURL + "listNews?pageIndex=\(pageIndex)&pageSize=\(pageSize)", method: .get, encoding: JSONEncoding.default).validate().responseJSON { (response) in
              switch response.result {
                 case .success(let value):
@@ -35,7 +35,7 @@ class getDataService {
         }
     }
     
-    open func getListPopular(pageIndex: Int, pageSize: Int, completionHandler : @escaping (JSON?, Int) -> ()) {
+    func getListPopular(pageIndex: Int, pageSize: Int, completionHandler : @escaping (JSON?, Int) -> ()) {
         Alamofire.request(baseURL + "listPopularEvents?pageIndex=\(pageIndex)&pageSize=\(pageSize)" , method: .get, encoding: JSONEncoding.default).validate().responseJSON { response in
                 switch response.result {
                 case .success(let value):
@@ -49,7 +49,7 @@ class getDataService {
     }
     
     
-    open func getListCategories(completionHandler : @escaping (JSON?, Int) -> ()) {
+    func getListCategories(completionHandler : @escaping (JSON?, Int) -> ()) {
         Alamofire.request(baseURL + "listCategories" , method: .get, encoding: JSONEncoding.default).responseJSON { response in
             switch response.result {
             case .success(let value):
@@ -62,7 +62,7 @@ class getDataService {
         }
     }
     
-    open func register(params: [String : String], completionHandler : @escaping (JSON?, Int) -> ()) {
+    func register(params: [String : String], completionHandler : @escaping (JSON?, Int) -> ()) {
         Alamofire.request(baseURL + "register", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result {
             case .success(let value):
@@ -95,7 +95,27 @@ class getDataService {
         }
     }
     
-    open func getListNearEvent(radius: Double, longitue : Double, latitude : Double, header: HTTPHeaders,completionHandler : @escaping (JSON?, Int) ->()) {
+    func resetPassword(params : [String : String], completionHandler : @escaping (JSON?, Int) -> ()) {
+        Alamofire.request(baseURL + "resetPassword", method: .post, parameters: params, encoding: JSONEncoding.default).validate().responseJSON { (response) in
+             switch response.result {
+                case .success(let value):
+                let response = JSON(value)
+                let status = response["status"]
+                var data = response["response"]
+                if status == 0 {
+                    data = response["error_message"]
+                    completionHandler(data, 1)
+                } else {
+                    data = response["response"]
+                    completionHandler(data, 2)
+                }
+                case .failure( _):
+                completionHandler(nil, 0)
+            }
+        }
+    }
+    
+    func getListNearEvent(radius: Double, longitue : Double, latitude : Double, header: HTTPHeaders,completionHandler : @escaping (JSON?, Int) ->()) {
         Alamofire.request(baseURL + "listNearlyEvents?radius=\(radius)&longitue=\(longitue)&latitude=\(latitude)", method: .get, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
             switch response.result {
                 case .success(let value):
@@ -151,7 +171,7 @@ class getDataService {
         }
     }
     
-   open func getMyEventGoing(status : Int, headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> ()) {
+   func getMyEventGoing(status : Int, headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> ()) {
         Alamofire.request(baseURL + "listMyEvents?status=\(status)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
              switch response.result {
                 case .success(let value):
@@ -228,6 +248,4 @@ class getDataService {
             }
         }
     }
-    
-
 }

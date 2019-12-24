@@ -23,7 +23,7 @@ class DetailNearCell: UITableViewCell {
     
     func updateData(eventLoaded : [EventsNearResponse]) {
         if eventLoaded == [] {
-            events.append(EventsNearResponse(id: 0, photo: "", name: "You have to login", descriptionHtml: "", scheduleStartDate: "", scheduleEndDate: "", scheduleStartTime: "", scheduleEndTime: "", schedulePermanent: "", goingCount: 0))
+            events.append(EventsNearResponse(id: 0, photo: "", name: "No data", descriptionHtml: "", scheduleStartDate: "", scheduleEndDate: "", scheduleStartTime: "", scheduleEndTime: "", schedulePermanent: "", goingCount: 0))
         } else {
             events = eventLoaded
         }

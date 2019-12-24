@@ -17,31 +17,83 @@ class ResetPassViewController: UIViewController {
     
     @IBOutlet weak var emailView: UIView!
     
+    
+    var alert = UIAlertController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         btnResetPassword.roundedButton()
         emailView.setUpCardView()
+        setUpKeyBoardObservers()
+    }
+    
+    
+    func setUpKeyBoardObservers() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(handleKeyBoardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(handleKeyBoardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    @objc func handleKeyBoardShow(notification: Notification) {
+        if view.frame.origin.y == 0 {
+             view.frame.origin.y -= 100
+        }
+    }
+    
+    @objc func handleKeyBoardHide(notification : Notification) {
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
+    
+    func handleLoginView() {
+         isLoginVC = true
+        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+        UIApplication.shared.windows.first?.rootViewController = vc
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+     }
+    
+    func resetPassword() {
+        let email = txtEmail.text
+        if isValidEmail(stringEmail: email!) == false || email!.isEmpty  {
+            ToastView.shared.short(self.view, txt_msg: "Email is not correct")
+            txtEmail.text = ""
+        } else {
+            let params = ["email" : email!]
+            getDataService.getInstance.resetPassword(params: params) { (json, errCode) in
+                if errCode == 1 {
+                    self.alert.createAlert(target: self, title: "System error", message: "Email does not exits in system", titleBtn: "OK")
+                } else if errCode == 2 {
+                    self.alert.createAlert(target: self, title: "Reset password success", message: "Check your email to confirm", titleBtn: "OK")
+                } else {
+                    ToastView.shared.short(self.view, txt_msg: "Check your network connection")
+                }
+            }
+        }
     }
 
 
     @IBAction func resetPassword(_ sender: Any) {
-        handleLoginView()
+        resetPassword()
     }
     
+
     @IBAction func backToLogin(_ sender: Any) {
-        isLoginVC = true
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+       handleLoginView()
     }
-    
-    func handleLoginView() {
-        let loginVC = SignUpMainViewController()
-        navigationController?.pushViewController(loginVC, animated: true)
-    }
-       
+
     @IBAction func dismissKeyboard(_ sender: Any) {
         view.endEditing(true)
         containerView.endEditing(true)
+    }
+    
+    
+}
+
+extension ResetPassViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        resetPassword()
+        return true
     }
 }

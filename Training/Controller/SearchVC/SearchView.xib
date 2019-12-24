@@ -11,7 +11,6 @@
             <connections>
                 <outlet property="incaditorLeading" destination="569-z1-H4u" id="ioF-jP-GzM"/>
                 <outlet property="incaditorView" destination="y6Q-mq-ZnP" id="b1s-z1-UgP"/>
-                <outlet property="loading" destination="JWO-Ra-7a7" id="su3-5D-5yR"/>
                 <outlet property="noResults" destination="c25-XC-O2L" id="OJ5-ra-5nX"/>
                 <outlet property="searchTable" destination="cHz-Sr-6kK" id="hBL-Dp-jZF"/>
                 <outlet property="txtSearch" destination="z7a-xK-UnQ" id="S2V-wn-Nj3"/>
@@ -53,9 +52,6 @@
                     <rect key="frame" x="0.0" y="184.5" width="414" height="677.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="JWO-Ra-7a7">
-                    <rect key="frame" x="197" y="451" width="20" height="20"/>
-                </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c25-XC-O2L">
                     <rect key="frame" x="160.5" y="486.5" width="93" height="24"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
@@ -119,12 +115,14 @@
                         <constraint firstItem="JDg-Gf-eJe" firstAttribute="width" secondItem="WOj-lG-9ui" secondAttribute="width" multiplier="1/2" id="xLq-8v-xSW"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jT9-MV-jZ0">
-                    <rect key="frame" x="314" y="59" width="60" height="35"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jT9-MV-jZ0">
+                    <rect key="frame" x="324" y="59" width="60" height="35"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="5Jb-ZQ-t7U"/>
                         <constraint firstAttribute="height" constant="35" id="93G-9t-QYh"/>
                     </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <color key="tintColor" red="0.36470588240000001" green="0.12549019610000001" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <state key="normal" title="Clear">
                         <color key="titleColor" red="0.36470588240000001" green="0.12549019610000001" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     </state>
@@ -154,9 +152,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cHz-Sr-6kK" secondAttribute="bottom" id="ctR-2d-oEB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WOj-lG-9ui" secondAttribute="trailing" id="e24-T6-Xy2"/>
                 <constraint firstItem="jT9-MV-jZ0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="eJX-ba-YnN"/>
-                <constraint firstItem="JWO-Ra-7a7" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="gE4-cM-R13"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jT9-MV-jZ0" secondAttribute="trailing" constant="40" id="iug-Fh-R3j"/>
-                <constraint firstItem="JWO-Ra-7a7" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="s69-rk-bfY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jT9-MV-jZ0" secondAttribute="trailing" constant="30" id="iug-Fh-R3j"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <connections>

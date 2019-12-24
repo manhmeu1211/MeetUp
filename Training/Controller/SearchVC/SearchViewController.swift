@@ -24,7 +24,6 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var noResults: UILabel!
     
-    @IBOutlet weak var loading: UIActivityIndicatorView!
     
     private let refreshControl = UIRefreshControl()
      
@@ -42,7 +41,6 @@ class SearchViewController: UIViewController {
     
     func setUpVỉew() {
         self.tabBarController?.tabBar.isHidden = true
-        loading.handleLoading(isLoading: false)
         noResults.isHidden = true
         txtSearch.delegate = self
         searchTable.dataSource = self
@@ -73,7 +71,6 @@ class SearchViewController: UIViewController {
         let keyword = txtSearch.text!
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         if usertoken == nil {
-            self.loading.handleLoading(isLoading: false)
             ToastView.shared.short(self.view, txt_msg: "Not need to login first !")
         } else {
             let headers = [ "token": usertoken!,
@@ -186,9 +183,9 @@ extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
       
       func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
           if indexPath.row == searchResponse.count - 2 {
-            self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
-            self.handleSearch(isLoadMore: true, page: self.currentPage + 1 )
+            self.handleSearch(isLoadMore: true, page: self.currentPage + 1)
             self.currentPage += 1
+            self.noResults.isHidden = true
           }
       }
       

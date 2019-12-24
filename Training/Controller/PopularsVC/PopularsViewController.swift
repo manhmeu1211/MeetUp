@@ -10,10 +10,12 @@ import UIKit
 import RealmSwift
 
 class PopularsViewController: UIViewController {
-
+    
+    
+    // MARK: - Outlet
     @IBOutlet weak var popularsTable: UITableView!
     
-
+    // MARK: - Varribles
     var alertLoading = UIAlertController()
     let refreshControl = UIRefreshControl()
     var popularResponse : [PopularsResDatabase] = []
@@ -29,9 +31,10 @@ class PopularsViewController: UIViewController {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             upDateDataV2()
         }
-        
         setUpTable()
     }
+    
+    // MARK: - Function check before get data
     
     func detechDailyFirstLaunch() -> Bool {
            let today = NSDate().formatted
@@ -44,6 +47,8 @@ class PopularsViewController: UIViewController {
                return true
            }
        }
+    
+    // MARK: - Function set up table and get data
  
     func setUpTable() {
         popularsTable.dataSource = self
@@ -108,6 +113,8 @@ class PopularsViewController: UIViewController {
         }
     }
 }
+
+// MARK: - extension Table
 
 extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
     

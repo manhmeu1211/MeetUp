@@ -59,6 +59,20 @@ class BrowserViewController: UIViewController {
         getListCategories()
         self.refreshControl.endRefreshing()
     }
+    
+    func updateObject() {
+        let list = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
+        cateList = list
+        alertLoading.createAlertLoading(target: self, isShowLoading: false)
+    }
+    
+    
+    func deleteObject() {
+        let list = realm.objects(CategoriesResDatabase.self).toArray(ofType: CategoriesResDatabase.self)
+        try! realm.write {
+            realm.delete(list)
+        }
+    }
        
     
     func getListCategories() {
@@ -71,27 +85,17 @@ class BrowserViewController: UIViewController {
                     let categories = CategoriesResDatabase(id: cate["id"].intValue, name: cate["name"].stringValue, slug: cate["slug"].stringValue, parentId: cate["parent_id"].intValue)
                 RealmDataBaseQuery.getInstance.addData(object: categories)
                 })
-                self.cateList = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
+                self.updateObject()
                 self.categoriesTable.reloadData()
-                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
             } else {
-                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+                self.updateObject()
                 ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
             }
+            self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
         }
     }
     
-    func updateObject() {
-        let list = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
-        cateList = list
-    }
-    
-    func deleteObject() {
-          let list = realm.objects(CategoriesResDatabase.self).toArray(ofType: CategoriesResDatabase.self)
-          try! realm.write {
-              realm.delete(list)
-          }
-      }
+  
     
     @objc func handleSearchViewController() {
         let searchVC = SearchViewController()

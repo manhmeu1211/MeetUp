@@ -26,7 +26,6 @@ class EventDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        alertLogin.createAlertLoading(target: self, isShowLoading: true)
         getDetailEvent()
         setHeaders()
         getListEvent()
@@ -89,7 +88,6 @@ class EventDetailController: UIViewController {
                 ToastView.shared.short(self.view, txt_msg: "Check your connection")
             }
         }
-        alertLogin.createAlertLoading(target: self, isShowLoading: false)
     }
     
     func wentEvent() {
@@ -104,13 +102,13 @@ class EventDetailController: UIViewController {
                 ToastView.shared.short(self.view, txt_msg: "Check your connection")
             }
         }
-        alertLogin.createAlertLoading(target: self, isShowLoading: true)
     }
     
     func getDetailEvent() {
         getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (json, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "You need to login first")
+                self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
             } else if errcode == 2 {
                 self.deleteObject()
                 let detail = json!
@@ -120,10 +118,8 @@ class EventDetailController: UIViewController {
          
                 RealmDataBaseQuery.getInstance.addData(object: self.eventDetail)
                 self.detailTable.reloadData()
-                self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
             } else {
-                self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
-                ToastView.shared.short(self.view, txt_msg: "Check your internet connection !")
+                self.alertLogin.createAlert(target: self, title: "No internet connection", message: nil, titleBtn: "OK")
             }
         }
     }
@@ -142,7 +138,6 @@ class EventDetailController: UIViewController {
                     print("failed")
                 }
             }
-        alertLogin.createAlertLoading(target: self, isShowLoading: false)
       }
 
     

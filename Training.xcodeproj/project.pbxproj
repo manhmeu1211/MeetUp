@@ -189,6 +189,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		0D4DC2F523B1F58C00CAA1F3 /* LoginVC */ = {
+			isa = PBXGroup;
+			children = (
+				0DE62E5023A34DB000D927FA /* LoginView.xib */,
+				0DE62E4F23A34DB000D927FA /* LoginViewController.swift */,
+			);
+			path = LoginVC;
+			sourceTree = "<group>";
+		};
 		0D6C31CD23B0CC24007605D2 /* NewsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,8 +269,6 @@
 		0D6C31D523B0CCEE007605D2 /* SignUpVC */ = {
 			isa = PBXGroup;
 			children = (
-				0DE62E5023A34DB000D927FA /* LoginView.xib */,
-				0DE62E4F23A34DB000D927FA /* LoginViewController.swift */,
 				0D51DD2123A8B39200544A1B /* SignUpMainView.xib */,
 				0D51DD2323A8B84500544A1B /* SignUpMainViewController.swift */,
 				0D51DD2523A8B95F00544A1B /* SignUpView.xib */,
@@ -455,6 +462,7 @@
 		0DFBA8F023A22D2600C8BF31 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0D4DC2F523B1F58C00CAA1F3 /* LoginVC */,
 				0D6C31D723B0CD1F007605D2 /* WebViewVC */,
 				0D6C31CD23B0CC24007605D2 /* NewsVC */,
 				0D6C31CE23B0CC59007605D2 /* PopularsVC */,

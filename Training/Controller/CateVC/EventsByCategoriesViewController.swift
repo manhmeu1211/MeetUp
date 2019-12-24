@@ -11,7 +11,6 @@ import RealmSwift
 
 class EventsByCategoriesViewController: UIViewController {
     
-    
     @IBOutlet weak var noResults: UILabel!
     @IBOutlet weak var titleCategories: UILabel!
     @IBOutlet weak var incaditorLeading: NSLayoutConstraint!
@@ -21,13 +20,9 @@ class EventsByCategoriesViewController: UIViewController {
     var alertLoading = UIAlertController()
     var id : Int?
     var headerTitle : String?
-    
     var currentPage = 1
-    
     var eventsByCate : [EventsByCategoriesDatabase] = []
-    
     let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-
     let realm = try! Realm()
     let token = UserDefaults.standard.string(forKey: "userToken")
     
@@ -36,21 +31,17 @@ class EventsByCategoriesViewController: UIViewController {
         setupVỉew()
         getDataEventV2()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-      
-    }
+
     
     func getDataEventV2() {
         if token != nil {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
-            deleteObject()
-            eventsByCate.removeAll()
             getDataEventsByCategories(isLoadMore: false, page: currentPage)
             noResults.isHidden = true
         } else {
             noResults.isHidden = false
             print("Token is null")
+            alertLoading.createAlertLoading(target: self, isShowLoading: false)
             ToastView.shared.long(self.view, txt_msg: "Not logged in")
         }
     }
@@ -121,7 +112,7 @@ class EventsByCategoriesViewController: UIViewController {
                 }
                 self.updateObjectByPopulars()
                 self.eventTable.reloadData()
-                self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
             } else {
                 self.updateObjectByPopulars()
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: false)

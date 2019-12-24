@@ -8,37 +8,27 @@
 
 import UIKit
 import WebKit
-import AVFoundation
 
 class WebViewController: UIViewController {
     
     var urlToOpen : String?
-    var webView = WKWebView()
+    
+    @IBOutlet weak var webViewV2: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(urlToOpen!)
-        if let url = URL(string: urlToOpen!) {
-          let request = URLRequest(url: url)
-          webView.load(request)
-      }
+        requestToUrlNews(url: urlToOpen ?? "https://google.com.vn")
     }
     
-       override func loadView() {
-            let webConfiguration = WKWebViewConfiguration()
-            webView = WKWebView(frame: .zero, configuration: webConfiguration)
-            webView.navigationDelegate = self
-            self.view = webView
-     }
-}
-
-extension WebViewController: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    func requestToUrlNews(url: String){
+        let url = URL(string: url)
+        let request = URLRequest(url: url!)
+        webViewV2.load(request)
     }
-
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-    }
-
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+   
+    @IBAction func btnDismiss(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
+
+
