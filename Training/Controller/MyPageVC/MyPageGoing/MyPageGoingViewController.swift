@@ -25,9 +25,18 @@ class MyPageGoingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        alertLoading.createAlertLoading(target: self, isShowLoading: true)
         getListGoingEvent()
+        checkEvent()
     }
     
+    func checkEvent() {
+        if realm.objects(MyPageGoingResDatabase.self).toArray(ofType: MyPageGoingResDatabase.self) == [] {
+            noEvents.isHidden = false
+        } else {
+            noEvents.isHidden = true
+        }
+    }
     
     func setupView() {
         noEvents.isHidden = true
@@ -80,6 +89,7 @@ class MyPageGoingViewController: UIViewController {
                     self.alertLoading.createAlertWithHandle(target: self, title: "Login session expired", message: "Please re-login !", titleBtn: "OK") {
                         self.handleLogOut()
                     }
+                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 } else if errCode == 2 {
                     let data = json!
                     self.deleteObject()
@@ -90,9 +100,11 @@ class MyPageGoingViewController: UIViewController {
                 })
                     self.updateObject()
                     self.goingTable.reloadData()
+                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 }  else {
                     self.updateObject()
                     self.goingTable.reloadData()
+                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 }
             }
         }
@@ -121,10 +133,8 @@ extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let id = goingEvents[indexPath.row + 1].id
-        print(id)
         let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
-        vc.id = id
+        vc.id = goingEvents[indexPath.row + 1].id
         present(vc, animated: true, completion: nil)
     }
     

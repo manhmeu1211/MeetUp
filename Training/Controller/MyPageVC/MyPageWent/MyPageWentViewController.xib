@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPageWentViewController" customModule="Training" customModuleProvider="target">
             <connections>
-                <outlet property="loading" destination="AMC-uv-dWl" id="9Ht-yE-OyY"/>
+                <outlet property="noEvents" destination="Lw2-rE-fLI" id="eTQ-N4-bcS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="wentTable" destination="eVa-1b-Qyq" id="GEt-xY-x86"/>
             </connections>
@@ -23,19 +23,24 @@
                     <rect key="frame" x="10" y="44" width="394" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="AMC-uv-dWl">
-                    <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
-                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lw2-rE-fLI">
+                    <rect key="frame" x="20" y="441" width="374" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="AMC-uv-dWl" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="2ay-2a-3m4"/>
                 <constraint firstItem="eVa-1b-Qyq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="4fk-vp-xkj"/>
+                <constraint firstItem="Lw2-rE-fLI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="6VQ-Wk-a9T"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eVa-1b-Qyq" secondAttribute="trailing" constant="10" id="Cf2-L8-lqr"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="eVa-1b-Qyq" secondAttribute="bottom" id="YAW-7N-2If"/>
-                <constraint firstItem="AMC-uv-dWl" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="jLo-lm-J9e"/>
+                <constraint firstItem="Lw2-rE-fLI" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="dw5-bl-dB1"/>
                 <constraint firstItem="eVa-1b-Qyq" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="jzh-ku-ekc"/>
+                <constraint firstItem="Lw2-rE-fLI" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="ndT-HY-qqC"/>
                 <constraint firstItem="eVa-1b-Qyq" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="qAk-ec-S3o"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Lw2-rE-fLI" secondAttribute="trailing" constant="20" id="rfA-j4-c3c"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="132" y="112"/>

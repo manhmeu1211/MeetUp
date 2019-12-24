@@ -200,6 +200,24 @@
 			path = LoginVC;
 			sourceTree = "<group>";
 		};
+		0D4DC2F623B21AE100CAA1F3 /* MyPageGoing */ = {
+			isa = PBXGroup;
+			children = (
+				0D44379223AC6AB0003A8D96 /* MyPageGoingViewController.xib */,
+				0D44379123AC6AB0003A8D96 /* MyPageGoingViewController.swift */,
+			);
+			path = MyPageGoing;
+			sourceTree = "<group>";
+		};
+		0D4DC2F723B21AED00CAA1F3 /* MyPageWent */ = {
+			isa = PBXGroup;
+			children = (
+				0D44379623AC6AC4003A8D96 /* MyPageWentViewController.xib */,
+				0D44379523AC6AC4003A8D96 /* MyPageWentViewController.swift */,
+			);
+			path = MyPageWent;
+			sourceTree = "<group>";
+		};
 		0D6C31CD23B0CC24007605D2 /* NewsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,10 +257,8 @@
 		0D6C31D123B0CC88007605D2 /* MyPageVC */ = {
 			isa = PBXGroup;
 			children = (
-				0D44379223AC6AB0003A8D96 /* MyPageGoingViewController.xib */,
-				0D44379123AC6AB0003A8D96 /* MyPageGoingViewController.swift */,
-				0D44379623AC6AC4003A8D96 /* MyPageWentViewController.xib */,
-				0D44379523AC6AC4003A8D96 /* MyPageWentViewController.swift */,
+				0D4DC2F723B21AED00CAA1F3 /* MyPageWent */,
+				0D4DC2F623B21AE100CAA1F3 /* MyPageGoing */,
 				0D462B1323A734B4000332F4 /* MyPageView.xib */,
 				0D462B1223A734B4000332F4 /* MyPageViewController.swift */,
 				0D51DD1F23A8B36000544A1B /* MyPageMainViewController.swift */,

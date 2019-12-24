@@ -11,8 +11,8 @@ import RealmSwift
 
 class MyPageWentViewController: UIViewController {
 
+    @IBOutlet weak var noEvents: UILabel!
     @IBOutlet weak var wentTable: UITableView!
-    @IBOutlet weak var loading: UIActivityIndicatorView!
     let userToken = UserDefaults.standard.string(forKey: "userToken")
     let status = 2
     let realm = try! Realm()
@@ -32,8 +32,16 @@ class MyPageWentViewController: UIViewController {
           wentTable.delegate = self
           wentTable.dataSource = self
           wentTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
-          self.loading.handleLoading(isLoading: true)
       }
+    
+    func checkEvent() {
+         if realm.objects(MyPageWentResDatabase.self).toArray(ofType: MyPageWentResDatabase.self) == [] {
+             noEvents.isHidden = false
+         } else {
+             noEvents.isHidden = true
+         }
+     }
+     
     
     
     func updateObject() {
@@ -51,7 +59,6 @@ class MyPageWentViewController: UIViewController {
        func getListGoingWent() {
            let usertoken = UserDefaults.standard.string(forKey: "userToken")
            if usertoken == nil {
-               self.loading.handleLoading(isLoading: false)
                ToastView.shared.short(self.view, txt_msg: "Not need to login first !")
            } else {
                let headers = [ "Authorization": "Bearer \(usertoken!)",
@@ -70,7 +77,6 @@ class MyPageWentViewController: UIViewController {
                     })
                         self.updateObject()
                         self.wentTable.reloadData()
-                        self.loading.handleLoading(isLoading: false)
                     }  else {
                         self.updateObject()
                         self.wentTable.reloadData()
@@ -104,9 +110,8 @@ extension MyPageWentViewController : UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let id = wentEvents[indexPath.row].id
         let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
-        vc.id = id
+        vc.id = wentEvents[indexPath.row].id
         present(vc, animated: true, completion: nil)
     }
 

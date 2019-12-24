@@ -27,11 +27,10 @@ class BrowserViewController: UIViewController {
         super.viewDidLoad()
         setUpBarButton()
         setupTable()
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
-         if userToken != nil {
+         if userToken == nil {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             getListCategories()
         } else {
@@ -96,6 +95,7 @@ class BrowserViewController: UIViewController {
                 self.categoriesTable.reloadData()
             } else {
                 self.updateObject()
+                self.categoriesTable.reloadData()
                 ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
             }
             self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
