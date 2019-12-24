@@ -107,7 +107,7 @@ extension MyPageWentViewController : UITableViewDelegate, UITableViewDataSource 
         let id = wentEvents[indexPath.row].id
         let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
         vc.id = id
-        navigationController?.pushViewController(vc, animated: true)
+        present(vc, animated: true, completion: nil)
     }
 
 }

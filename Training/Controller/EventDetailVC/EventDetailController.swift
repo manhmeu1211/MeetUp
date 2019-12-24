@@ -26,8 +26,8 @@ class EventDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        getDetailEvent()
         setHeaders()
+        getDetailEvent()
         getListEvent()
     }
     
@@ -50,7 +50,7 @@ class EventDetailController: UIViewController {
             headers = [ "Authorization": "No Auth",
                         "Content-Type": "application/json"  ]
         } else {
-            headers = [ "Authorization": "Bearer \(userToken!)",
+            headers = [ "Authorization": "Bearer " + userToken!,
                         "Content-Type": "application/json"  ]
         }
     }
@@ -115,7 +115,7 @@ class EventDetailController: UIViewController {
                 let detailVenue = detail["venue"]
                 let detailGenre = detail["category"]
                 self.eventDetail = EventDetail(id: detail["id"].intValue, photo: detail["photo"].stringValue, name: detail["name"].stringValue, descriptionHtml: detail["description_html"].stringValue, scheduleStartDate: detail["schedule_start_date"].stringValue, scheduleEndDate: detail["schedule_end_date"].stringValue, scheduleStartTime: detail["schedule_start_time"].stringValue, scheduleEndTime: detail["schedule_end_time"].stringValue, schedulePermanent: detail["schedule_permanent"].stringValue, goingCount: detail["going_count"].intValue, nameGenre: detailGenre["name"].stringValue, vnLocation: detailVenue["contact_address"].stringValue, vnContact: detailVenue["contact_phone"].stringValue, vnName: detailVenue["name"].stringValue, latValue: detailVenue["geo_lat"].doubleValue, longValue: detailVenue["geo_long"].doubleValue, mystatus: detail["my_status"].intValue )
-         
+                print(detail)
                 RealmDataBaseQuery.getInstance.addData(object: self.eventDetail)
                 self.detailTable.reloadData()
             } else {

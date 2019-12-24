@@ -212,7 +212,7 @@ class getDataService {
        }
     
     func getEventDetail(idEvent : Int, headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> () ) {
-        Alamofire.request(baseURL + "getDetailEvent?event_id=\(idEvent)", method: .get, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        Alamofire.request(baseURL + "getDetailEvent?event_id=\(idEvent)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
              switch response.result {
                 case .success(let value):
                 let response = JSON(value)
