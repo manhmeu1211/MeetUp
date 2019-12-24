@@ -12,23 +12,29 @@ import RealmSwift
 class BrowserViewController: UIViewController {
 
     @IBOutlet weak var categoriesTable: UITableView!
+    var alertLoading = UIAlertController()
+    let refreshControl = UIRefreshControl()
     
     var cateList : [CategoriesResDatabase] = []
     let realm = try! Realm()
     let userToken = UserDefaults.standard.string(forKey: "userToken")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpBarButton()
         setupTable()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if userToken != nil {
+         if userToken != nil {
+            alertLoading.createAlertLoading(target: self, isShowLoading: true)
             getListCategories()
         } else {
             updateObject()
         }
     }
+    
     
     func setUpBarButton() {
         self.title = "Categories"
@@ -41,30 +47,43 @@ class BrowserViewController: UIViewController {
         categoriesTable.delegate = self
         categoriesTable.dataSource = self
         categoriesTable.register(UINib(nibName: "CategoriesTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoriesTableViewCell")
+        if #available(iOS 10.0, *) {
+                   self.categoriesTable.refreshControl = refreshControl
+               } else {
+                   self.categoriesTable.addSubview(refreshControl)
+               }
+               self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
     }
     
+    @objc func updateData() {
+        getListCategories()
+        self.refreshControl.endRefreshing()
+    }
+       
+    
     func getListCategories() {
-        let queue = DispatchQueue(label: "loadCate")
-        queue.async {
-            getDataService.getInstance.getListCategories { (json, errcode) in
-                if errcode == 1 {
-                    self.deleteObject()
-                    let data = json!
-                    _ = data.array?.forEach({ (cate) in
-                        let categories = CategoriesResDatabase(id: cate["id"].intValue, name: cate["name"].stringValue, slug: cate["slug"].stringValue, parentId: cate["parent_id"].intValue)
-                    RealmDataBaseQuery.getInstance.addData(object: categories)
-                    })
-                    self.cateList = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
-                    self.categoriesTable.reloadData()
-                } else {
-                    ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
-                }
+        getDataService.getInstance.getListCategories { (json, errcode) in
+            if errcode == 1 {
+                self.deleteObject()
+                self.cateList.removeAll()
+                let data = json!
+                _ = data.array?.forEach({ (cate) in
+                    let categories = CategoriesResDatabase(id: cate["id"].intValue, name: cate["name"].stringValue, slug: cate["slug"].stringValue, parentId: cate["parent_id"].intValue)
+                RealmDataBaseQuery.getInstance.addData(object: categories)
+                })
+                self.cateList = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
+                self.categoriesTable.reloadData()
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+            } else {
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+                ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
             }
         }
     }
     
     func updateObject() {
-        self.cateList = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
+        let list = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
+        cateList = list
     }
     
     func deleteObject() {

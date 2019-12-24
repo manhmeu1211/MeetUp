@@ -10,7 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPageGoingViewController" customModule="Training" customModuleProvider="target">
             <connections>
                 <outlet property="goingTable" destination="zB9-xo-ZeH" id="oav-3Y-J8y"/>
-                <outlet property="loading" destination="KiT-V2-N2N" id="UGI-AM-elW"/>
+                <outlet property="noEvents" destination="fTp-mq-ATd" id="muG-6p-rmC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,17 +23,22 @@
                     <rect key="frame" x="10" y="44" width="394" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="KiT-V2-N2N">
-                    <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
-                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No events going" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTp-mq-ATd">
+                    <rect key="frame" x="20" y="442.5" width="374" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zB9-xo-ZeH" secondAttribute="trailing" constant="10" id="49r-dS-hsZ"/>
-                <constraint firstItem="KiT-V2-N2N" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="DCa-JR-WCp"/>
+                <constraint firstItem="fTp-mq-ATd" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="59A-xe-jN4"/>
+                <constraint firstItem="fTp-mq-ATd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Ish-yV-BOQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fTp-mq-ATd" secondAttribute="trailing" constant="20" id="JGy-aB-gkI"/>
                 <constraint firstItem="zB9-xo-ZeH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="PQu-DL-49b"/>
+                <constraint firstItem="fTp-mq-ATd" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="aPU-Ya-Jim"/>
                 <constraint firstItem="zB9-xo-ZeH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="cp1-qB-49y"/>
-                <constraint firstItem="KiT-V2-N2N" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="lZT-zd-xZ1"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="zB9-xo-ZeH" secondAttribute="bottom" id="zJ4-om-c2k"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

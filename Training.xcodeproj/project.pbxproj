@@ -229,11 +229,12 @@
 			isa = PBXGroup;
 			children = (
 				0D44379223AC6AB0003A8D96 /* MyPageGoingViewController.xib */,
+				0D44379123AC6AB0003A8D96 /* MyPageGoingViewController.swift */,
 				0D44379623AC6AC4003A8D96 /* MyPageWentViewController.xib */,
+				0D44379523AC6AC4003A8D96 /* MyPageWentViewController.swift */,
 				0D462B1323A734B4000332F4 /* MyPageView.xib */,
 				0D462B1223A734B4000332F4 /* MyPageViewController.swift */,
-				0D44379123AC6AB0003A8D96 /* MyPageGoingViewController.swift */,
-				0D44379523AC6AC4003A8D96 /* MyPageWentViewController.swift */,
+				0D51DD1F23A8B36000544A1B /* MyPageMainViewController.swift */,
 			);
 			path = MyPageVC;
 			sourceTree = "<group>";
@@ -256,23 +257,15 @@
 			path = CateVC;
 			sourceTree = "<group>";
 		};
-		0D6C31D423B0CCC6007605D2 /* PageVc */ = {
-			isa = PBXGroup;
-			children = (
-				0D51DD1F23A8B36000544A1B /* MyPageMainViewController.swift */,
-			);
-			path = PageVc;
-			sourceTree = "<group>";
-		};
 		0D6C31D523B0CCEE007605D2 /* SignUpVC */ = {
 			isa = PBXGroup;
 			children = (
 				0DE62E5023A34DB000D927FA /* LoginView.xib */,
-				0D51DD2123A8B39200544A1B /* SignUpMainView.xib */,
-				0D51DD2523A8B95F00544A1B /* SignUpView.xib */,
-				0D51DD2323A8B84500544A1B /* SignUpMainViewController.swift */,
-				0D51DD2923A8BF4A00544A1B /* SignUpViewController.swift */,
 				0DE62E4F23A34DB000D927FA /* LoginViewController.swift */,
+				0D51DD2123A8B39200544A1B /* SignUpMainView.xib */,
+				0D51DD2323A8B84500544A1B /* SignUpMainViewController.swift */,
+				0D51DD2523A8B95F00544A1B /* SignUpView.xib */,
+				0D51DD2923A8BF4A00544A1B /* SignUpViewController.swift */,
 			);
 			path = SignUpVC;
 			sourceTree = "<group>";
@@ -468,7 +461,6 @@
 				0D6C31D823B0CD34007605D2 /* Tabbar */,
 				0D6C31D623B0CD15007605D2 /* ResetPassVC */,
 				0D6C31D523B0CCEE007605D2 /* SignUpVC */,
-				0D6C31D423B0CCC6007605D2 /* PageVc */,
 				0D6C31D323B0CCBE007605D2 /* CateVC */,
 				0D6C31D223B0CCA9007605D2 /* NearVC */,
 				0D6C31D123B0CC88007605D2 /* MyPageVC */,

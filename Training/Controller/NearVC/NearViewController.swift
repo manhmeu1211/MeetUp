@@ -35,22 +35,27 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertNotLogin.createAlertLoading(target: self, isShowLoading: true)
         updateObject()
         setUpCollectionView()
+        getLocation()
+        getListEventV2()
+    }
+    
+    func getLocation() {
         locationManager.requestWhenInUseAuthorization()
         if( CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-                CLLocationManager.authorizationStatus() ==  .authorizedAlways) {
-            currentLocation = locationManager.location
-            initLong = currentLocation.coordinate.longitude
-            initLat = currentLocation.coordinate.latitude
-            centerMapOnLocation(location: CLLocation(latitude: initLat!, longitude: initLong!))
-        } else {
-            initLong = 105.874993
-            initLat =  21.044895
-        }
+        CLLocationManager.authorizationStatus() ==  .authorizedAlways) {
+                currentLocation = locationManager.location
+                initLong = currentLocation.coordinate.longitude
+                initLat = currentLocation.coordinate.latitude
+                centerMapOnLocation(location: CLLocation(latitude: initLat!, longitude: initLong!))
+            } else {
+                initLong = 105.874993
+                initLat =  21.044895
+            }
         addArtwork()
-        getListEventV2()
-        print(getRadius(centralLocation: CLLocation(latitude: initLat!, longitude: initLong!)))
+         alertNotLogin.createAlertLoading(target: self, isShowLoading: false)
     }
     
 
@@ -59,7 +64,6 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         if token != nil {
             getListEvent()
         } else {
-            print("token is null")
             alertNotLogin.createAlertWithHandle(target: self, title: "Not logged in", message: "You must to login", titleBtn: "Login") {
                 self.handleLoginView()
             }
@@ -91,8 +95,13 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func updateObject() {
-          self.events = RealmDataBaseQuery.getInstance.getObjects(type: EventsNearResponse.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsNearResponse.self)
-      }
+        let list = RealmDataBaseQuery.getInstance.getObjects(type: EventsNearResponse.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsNearResponse.self)
+        if list == [] {
+            events.append(EventsNearResponse(id: 0, photo: "", name: "Not event near you", descriptionHtml: "", scheduleStartDate: "", scheduleEndDate: "", scheduleStartTime: "", scheduleEndTime: "", schedulePermanent: "", goingCount: 0))
+        } else {
+            events = list
+        }
+    }
       
     func deleteObject() {
         let list = realm.objects(EventsNearResponse.self).toArray(ofType: EventsNearResponse.self)
@@ -105,27 +114,24 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer \(usertoken!)",
         "Content-Type": "application/json"  ]
-        let queue = DispatchQueue(label: "getMap")
-        queue.async {
-            getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (json, errcode) in
-                if errcode == 1 {
-                    self.deleteObject()
-                    self.events.removeAll()
-                    let anotionLC = json!
-                    _ = anotionLC.array?.forEach({ (anotion) in
-                        let anotion = Artwork(title: anotion["venue"]["name"].stringValue, locationName: anotion["venue"]["name"].stringValue, discipline: anotion["venue"]["description"].stringValue, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
-                        self.map.addAnnotation(anotion)
-                    })
-                    _ = anotionLC.array?.forEach({ (events) in
-                        let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
-                    RealmDataBaseQuery.getInstance.addData(object: events)
-                    })
-                    self.updateObject()
-                    self.collectionVIew.reloadData()
-                    print(self.events)
-                } else {
-                    print("failed")
-                }
+        getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (json, errcode) in
+            if errcode == 1 {
+                self.deleteObject()
+                self.events.removeAll()
+                let anotionLC = json!
+                _ = anotionLC.array?.forEach({ (anotion) in
+                    let anotion = Artwork(title: anotion["venue"]["name"].stringValue, locationName: anotion["venue"]["name"].stringValue, discipline: anotion["venue"]["description"].stringValue, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
+                    self.map.addAnnotation(anotion)
+                })
+                _ = anotionLC.array?.forEach({ (events) in
+                    let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
+                RealmDataBaseQuery.getInstance.addData(object: events)
+                })
+                self.updateObject()
+                self.collectionVIew.reloadData()
+                self.alertNotLogin.createAlertLoading(target: self, isShowLoading: false)
+            } else {
+                print("failed")
             }
         }
     }
@@ -161,8 +167,11 @@ extension NearViewController : UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventsCell", for: indexPath) as! EventsCell
-        DispatchQueue.main.async {
-            cell.imgEvent.image = UIImage(data: self.events[indexPath.row].photo)
+        let queue = DispatchQueue(label: "loadImageNear")
+        queue.async {
+            DispatchQueue.main.async {
+                cell.imgEvent.image = UIImage(data: self.events[indexPath.row].photo)
+            }
         }
         cell.eventName.text = events[indexPath.row].name
         cell.eventDes.text = events[indexPath.row].descriptionHtml

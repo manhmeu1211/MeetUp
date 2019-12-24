@@ -12,6 +12,7 @@
                 <outlet property="eventTable" destination="thH-94-KkI" id="e0I-HA-hLK"/>
                 <outlet property="incaditorLeading" destination="RCC-dZ-n2J" id="2Ce-5l-pEt"/>
                 <outlet property="incaditorView" destination="za7-Ve-1mi" id="jnS-y0-Ln2"/>
+                <outlet property="noResults" destination="U8N-eV-Toj" id="fwp-cI-QGl"/>
                 <outlet property="titleCategories" destination="6fX-QX-ogc" id="dGU-YB-7AY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -100,6 +101,12 @@
                         <action selector="toSearchViewBtn:" destination="-1" eventType="touchUpInside" id="FXM-HJ-SjI"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to login first" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8N-eV-Toj">
+                    <rect key="frame" x="124" y="442.5" width="166.5" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -109,11 +116,13 @@
                 <constraint firstItem="xpF-I9-y6E" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8K1-e1-uuN"/>
                 <constraint firstItem="za7-Ve-1mi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9L7-iy-Nl1"/>
                 <constraint firstItem="mcE-gB-qba" firstAttribute="leading" secondItem="6fX-QX-ogc" secondAttribute="trailing" id="AOl-Qc-EZP"/>
+                <constraint firstItem="U8N-eV-Toj" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="I9C-SE-XVb"/>
                 <constraint firstItem="thH-94-KkI" firstAttribute="top" secondItem="za7-Ve-1mi" secondAttribute="bottom" id="IbC-Fr-zBr"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="thH-94-KkI" secondAttribute="bottom" id="Mhy-8X-ZgD"/>
                 <constraint firstItem="xpF-I9-y6E" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.15" id="R1K-Ey-LOM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6fX-QX-ogc" secondAttribute="trailing" constant="50" id="Y47-1W-gHE"/>
                 <constraint firstItem="za7-Ve-1mi" firstAttribute="top" secondItem="xpF-I9-y6E" secondAttribute="bottom" id="ZCY-Jd-nna"/>
+                <constraint firstItem="U8N-eV-Toj" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="fIv-Le-427"/>
                 <constraint firstItem="thH-94-KkI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="gZn-Lr-jFr"/>
                 <constraint firstItem="za7-Ve-1mi" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="gqw-5o-MQ3"/>
                 <constraint firstItem="6fX-QX-ogc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="jiB-g4-nJT"/>

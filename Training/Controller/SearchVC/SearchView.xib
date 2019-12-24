@@ -28,9 +28,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="134.5"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Kk-0T-aIA">
-                    <rect key="frame" x="17.5" y="58" width="30" height="40"/>
+                    <rect key="frame" x="12.5" y="58" width="40" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="30" id="APr-eA-YJj"/>
+                        <constraint firstAttribute="width" constant="40" id="APr-eA-YJj"/>
                         <constraint firstAttribute="height" constant="40" id="S5o-ld-Khx"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -42,9 +42,9 @@
                     </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z7a-xK-UnQ">
-                    <rect key="frame" x="52.5" y="61" width="330" height="34"/>
+                    <rect key="frame" x="57.5" y="61" width="320" height="34"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="330" id="cVC-CI-h9A"/>
+                        <constraint firstAttribute="width" constant="320" id="cVC-CI-h9A"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
@@ -120,9 +120,9 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jT9-MV-jZ0">
-                    <rect key="frame" x="339" y="59" width="45" height="35"/>
+                    <rect key="frame" x="314" y="59" width="60" height="35"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="45" id="5Jb-ZQ-t7U"/>
+                        <constraint firstAttribute="width" constant="60" id="5Jb-ZQ-t7U"/>
                         <constraint firstAttribute="height" constant="35" id="93G-9t-QYh"/>
                     </constraints>
                     <state key="normal" title="Clear">
@@ -155,7 +155,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WOj-lG-9ui" secondAttribute="trailing" id="e24-T6-Xy2"/>
                 <constraint firstItem="jT9-MV-jZ0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="eJX-ba-YnN"/>
                 <constraint firstItem="JWO-Ra-7a7" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="gE4-cM-R13"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jT9-MV-jZ0" secondAttribute="trailing" constant="30" id="iug-Fh-R3j"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jT9-MV-jZ0" secondAttribute="trailing" constant="40" id="iug-Fh-R3j"/>
                 <constraint firstItem="JWO-Ra-7a7" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="s69-rk-bfY"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

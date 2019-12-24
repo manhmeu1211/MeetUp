@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import Alamofire
 
-var isSearchVC = false
-var isLoginVC = false
 
 extension UIActivityIndicatorView {
     func handleLoading(isLoading : Bool) {
@@ -101,7 +99,22 @@ extension UIAlertController {
            let btnOK: UIAlertAction = UIAlertAction(title: titleBtn, style: .default, handler: {(alert: UIAlertAction!) in handler()})
            alertVC.addAction(btnOK)
            target.present(alertVC, animated: true, completion: nil)
-       }
+    }
+    
+    func createAlertLoading(target: UIViewController, isShowLoading : Bool) {
+        if isShowLoading == true {
+            let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+            alert.view.tintColor = UIColor.black
+            let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
+                loadingIndicator.hidesWhenStopped = true
+                loadingIndicator.style = UIActivityIndicatorView.Style.medium
+            loadingIndicator.startAnimating();
+            alert.view.addSubview(loadingIndicator)
+            target.present(alert, animated: true, completion: nil)
+        } else {
+            target.dismiss(animated: true, completion: nil)
+        }
+    }
 }
 
 

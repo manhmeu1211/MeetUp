@@ -16,6 +16,7 @@ class ResetPassViewController: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     
     @IBOutlet weak var emailView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         btnResetPassword.roundedButton()

@@ -26,6 +26,7 @@ class EventDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        alertLogin.createAlertLoading(target: self, isShowLoading: true)
         getDetailEvent()
         setHeaders()
         getListEvent()
@@ -88,6 +89,7 @@ class EventDetailController: UIViewController {
                 ToastView.shared.short(self.view, txt_msg: "Check your connection")
             }
         }
+        alertLogin.createAlertLoading(target: self, isShowLoading: false)
     }
     
     func wentEvent() {
@@ -102,47 +104,45 @@ class EventDetailController: UIViewController {
                 ToastView.shared.short(self.view, txt_msg: "Check your connection")
             }
         }
+        alertLogin.createAlertLoading(target: self, isShowLoading: true)
     }
     
     func getDetailEvent() {
-        let queue = DispatchQueue(label: "getDetailEvent")
-        queue.async {
-            getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (json, errcode) in
-                if errcode == 1 {
-                    ToastView.shared.short(self.view, txt_msg: "You need to login first")
-                } else if errcode == 2 {
-                    self.deleteObject()
-                    let detail = json!
-                    let detailVenue = detail["venue"]
-                    let detailGenre = detail["category"]
-                    self.eventDetail = EventDetail(id: detail["id"].intValue, photo: detail["photo"].stringValue, name: detail["name"].stringValue, descriptionHtml: detail["description_html"].stringValue, scheduleStartDate: detail["schedule_start_date"].stringValue, scheduleEndDate: detail["schedule_end_date"].stringValue, scheduleStartTime: detail["schedule_start_time"].stringValue, scheduleEndTime: detail["schedule_end_time"].stringValue, schedulePermanent: detail["schedule_permanent"].stringValue, goingCount: detail["going_count"].intValue, nameGenre: detailGenre["name"].stringValue, vnLocation: detailVenue["contact_address"].stringValue, vnContact: detailVenue["contact_phone"].stringValue, vnName: detailVenue["name"].stringValue, latValue: detailVenue["geo_lat"].doubleValue, longValue: detailVenue["geo_long"].doubleValue, mystatus: detail["my_status"].intValue )
+        getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (json, errcode) in
+            if errcode == 1 {
+                ToastView.shared.short(self.view, txt_msg: "You need to login first")
+            } else if errcode == 2 {
+                self.deleteObject()
+                let detail = json!
+                let detailVenue = detail["venue"]
+                let detailGenre = detail["category"]
+                self.eventDetail = EventDetail(id: detail["id"].intValue, photo: detail["photo"].stringValue, name: detail["name"].stringValue, descriptionHtml: detail["description_html"].stringValue, scheduleStartDate: detail["schedule_start_date"].stringValue, scheduleEndDate: detail["schedule_end_date"].stringValue, scheduleStartTime: detail["schedule_start_time"].stringValue, scheduleEndTime: detail["schedule_end_time"].stringValue, schedulePermanent: detail["schedule_permanent"].stringValue, goingCount: detail["going_count"].intValue, nameGenre: detailGenre["name"].stringValue, vnLocation: detailVenue["contact_address"].stringValue, vnContact: detailVenue["contact_phone"].stringValue, vnName: detailVenue["name"].stringValue, latValue: detailVenue["geo_lat"].doubleValue, longValue: detailVenue["geo_long"].doubleValue, mystatus: detail["my_status"].intValue )
          
-                    RealmDataBaseQuery.getInstance.addData(object: self.eventDetail)
-                    self.detailTable.reloadData()
-                } else {
-                    ToastView.shared.short(self.view, txt_msg: "Check your internet connection !")
-                }
+                RealmDataBaseQuery.getInstance.addData(object: self.eventDetail)
+                self.detailTable.reloadData()
+                self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
+            } else {
+                self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
+                ToastView.shared.short(self.view, txt_msg: "Check your internet connection !")
             }
         }
     }
     
 
     func getListEvent() {
-        let queue = DispatchQueue(label: "getListNearV2")
-        queue.async {
-            getDataService.getInstance.getListNearEvent(radius: 5000, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: self.headers) { (json, errcode) in
-                  if errcode == 1 {
-                      self.events.removeAll()
-                      let anotionLC = json!
-                      _ = anotionLC.array?.forEach({ (events) in
-                          let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
-                       self.events.append(events)
-                      })
-                  } else {
-                      print("failed")
-                  }
-              }
-          }
+        getDataService.getInstance.getListNearEvent(radius: 5000, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: self.headers) { (json, errcode) in
+                if errcode == 1 {
+                    self.events.removeAll()
+                    let anotionLC = json!
+                    _ = anotionLC.array?.forEach({ (events) in
+                        let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
+                    self.events.append(events)
+                    })
+                } else {
+                    print("failed")
+                }
+            }
+        alertLogin.createAlertLoading(target: self, isShowLoading: false)
       }
 
     
@@ -162,11 +162,15 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = detailTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-            DispatchQueue.main.async {
-                cell.imgTimer.image = UIImage(named: "Group15")
-                cell.date.textColor = UIColor(rgb: 0x5D20CD)
-                cell.imgNews.image = UIImage(data: self.eventDetail.photo)
+            let queue = DispatchQueue(label: "loadImageDetail")
+            queue.async {
+                DispatchQueue.main.async {
+                    cell.imgTimer.image = UIImage(named: "Group15")
+                    cell.date.textColor = UIColor(rgb: 0x5D20CD)
+                    cell.imgNews.image = UIImage(data: self.eventDetail.photo)
+                }
             }
+           
             cell.title.text = eventDetail.name
             cell.lblDes.isHidden = true
 

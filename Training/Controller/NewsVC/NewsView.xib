@@ -9,7 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsViewController" customModule="Training" customModuleProvider="target">
             <connections>
-                <outlet property="loading" destination="R9B-q8-epa" id="llk-QL-28X"/>
                 <outlet property="newsTable" destination="TWb-Mq-FTY" id="0Zk-rp-xRq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,18 +22,13 @@
                     <rect key="frame" x="10" y="49" width="394" height="788"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="R9B-q8-epa">
-                    <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
-                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TWb-Mq-FTY" secondAttribute="trailing" constant="10" id="5id-Ij-Zko"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="TWb-Mq-FTY" secondAttribute="bottom" constant="25" id="6sa-wL-b0r"/>
                 <constraint firstItem="TWb-Mq-FTY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="dlz-oa-tTu"/>
-                <constraint firstItem="R9B-q8-epa" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="ora-It-1pk"/>
                 <constraint firstItem="TWb-Mq-FTY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="sO6-aT-tkr"/>
-                <constraint firstItem="R9B-q8-epa" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="tpg-T3-4B1"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="133" y="104"/>

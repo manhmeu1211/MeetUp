@@ -15,28 +15,20 @@ class NewsViewController: UIViewController {
  
     @IBOutlet weak var newsTable: UITableView!
     
-    @IBOutlet weak var loading: UIActivityIndicatorView!
-    
+    var alertLoading = UIAlertController()
     var currentPage = 1
-    
-    var timeToLoading : Timer?
-    
-    private let refreshControl = UIRefreshControl()
-    
     var newsResponse : [NewsDataResponse] = []
-    
     let dateformatted = DateFormatter()
-  
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
         if detechDailyFirstLaunch() == false {
             updateObject()
-            loading.handleLoading(isLoading: false)
-            print(newsResponse.count)
+            alertLoading.createAlertLoading(target: self, isShowLoading: false)
         } else {
-            loading.handleLoading(isLoading: true)
+            alertLoading.createAlertLoading(target: self, isShowLoading: true)
             getNewsData(shoudLoadmore: false, page: currentPage)
         }
     }
@@ -87,35 +79,32 @@ class NewsViewController: UIViewController {
     }
 
     func getNewsData(shoudLoadmore: Bool, page: Int) {
-        print("getData", shoudLoadmore)
-        loading.handleLoading(isLoading: false)
-        let queue = DispatchQueue(label: "appendDataNews")
-            queue.async {
-                getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10) { (json, errCode) in
-                    if errCode == 1 {
-                        let result = json!
-                        if shoudLoadmore == false {
-                            self.deleteObject()
-                            self.newsResponse.removeAll()
-                            _ = result.array?.forEach({ (news) in
-                                let news = NewsDataResponse(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
-                               RealmDataBaseQuery.getInstance.addData(object: news)
-                            })
-                        } else {
-                            _ = result.array?.forEach({ (news) in
-                            let news = NewsDataResponse(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
-                                RealmDataBaseQuery.getInstance.addData(object: news)
-                            })
-                        }
-                        self.updateObject()
-                    } else {
-                        self.updateObject()
-                        print("Failed to load Data")
-                        ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
-                    }
+        getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10) { (json, errCode) in
+            if errCode == 1 {
+                let result = json!
+                if shoudLoadmore == false {
+                    self.deleteObject()
+                    self.newsResponse.removeAll()
+                    _ = result.array?.forEach({ (news) in
+                        let news = NewsDataResponse(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
+                        RealmDataBaseQuery.getInstance.addData(object: news)
+                    })
+                } else {
+                    _ = result.array?.forEach({ (news) in
+                    let news = NewsDataResponse(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
+                        RealmDataBaseQuery.getInstance.addData(object: news)
+                    })
                 }
-           }
-       }
+                self.updateObject()
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+            } else {
+                self.updateObject()
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+                print("Failed to load Data")
+                ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
+            }
+        }
+    }
 }
 
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -126,8 +115,11 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = newsTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-        DispatchQueue.main.async {
-            cell.imgNews.image = UIImage(data: self.newsResponse[indexPath.row].thumbImg)
+        let queue = DispatchQueue(label: "loadImageNews")
+        queue.async {
+             DispatchQueue.main.async {
+                cell.imgNews.image = UIImage(data: self.newsResponse[indexPath.row].thumbImg)
+            }
         }
         cell.lblDes.text = "By \(newsResponse[indexPath.row].author) - From \(newsResponse[indexPath.row].feed)"
         cell.title.text = newsResponse[indexPath.row].title
@@ -137,9 +129,9 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == newsResponse.count - 2 {
+            alertLoading.createAlertLoading(target: self, isShowLoading: true)
             currentPage += 1
             self.getNewsData(shoudLoadmore: true, page: currentPage)
-            loading.handleLoading(isLoading: false)
         }
     }
 

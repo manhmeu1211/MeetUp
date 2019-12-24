@@ -828,38 +828,6 @@
             endingLineNumber = "97"
             landmarkName = "getNewsData(shoudLoadmore:page:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "16A490EC-02AC-443C-BD3C-5F644C8171DA - 13b00d6dd99a64e0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.NewsViewController.getNewsData(shoudLoadmore: Swift.Bool, page: Swift.Int) -&gt; ()"
-                  moduleName = "Training"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/NewsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "96"
-                  endingLineNumber = "96"
-                  offsetFromSymbolStart = "580">
-               </Location>
-               <Location
-                  uuid = "16A490EC-02AC-443C-BD3C-5F644C8171DA - 5d52be2b4cb3cac7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (SwiftyJSON.JSON) -&gt; () in closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.NewsViewController.getNewsData(shoudLoadmore: Swift.Bool, page: Swift.Int) -&gt; ()"
-                  moduleName = "Training"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/NewsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97"
-                  offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -978,7 +946,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F24561D7-CC3E-4E38-B340-6B79FB0DB77F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Training/MyService/APIService.swift"
@@ -1116,38 +1084,6 @@
             endingLineNumber = "91"
             landmarkName = "getNewsData(shoudLoadmore:page:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2CCB39E6-77F3-4901-BB79-6D143BDBCF6A - 1ada41be22f6bdcc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Training.NewsViewController.getNewsData(shoudLoadmore: Swift.Bool, page: Swift.Int) -&gt; ()"
-                  moduleName = "Training"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/NewsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "148">
-               </Location>
-               <Location
-                  uuid = "2CCB39E6-77F3-4901-BB79-6D143BDBCF6A - 13b00d6dd99a64e0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;SwiftyJSON.JSON&gt;, Swift.Int) -&gt; () in closure #1 () -&gt; () in Training.NewsViewController.getNewsData(shoudLoadmore: Swift.Bool, page: Swift.Int) -&gt; ()"
-                  moduleName = "Training"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/NewsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "91"
-                  endingLineNumber = "91"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1195,6 +1131,38 @@
             startingLineNumber = "143"
             endingLineNumber = "143"
             landmarkName = "tableView(_:willDisplay:forRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "44F34AE8-FD9B-47B4-B17A-F01051A7468D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/MyPageVC/MyPageGoingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "getListGoingEvent()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6070F6D4-CAEA-47BC-9D17-D61B22E35CA9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/MyPageVC/MyPageGoingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "updateObject()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

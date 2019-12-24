@@ -12,9 +12,11 @@ import RealmSwift
 class MyPageGoingViewController: UIViewController {
     
 
-    @IBOutlet weak var loading: UIActivityIndicatorView!
+
+    @IBOutlet weak var noEvents: UILabel!
     @IBOutlet weak var goingTable: UITableView!
     private let refreshControl = UIRefreshControl()
+    var alertLoading = UIAlertController()
     let status = 1
     var goingEvents : [MyPageGoingResDatabase] = []
     let userToken = UserDefaults.standard.string(forKey: "userToken")
@@ -23,18 +25,15 @@ class MyPageGoingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        if userToken != nil {
-            getListGoingEvent()
-        } else {
-            print("data loaded")
-        }
+        getListGoingEvent()
     }
     
+    
     func setupView() {
+        noEvents.isHidden = true
         goingTable.delegate = self
         goingTable.dataSource = self
         goingTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
-        self.loading.handleLoading(isLoading: true)
         if #available(iOS 10.0, *) {
             self.goingTable.refreshControl = refreshControl
         } else {
@@ -45,11 +44,13 @@ class MyPageGoingViewController: UIViewController {
     
     @objc func updateData() {
        getListGoingEvent()
+        refreshControl.endRefreshing()
     }
     
     func updateObject() {
-           self.goingEvents = RealmDataBaseQuery.getInstance.getObjects(type: MyPageGoingResDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: MyPageGoingResDatabase.self)
-       }
+        let list = RealmDataBaseQuery.getInstance.getObjects(type: MyPageGoingResDatabase.self)!.toArray(ofType: MyPageGoingResDatabase.self)
+        goingEvents = list
+    }
        
        
     func deleteObject() {
@@ -62,33 +63,27 @@ class MyPageGoingViewController: UIViewController {
     
     func getListGoingEvent() {
         if userToken == nil {
-            self.loading.handleLoading(isLoading: false)
             ToastView.shared.short(self.view, txt_msg: "You need to login first !")
         } else {
             let headers = [ "Authorization": "Bearer \(userToken!)",
                             "Content-Type": "application/json"  ]
-            
-            let queue = DispatchQueue(label: "getListGoingEvent")
-            queue.async {
-                getDataService.getInstance.getMyEventGoing(status: self.status, headers: headers) { (json, errCode) in
-                    if errCode == 1 {
-                        ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
-                    } else if errCode == 2 {
-                        let data = json!
-                        self.deleteObject()
-                        self.goingEvents.removeAll()
-                        _ = data.array?.forEach({ (goingEvents) in
-                        let goingEvents = MyPageGoingResDatabase(id: goingEvents["id"].intValue, photo: goingEvents["photo"].stringValue, name: goingEvents["name"].stringValue, descriptionHtml: goingEvents["description_html"].stringValue, scheduleStartDate: goingEvents["schedule_start_date"].stringValue, scheduleEndDate: goingEvents["schedule_end_date"].stringValue, scheduleStartTime: goingEvents["schedule_start_time"].stringValue, scheduleEndTime: goingEvents["schedule_end_time"].stringValue, schedulePermanent: goingEvents["schedule_permanent"].stringValue, goingCount: goingEvents["going_count"].intValue)
-                            RealmDataBaseQuery.getInstance.addData(object: goingEvents)
-                    })
-                        self.updateObject()
-                        self.goingTable.reloadData()
-                        self.loading.handleLoading(isLoading: false)
-                    
-                    }  else {
-                        self.updateObject()
-                        ToastView.shared.short(self.view, txt_msg: "Check your connetion !")
-                    }
+            getDataService.getInstance.getMyEventGoing(status: self.status, headers: headers) { (json, errCode) in
+                if errCode == 1 {
+                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+                    ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
+                } else if errCode == 2 {
+                    let data = json!
+                    self.deleteObject()
+                    self.goingEvents.removeAll()
+                    _ = data.array?.forEach({ (goingEvents) in
+                    let goingEvents = MyPageGoingResDatabase(id: goingEvents["id"].intValue, photo: goingEvents["photo"].stringValue, name: goingEvents["name"].stringValue, descriptionHtml: goingEvents["description_html"].stringValue, scheduleStartDate: goingEvents["schedule_start_date"].stringValue, scheduleEndDate: goingEvents["schedule_end_date"].stringValue, scheduleStartTime: goingEvents["schedule_start_time"].stringValue, scheduleEndTime: goingEvents["schedule_end_time"].stringValue, schedulePermanent: goingEvents["schedule_permanent"].stringValue, goingCount: goingEvents["going_count"].intValue)
+                        RealmDataBaseQuery.getInstance.addData(object: goingEvents)
+                })
+                    self.updateObject()
+                    self.goingTable.reloadData()
+                }  else {
+                    self.updateObject()
+                    self.goingTable.reloadData()
                 }
             }
         }
@@ -102,10 +97,13 @@ extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = goingTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-        DispatchQueue.main.async {
-            cell.imgTimer.image = UIImage(named: "Group15")
-            cell.date.textColor = UIColor(rgb: 0x5D20CD)
-            cell.imgNews.image = UIImage(data: self.goingEvents[indexPath.row].photo)
+        let queue = DispatchQueue(label: "loadImageGoing")
+        queue.async {
+            DispatchQueue.main.async {
+                cell.imgTimer.image = UIImage(named: "Group15")
+                cell.date.textColor = UIColor(rgb: 0x5D20CD)
+                cell.imgNews.image = UIImage(data: self.goingEvents[indexPath.row].photo)
+            }
         }
         cell.date.text = "\(goingEvents[indexPath.row].scheduleStartDate) - \(goingEvents[indexPath.row].goingCount) people going"
         cell.title.text = goingEvents[indexPath.row].name

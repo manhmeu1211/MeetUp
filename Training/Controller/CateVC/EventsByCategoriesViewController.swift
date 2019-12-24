@@ -12,17 +12,13 @@ import RealmSwift
 class EventsByCategoriesViewController: UIViewController {
     
     
+    @IBOutlet weak var noResults: UILabel!
     @IBOutlet weak var titleCategories: UILabel!
-    
     @IBOutlet weak var incaditorLeading: NSLayoutConstraint!
-    
-    
     @IBOutlet weak var incaditorView: UIView!
-    
     @IBOutlet weak var eventTable: UITableView!
-    
     private let refreshControl = UIRefreshControl()
-    
+    var alertLoading = UIAlertController()
     var id : Int?
     var headerTitle : String?
     
@@ -33,27 +29,34 @@ class EventsByCategoriesViewController: UIViewController {
     let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
 
     let realm = try! Realm()
+    let token = UserDefaults.standard.string(forKey: "userToken")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupVỉew()
+        getDataEventV2()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let token = UserDefaults.standard.string(forKey: "userToken")
+      
+    }
+    
+    func getDataEventV2() {
         if token != nil {
-//            loadingHubShow()
+            alertLoading.createAlertLoading(target: self, isShowLoading: true)
             deleteObject()
             eventsByCate.removeAll()
             getDataEventsByCategories(isLoadMore: false, page: currentPage)
+            noResults.isHidden = true
         } else {
+            noResults.isHidden = false
             print("Token is null")
             ToastView.shared.long(self.view, txt_msg: "Not logged in")
         }
     }
-    
 
     func setupVỉew() {
+        noResults.isHidden = true
         eventTable.dataSource = self
         eventTable.delegate = self
         eventTable.rowHeight = UITableView.automaticDimension
@@ -73,22 +76,7 @@ class EventsByCategoriesViewController: UIViewController {
           getDataEventsByCategories(isLoadMore: false, page: currentPage)
           refreshControl.endRefreshing()
       }
-      
-    
-    func loadingHubShow() {
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.style = UIActivityIndicatorView.Style.medium
-        loadingIndicator.startAnimating();
-        alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
-    }
-
-    func loadingHubDismiss() {
-        alert.dismiss(animated: true, completion: nil)
-    }
   
-    
     func updateObjectByPopulars() {
         self.eventsByCate = RealmDataBaseQuery.getInstance.getObjects(type: EventsByCategoriesDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsByCategoriesDatabase.self)
          self.titleCategories.text = "\(self.headerTitle!)(\(self.eventsByCate.count))"
@@ -107,44 +95,37 @@ class EventsByCategoriesViewController: UIViewController {
         }
     }
 
-
-
     func getDataEventsByCategories(isLoadMore : Bool, page: Int) {
         print("getData")
         let categoriesID = id!
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "token": usertoken!,
                         "Content-Type": "application/json" ]
-        
-        let queue = DispatchQueue(label: "eventsByCate")
-        queue.async {
-            getDataService.getInstance.getListEventsByCategories(id: categoriesID, pageIndex: page, headers: headers) { (json, errcode) in
-                if errcode == 1 {
-                    self.loadingHubDismiss()
-                } else if errcode == 2 {
-                    let data = json!
-                    if isLoadMore == false {
-                        self.deleteObject()
-                        self.eventsByCate.removeAll()
-                        _ = data.array?.forEach({ (event) in
-                        let eventsRes = EventsByCategoriesDatabase(id: event["id"].intValue, photo: event["photo"].stringValue, name: event["name"].stringValue, descriptionHtml: event["description_html"].stringValue, scheduleStartDate: event["schedule_start_date"].stringValue, scheduleEndDate: event["schedule_end_date"].stringValue, scheduleStartTime: event["schedule_start_time"].stringValue, scheduleEndTime: event["schedule_end_time"].stringValue, schedulePermanent: event["schedule_permanent"].stringValue, goingCount: event["going_count"].intValue)
-                        RealmDataBaseQuery.getInstance.addData(object: eventsRes)
-                        })
-                    } else {
-                        _ = data.array?.forEach({ (event) in
-                        let eventsRes = EventsByCategoriesDatabase(id: event["id"].intValue, photo: event["photo"].stringValue, name: event["name"].stringValue, descriptionHtml: event["description_html"].stringValue, scheduleStartDate: event["schedule_start_date"].stringValue, scheduleEndDate: event["schedule_end_date"].stringValue, scheduleStartTime: event["schedule_start_time"].stringValue, scheduleEndTime: event["schedule_end_time"].stringValue, schedulePermanent: event["schedule_permanent"].stringValue, goingCount: event["going_count"].intValue)
-                        RealmDataBaseQuery.getInstance.addData(object: eventsRes)
-                        })
-                    }
-                    self.updateObjectByPopulars()
-                    self.eventTable.reloadData()
-                    self.loadingHubDismiss()
-                    print(self.eventsByCate.count)
+        getDataService.getInstance.getListEventsByCategories(id: categoriesID, pageIndex: page, headers: headers) { (json, errcode) in
+            if errcode == 1 {
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+            } else if errcode == 2 {
+                let data = json!
+                if isLoadMore == false {
+                    self.deleteObject()
+                    self.eventsByCate.removeAll()
+                    _ = data.array?.forEach({ (event) in
+                    let eventsRes = EventsByCategoriesDatabase(id: event["id"].intValue, photo: event["photo"].stringValue, name: event["name"].stringValue, descriptionHtml: event["description_html"].stringValue, scheduleStartDate: event["schedule_start_date"].stringValue, scheduleEndDate: event["schedule_end_date"].stringValue, scheduleStartTime: event["schedule_start_time"].stringValue, scheduleEndTime: event["schedule_end_time"].stringValue, schedulePermanent: event["schedule_permanent"].stringValue, goingCount: event["going_count"].intValue)
+                    RealmDataBaseQuery.getInstance.addData(object: eventsRes)
+                    })
                 } else {
-                    self.updateObjectByPopulars()
-                    self.loadingHubDismiss()
-                    ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
+                    _ = data.array?.forEach({ (event) in
+                    let eventsRes = EventsByCategoriesDatabase(id: event["id"].intValue, photo: event["photo"].stringValue, name: event["name"].stringValue, descriptionHtml: event["description_html"].stringValue, scheduleStartDate: event["schedule_start_date"].stringValue, scheduleEndDate: event["schedule_end_date"].stringValue, scheduleStartTime: event["schedule_start_time"].stringValue, scheduleEndTime: event["schedule_end_time"].stringValue, schedulePermanent: event["schedule_permanent"].stringValue, goingCount: event["going_count"].intValue)
+                    RealmDataBaseQuery.getInstance.addData(object: eventsRes)
+                    })
                 }
+                self.updateObjectByPopulars()
+                self.eventTable.reloadData()
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
+            } else {
+                self.updateObjectByPopulars()
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+                ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
             }
         }
     }
@@ -189,9 +170,11 @@ extension EventsByCategoriesViewController : UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = eventTable.dequeueReusableCell(withIdentifier: "PopularsTableViewCell", for: indexPath) as! PopularsTableViewCell
-        
-        DispatchQueue.main.async {
-            cell.imgPopulars.image = UIImage(data: self.eventsByCate[indexPath.row].photo)
+        let queue = DispatchQueue(label: "loadImageEventByCate")
+        queue.async {
+            DispatchQueue.main.async {
+                cell.imgPopulars.image = UIImage(data: self.eventsByCate[indexPath.row].photo)
+            }
         }
         cell.eventsName.text = eventsByCate[indexPath.row].name
         cell.desHTML.text = eventsByCate[indexPath.row].descriptionHtml.replacingOccurrences(of: "[|<>/]", with: "", options: [.regularExpression])
@@ -206,6 +189,7 @@ extension EventsByCategoriesViewController : UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
            if indexPath.row == eventsByCate.count - 2 {
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
                self.getDataEventsByCategories(isLoadMore: true, page: self.currentPage + 1 )
                self.currentPage += 1
            }

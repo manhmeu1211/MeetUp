@@ -33,6 +33,7 @@ class SearchViewController: UIViewController {
     var pastClick = false
     var searchResponse : [SearchResponseDatabase] = []
     let realm = try! Realm()
+    var alertLoading = UIAlertController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,12 +77,11 @@ class SearchViewController: UIViewController {
             ToastView.shared.short(self.view, txt_msg: "Not need to login first !")
         } else {
             let headers = [ "token": usertoken!,
-                            "Content-Type": "application/json"  ]
-        let queue = DispatchQueue(label: "searchData")
-        queue.async {
+                                "Content-Type": "application/json"  ]
             getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
                 if errcode == 1 {
-    
+                    ToastView.shared.short(self.view, txt_msg: "Cannot search data from sever !")
+                    self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
                 } else if errcode == 2 {
                     let data = json!
                     if isLoadMore == false {
@@ -89,7 +89,7 @@ class SearchViewController: UIViewController {
                         self.searchResponse.removeAll()
                         _ = data.array?.forEach({ (search) in
                         let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
-                            RealmDataBaseQuery.getInstance.addData(object: searchRes)
+                                RealmDataBaseQuery.getInstance.addData(object: searchRes)
                         })
                     } else {
                         _ = data.array?.forEach({ (search) in
@@ -97,7 +97,6 @@ class SearchViewController: UIViewController {
                         RealmDataBaseQuery.getInstance.addData(object: searchRes)
                         })
                     }
-                    self.loading.handleLoading(isLoading: false)
                     self.updateObject()
                     self.searchTable.reloadData()
                     if self.searchResponse.isEmpty {
@@ -105,9 +104,9 @@ class SearchViewController: UIViewController {
                     } else {
                         self.noResults.isHidden = true
                     }
-                  
+                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 } else {
-                    self.loading.handleLoading(isLoading: false)
+                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                     ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
                     self.noResults.text = "Failed to load data from sever"
                     self.noResults.isHidden = false
@@ -115,7 +114,6 @@ class SearchViewController: UIViewController {
             }
         }
     }
-}
     
     @objc func updateDataSeacrch() {
         handleSearch(isLoadMore: false, page: currentPage)
@@ -151,8 +149,8 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-         view.endEditing(true)
-         loading.handleLoading(isLoading: true)
+        alertLoading.createAlertLoading(target: self, isShowLoading: true)
+        view.endEditing(true)
          handleSearch(isLoadMore: false, page: currentPage)
          return true
      }
@@ -165,8 +163,11 @@ extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = searchTable.dequeueReusableCell(withIdentifier: "PopularsTableViewCell", for: indexPath) as! PopularsTableViewCell
-        DispatchQueue.main.async {
-            cell.imgPopulars.image = UIImage(data: self.searchResponse[indexPath.row].photo)
+        let queue = DispatchQueue(label: "loadImageSearch")
+        queue.async {
+            DispatchQueue.main.async {
+                cell.imgPopulars.image = UIImage(data: self.searchResponse[indexPath.row].photo)
+            }
         }
         cell.eventsName.text = searchResponse[indexPath.row].name
         cell.desHTML.text = searchResponse[indexPath.row].descriptionHtml.replacingOccurrences(of: "[|<>/]", with: "", options: [.regularExpression])
@@ -185,8 +186,9 @@ extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
       
       func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
           if indexPath.row == searchResponse.count - 2 {
-              self.handleSearch(isLoadMore: true, page: self.currentPage + 1 )
-              self.currentPage += 1
+            self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
+            self.handleSearch(isLoadMore: true, page: self.currentPage + 1 )
+            self.currentPage += 1
           }
       }
       
