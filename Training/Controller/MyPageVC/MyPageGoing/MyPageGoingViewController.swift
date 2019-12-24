@@ -25,11 +25,10 @@ class MyPageGoingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        alertLoading.createAlertLoading(target: self, isShowLoading: true)
         getListGoingEvent()
         checkEvent()
     }
-    
+
     func checkEvent() {
         if realm.objects(MyPageGoingResDatabase.self).toArray(ofType: MyPageGoingResDatabase.self) == [] {
             noEvents.isHidden = false
@@ -89,7 +88,6 @@ class MyPageGoingViewController: UIViewController {
                     self.alertLoading.createAlertWithHandle(target: self, title: "Login session expired", message: "Please re-login !", titleBtn: "OK") {
                         self.handleLogOut()
                     }
-                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 } else if errCode == 2 {
                     let data = json!
                     self.deleteObject()
@@ -100,11 +98,9 @@ class MyPageGoingViewController: UIViewController {
                 })
                     self.updateObject()
                     self.goingTable.reloadData()
-                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 }  else {
                     self.updateObject()
                     self.goingTable.reloadData()
-                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
                 }
             }
         }
