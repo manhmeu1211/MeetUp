@@ -10,16 +10,15 @@ import UIKit
 import RealmSwift
 
 class EventDetailController: UIViewController {
-    
-    let realm = try! Realm()
- 
+
     @IBOutlet weak var detailTable: UITableView!
     
-    var eventDetail = EventDetail()
-    var events : [EventsNearResponse] = []
+    private let realm = try! Realm()
+    private var eventDetail = EventDetail()
+    private var events : [EventsNearResponse] = []
     var id : Int?
-    let userToken = UserDefaults.standard.string(forKey: "userToken")
-    var alertLogin = UIAlertController()
+    private let userToken = UserDefaults.standard.string(forKey: "userToken")
+    private var alertLogin = UIAlertController()
 
     var headers : [String : String] = [:]
     
@@ -31,7 +30,7 @@ class EventDetailController: UIViewController {
         getListEvent()
     }
     
-    func setUpView() {
+    private func setUpView() {
         detailTable.dataSource = self
         detailTable.delegate = self
         detailTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
@@ -45,7 +44,7 @@ class EventDetailController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
     }
     
-    func setHeaders() {
+    private func setHeaders() {
         if userToken == nil {
             headers = [ "Authorization": "No Auth",
                         "Content-Type": "application/json"  ]
@@ -55,28 +54,28 @@ class EventDetailController: UIViewController {
         }
     }
     
-    func checkLoggedIn() -> Bool {
+    private func checkLoggedIn() -> Bool {
         if userToken != nil {
             return true
         }
         return false
     }
     
-    func deleteObject() {
+    private func deleteObject() {
        let list = realm.objects(EventDetail.self).toArray(ofType: EventDetail.self)
         try! realm.write {
             realm.delete(list)
         }
     }
     
-    func handleLoginView() {
+    private func handleLoginView() {
          isLoginVC = true
          let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
          UIApplication.shared.windows.first?.rootViewController = vc
          UIApplication.shared.windows.first?.makeKeyAndVisible()
      }
     
-    func goingEvent() {
+    private func goingEvent() {
         let params = ["status": 1, "event_id": id! ]
         getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
@@ -90,7 +89,7 @@ class EventDetailController: UIViewController {
         }
     }
     
-    func wentEvent() {
+    private func wentEvent() {
         let params = ["status": 2, "event_id": id! ]
         getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
@@ -104,7 +103,7 @@ class EventDetailController: UIViewController {
         }
     }
     
-    func getDetailEvent() {
+    private func getDetailEvent() {
         getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (json, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "You need to login first")
@@ -125,7 +124,7 @@ class EventDetailController: UIViewController {
     }
     
 
-    func getListEvent() {
+    private func getListEvent() {
         getDataService.getInstance.getListNearEvent(radius: 5000, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: self.headers) { (json, errcode) in
                 if errcode == 1 {
                     self.events.removeAll()

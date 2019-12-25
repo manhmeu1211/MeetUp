@@ -14,9 +14,9 @@ class MyPageWentViewController: UIViewController {
     @IBOutlet weak var noEvents: UILabel!
     @IBOutlet weak var wentTable: UITableView!
     let userToken = UserDefaults.standard.string(forKey: "userToken")
-    let status = 2
-    let realm = try! Realm()
-    var wentEvents : [MyPageWentResDatabase] = []
+    private let status = 2
+    private let realm = try! Realm()
+    private var wentEvents : [MyPageWentResDatabase] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +28,14 @@ class MyPageWentViewController: UIViewController {
         }
     }
     
-    func setupView() {
-          wentTable.delegate = self
-          wentTable.dataSource = self
-          wentTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
-      }
+    private func setupView() {
+        wentTable.delegate = self
+        wentTable.dataSource = self
+        wentTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
+        noEvents.isHidden = true
+    }
     
-    func checkEvent() {
+    private func checkEvent() {
          if realm.objects(MyPageWentResDatabase.self).toArray(ofType: MyPageWentResDatabase.self) == [] {
              noEvents.isHidden = false
          } else {
@@ -43,20 +44,19 @@ class MyPageWentViewController: UIViewController {
      }
      
     
-    
-    func updateObject() {
+    private func updateObject() {
              self.wentEvents = RealmDataBaseQuery.getInstance.getObjects(type: MyPageWentResDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: MyPageWentResDatabase.self)
          }
          
          
-      func deleteObject() {
+    private func deleteObject() {
           let list = realm.objects(MyPageWentResDatabase.self).toArray(ofType: MyPageWentResDatabase.self)
           try! realm.write {
               realm.delete(list)
           }
-      }
-
-       func getListGoingWent() {
+    }
+    
+    private func getListGoingWent() {
            let usertoken = UserDefaults.standard.string(forKey: "userToken")
            if usertoken == nil {
                ToastView.shared.short(self.view, txt_msg: "Not need to login first !")

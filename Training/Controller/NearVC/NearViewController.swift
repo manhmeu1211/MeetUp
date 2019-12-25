@@ -43,7 +43,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Setup Location - MapView
     
-    func getLocation() {
+    private func getLocation() {
         locationManager.requestWhenInUseAuthorization()
         if( CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
         CLLocationManager.authorizationStatus() ==  .authorizedAlways) {
@@ -59,7 +59,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
          alertNotLogin.createAlertLoading(target: self, isShowLoading: false)
     }
     
-    func addArtwork() {
+    private func addArtwork() {
           map.mapType = MKMapType.standard
           let artwork = Artwork(title: "My Location",
                  locationName: "My Location",
@@ -70,14 +70,14 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Setup views
     
-    func setUpCollectionView() {
+    private func setUpCollectionView() {
           collectionVIew.dataSource = self
           collectionVIew.delegate = self
           collectionVIew.register(UINib(nibName: "EventsCell", bundle: nil), forCellWithReuseIdentifier: "EventsCell")
-      }
+    }
     
 
-    func getListEventV2() {
+    private func getListEventV2() {
         let token = UserDefaults.standard.string(forKey: "userToken")
         if token != nil {
             getListEvent()
@@ -99,7 +99,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
 
   // MARK: - getData
     
-    func updateObject() {
+    private func updateObject() {
         let list = RealmDataBaseQuery.getInstance.getObjects(type: EventsNearResponse.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsNearResponse.self)
         if list == [] {
             events.append(EventsNearResponse(id: 0, photo: "", name: "Not event near you", descriptionHtml: "", scheduleStartDate: "", scheduleEndDate: "", scheduleStartTime: "", scheduleEndTime: "", schedulePermanent: "", goingCount: 0))
@@ -108,14 +108,14 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
       
-    func deleteObject() {
+    private func deleteObject() {
         let list = realm.objects(EventsNearResponse.self).toArray(ofType: EventsNearResponse.self)
         try! realm.write {
             realm.delete(list)
         }
     }
 
-    func getListEvent() {
+    private func getListEvent() {
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer \(usertoken!)",
         "Content-Type": "application/json"  ]
@@ -143,19 +143,19 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func centerMapOnLocation(location: CLLocation) {
+    private func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         map.setRegion(coordinateRegion, animated: true)
     }
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    private func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
             let centralLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude:  mapView.centerCoordinate.longitude)
             self.centralLocationCoordinate = mapView.centerCoordinate
            print("Radius - \(self.getRadius(centralLocation: centralLocation))")
     }
 
 
-    func getRadius(centralLocation: CLLocation) -> Double {
+    private func getRadius(centralLocation: CLLocation) -> Double {
         let topCentralLat:Double = centralLocation.coordinate.latitude -  map.region.span.latitudeDelta/2
         let topCentralLocation = CLLocation(latitude: topCentralLat, longitude: centralLocation.coordinate.longitude)
         let radius = centralLocation.distance(from: topCentralLocation)

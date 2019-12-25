@@ -15,17 +15,17 @@ class NewsViewController: UIViewController {
   // MARK: - Outlets
  
     @IBOutlet weak var newsTable: UITableView!
-    let refreshControl = UIRefreshControl()
-    var alertLoading = UIAlertController()
+    private let refreshControl = UIRefreshControl()
+    private var alertLoading = UIAlertController()
     
     // MARK: - Varrible
     
-    let realm = try! Realm()
-    var currentPage = 1
-    var newsResponse : [NewsDataResponse] = []
-    let dateformatted = DateFormatter()
-    let userToken = UserDefaults.standard.string(forKey: "userToken")
-    var isLoadmore : Bool!
+    private let realm = try! Realm()
+    private var currentPage = 1
+    private var newsResponse : [NewsDataResponse] = []
+    private let dateformatted = DateFormatter()
+    private let userToken = UserDefaults.standard.string(forKey: "userToken")
+    private var isLoadmore : Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +37,13 @@ class NewsViewController: UIViewController {
     
     // MARK: - Function check before get data
     
-    func checkConnection() {
+    private func checkConnection() {
         NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.networkStatusChanged(_:)), name: Notification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
        Reach().monitorReachabilityChanges()
     }
     
-      @objc func networkStatusChanged(_ notification: Notification) {
-         if let userInfo = notification.userInfo {
+    @objc func networkStatusChanged(_ notification: Notification) {
+        if let userInfo = notification.userInfo {
             let statusConnect = userInfo["Status"] as! String
             print(statusConnect)
         }
@@ -58,7 +58,7 @@ class NewsViewController: UIViewController {
             }
      }
     
-    func checkFirstLaunchDaily() {
+    private func checkFirstLaunchDaily() {
         if detechDailyFirstLaunch() == false {
             checkTokenExpired()
             updateObject()
@@ -69,7 +69,7 @@ class NewsViewController: UIViewController {
         }
     }
     
-    func checkTokenExpired() {
+    private func checkTokenExpired() {
         if userToken != nil {
             let headers = [ "Authorization": "Bearer \(userToken!)",
                         "Content-Type": "application/json"  ]
@@ -87,12 +87,12 @@ class NewsViewController: UIViewController {
         }
     }
     
-    func handleLogOut() {
+    private func handleLogOut() {
         UserDefaults.standard.removeObject(forKey: "userToken")
     }
     
   
-    func detechDailyFirstLaunch() -> Bool {
+    private func detechDailyFirstLaunch() -> Bool {
          let today = NSDate().formatted
          if (UserDefaults.standard.string(forKey: "FIRSTLAUNCHNEWS") == today) {
              print("already launched")
@@ -106,7 +106,7 @@ class NewsViewController: UIViewController {
     
     // MARK: - Function set up table and get data
     
-    func setUpTable() {
+    private func setUpTable() {
         newsTable.dataSource = self
         newsTable.delegate = self
         newsTable.rowHeight = UITableView.automaticDimension
@@ -126,19 +126,19 @@ class NewsViewController: UIViewController {
     }
     
        
-    func deleteObject() {
+    private func deleteObject() {
         let list = realm.objects(NewsDataResponse.self).toArray(ofType: NewsDataResponse.self)
         try! realm.write {
             realm.delete(list)
         }
     }
     
-    func updateObject() {
+    private func updateObject() {
         let list = RealmDataBaseQuery.getInstance.getObjects(type: NewsDataResponse.self)!.toArray(ofType: NewsDataResponse.self)
         newsResponse = list
     }
 
-    func getNewsData(shoudLoadmore: Bool, page: Int) {
+    private func getNewsData(shoudLoadmore: Bool, page: Int) {
         print("getNewsData")
         getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10) { (json, errCode) in
             if errCode == 1 {

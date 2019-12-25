@@ -17,11 +17,11 @@ class BrowserViewController: UIViewController {
     
      // MARK: - Varribles
     
-    var alertLoading = UIAlertController()
-    let refreshControl = UIRefreshControl()
-    var cateList : [CategoriesResDatabase] = []
-    let realm = try! Realm()
-    let userToken = UserDefaults.standard.string(forKey: "userToken")
+    private var alertLoading = UIAlertController()
+    private let refreshControl = UIRefreshControl()
+    private var cateList : [CategoriesResDatabase] = []
+    private let realm = try! Realm()
+    private let userToken = UserDefaults.standard.string(forKey: "userToken")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,14 +41,14 @@ class BrowserViewController: UIViewController {
     
      // MARK: - setup View
     
-    func setUpBarButton() {
+    private func setUpBarButton() {
         self.title = "Categories"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.search, target: self, action: #selector(handleSearchViewController))
           self.tabBarController?.tabBar.isHidden = false
     }
 
   
-    func setupTable() {
+    private func setupTable() {
         categoriesTable.delegate = self
         categoriesTable.dataSource = self
         categoriesTable.register(UINib(nibName: "CategoriesTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoriesTableViewCell")
@@ -67,14 +67,14 @@ class BrowserViewController: UIViewController {
         self.refreshControl.endRefreshing()
     }
     
-    func updateObject() {
+    private func updateObject() {
         let list = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
         cateList = list
         alertLoading.createAlertLoading(target: self, isShowLoading: false)
     }
     
     
-    func deleteObject() {
+    private func deleteObject() {
         let list = realm.objects(CategoriesResDatabase.self).toArray(ofType: CategoriesResDatabase.self)
         try! realm.write {
             realm.delete(list)
@@ -82,7 +82,7 @@ class BrowserViewController: UIViewController {
     }
        
     
-    func getListCategories() {
+    private func getListCategories() {
         getDataService.getInstance.getListCategories { (json, errcode) in
             if errcode == 1 {
                 self.deleteObject()

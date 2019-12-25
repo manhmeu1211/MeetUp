@@ -25,7 +25,7 @@ class SignUpMainViewController: UIViewController {
     
     // MARK: - Function setup views
     
-    func setUpView() {
+    private func setUpView() {
         tabBarController?.tabBar.isHidden = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false

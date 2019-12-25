@@ -15,7 +15,8 @@ class ResetPassViewController: UIViewController {
     @IBOutlet weak var btnResetPassword: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var emailView: UIView!
-    var alert = UIAlertController()
+    
+    private var alert = UIAlertController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,7 @@ class ResetPassViewController: UIViewController {
     
     // MARK: - Function setup keyboard
     
-    func setUpKeyBoardObservers() {
+    private func setUpKeyBoardObservers() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(handleKeyBoardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(handleKeyBoardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -47,14 +48,14 @@ class ResetPassViewController: UIViewController {
     
     // MARK: - Function reset password
     
-    func handleLoginView() {
+    private func handleLoginView() {
          isLoginVC = true
         let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
         UIApplication.shared.windows.first?.rootViewController = vc
         UIApplication.shared.windows.first?.makeKeyAndVisible()
      }
     
-    func resetPassword() {
+    private func resetPassword() {
         let email = txtEmail.text
         if ValidatedString.getInstance.isValidEmail(stringEmail: email!) == false || email!.isEmpty  {
             ToastView.shared.short(self.view, txt_msg: "Email is not correct")

@@ -20,7 +20,7 @@ class WebViewController: UIViewController {
         requestToUrlNews(url: urlToOpen ?? "https://google.com.vn")
     }
     
-    func requestToUrlNews(url: String){
+    private func requestToUrlNews(url: String){
         let url = URL(string: url)
         let request = URLRequest(url: url!)
         webViewV2.load(request)

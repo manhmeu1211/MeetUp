@@ -29,7 +29,7 @@ class MyPageGoingViewController: UIViewController {
         checkEvent()
     }
 
-    func checkEvent() {
+    private func checkEvent() {
         if realm.objects(MyPageGoingResDatabase.self).toArray(ofType: MyPageGoingResDatabase.self) == [] {
             noEvents.isHidden = false
         } else {
@@ -37,7 +37,7 @@ class MyPageGoingViewController: UIViewController {
         }
     }
     
-    func setupView() {
+    private func setupView() {
         noEvents.isHidden = true
         goingTable.delegate = self
         goingTable.dataSource = self
@@ -55,20 +55,20 @@ class MyPageGoingViewController: UIViewController {
         refreshControl.endRefreshing()
     }
     
-    func updateObject() {
+    private func updateObject() {
         let list = RealmDataBaseQuery.getInstance.getObjects(type: MyPageGoingResDatabase.self)!.toArray(ofType: MyPageGoingResDatabase.self)
         goingEvents = list
     }
        
        
-    func deleteObject() {
+    private func deleteObject() {
         let list = realm.objects(MyPageGoingResDatabase.self).toArray(ofType: MyPageGoingResDatabase.self)
         try! realm.write {
             realm.delete(list)
         }
     }
     
-    func handleLogOut() {
+    private func handleLogOut() {
         isLoginVC = true
         UserDefaults.standard.removeObject(forKey: "userToken")
         let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
@@ -77,7 +77,7 @@ class MyPageGoingViewController: UIViewController {
     }
 
     
-    func getListGoingEvent() {
+    private func getListGoingEvent() {
         if userToken == nil {
             ToastView.shared.short(self.view, txt_msg: "You need to login first !")
         } else {

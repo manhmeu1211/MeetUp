@@ -19,7 +19,9 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var emailView: UIView!
     @IBOutlet weak var passwordView: UIView!
-    var alert = UIAlertController()
+    
+    private var alert = UIAlertController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
@@ -28,7 +30,7 @@ class SignUpViewController: UIViewController {
     
     // MARK: - Function setup view
     
-    func setUpView() {
+    private func setUpView() {
         nameView.setUpCardView()
         emailView.setUpCardView()
         passwordView.setUpCardView()
@@ -37,7 +39,7 @@ class SignUpViewController: UIViewController {
     }
     
     
-    func handleLogged() {
+    private func handleLogged() {
         let token = UserDefaults.standard.string(forKey: "userToken")
            if token != nil {
                let vc = MyPageViewController()
@@ -47,7 +49,7 @@ class SignUpViewController: UIViewController {
            }
        }
     
-    func handleLoginView() {
+    private func handleLoginView() {
         let loginVC = LoginViewController()
         navigationController?.pushViewController(loginVC, animated: true)
     }

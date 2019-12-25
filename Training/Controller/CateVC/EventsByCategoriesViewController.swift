@@ -22,14 +22,14 @@ class EventsByCategoriesViewController: UIViewController {
     
     // MARK: - Varribles
     
-    var alertLoading = UIAlertController()
+    private var alertLoading = UIAlertController()
     var id : Int?
     var headerTitle : String?
-    var currentPage = 1
-    var eventsByCate : [EventsByCategoriesDatabase] = []
-    let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-    let realm = try! Realm()
-    let token = UserDefaults.standard.string(forKey: "userToken")
+    private var currentPage = 1
+    private var eventsByCate : [EventsByCategoriesDatabase] = []
+    private let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+    private let realm = try! Realm()
+    private let token = UserDefaults.standard.string(forKey: "userToken")
     
     
     override func viewDidLoad() {
@@ -41,7 +41,7 @@ class EventsByCategoriesViewController: UIViewController {
     
     // MARK: - Function setup views and data
     
-    func getDataEventV2() {
+    private func getDataEventV2() {
         if token != nil {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             getDataEventsByCategories(isLoadMore: false, page: currentPage)
@@ -54,7 +54,7 @@ class EventsByCategoriesViewController: UIViewController {
         }
     }
 
-    func setupVỉew() {
+    private func setupVỉew() {
         noResults.isHidden = true
         eventTable.dataSource = self
         eventTable.delegate = self
@@ -76,18 +76,18 @@ class EventsByCategoriesViewController: UIViewController {
           refreshControl.endRefreshing()
       }
   
-    func updateObjectByPopulars() {
+    private func updateObjectByPopulars() {
         self.eventsByCate = RealmDataBaseQuery.getInstance.getObjects(type: EventsByCategoriesDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsByCategoriesDatabase.self)
          self.titleCategories.text = "\(self.headerTitle!)(\(self.eventsByCate.count))"
     }
     
-    func updateObjectByDate() {
+    private func updateObjectByDate() {
         self.eventsByCate = RealmDataBaseQuery.getInstance.getObjects(type: EventsByCategoriesDatabase.self)!.sorted(byKeyPath: "scheduleStartDate", ascending: false).toArray(ofType: EventsByCategoriesDatabase.self)
          self.titleCategories.text = "\(self.headerTitle!)(\(self.eventsByCate.count))"
     }
     
         
-    func deleteObject() {
+    private func deleteObject() {
         let list = realm.objects(EventsByCategoriesDatabase.self).toArray(ofType: EventsByCategoriesDatabase.self)
         try! realm.write {
             realm.delete(list)

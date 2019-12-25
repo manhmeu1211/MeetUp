@@ -16,12 +16,12 @@ class PopularsViewController: UIViewController {
     @IBOutlet weak var popularsTable: UITableView!
     
     // MARK: - Varribles
-    var alertLoading = UIAlertController()
-    let refreshControl = UIRefreshControl()
-    var popularResponse : [PopularsResDatabase] = []
-    var currentPage = 1
-    let realm = try! Realm()
-    var isLoadmore : Bool!
+    private var alertLoading = UIAlertController()
+    private let refreshControl = UIRefreshControl()
+    private var popularResponse : [PopularsResDatabase] = []
+    private var currentPage = 1
+    private let realm = try! Realm()
+    private var isLoadmore : Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class PopularsViewController: UIViewController {
     
     // MARK: - Function check before get data
     
-    func checkConnection() {
+    private func checkConnection() {
           NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.networkStatusChanged(_:)), name: Notification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
          Reach().monitorReachabilityChanges()
       }
@@ -53,7 +53,7 @@ class PopularsViewController: UIViewController {
             }
        }
     
-    func getDataFirstLaunch() {
+    private func getDataFirstLaunch() {
         if detechDailyFirstLaunch() == false {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             updateObject()
@@ -63,7 +63,7 @@ class PopularsViewController: UIViewController {
         }
     }
     
-    func detechDailyFirstLaunch() -> Bool {
+    private func detechDailyFirstLaunch() -> Bool {
            let today = NSDate().formatted
            if (UserDefaults.standard.string(forKey: "FIRSTLAUNCHPOPULARS") == today) {
                print("already launched")
@@ -77,7 +77,7 @@ class PopularsViewController: UIViewController {
     
     // MARK: - Function set up table and get data
  
-    func setUpTable() {
+    private func setUpTable() {
         popularsTable.dataSource = self
         popularsTable.delegate = self
         popularsTable.rowHeight = UITableView.automaticDimension
@@ -98,13 +98,13 @@ class PopularsViewController: UIViewController {
     }
     
     
-    func updateObject() {
+    private func updateObject() {
         self.popularResponse = RealmDataBaseQuery.getInstance.getObjects(type: PopularsResDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: PopularsResDatabase.self)
         alertLoading.createAlertLoading(target: self, isShowLoading: false)
     }
     
     
-    func deleteObject() {
+    private func deleteObject() {
           let list = realm.objects(PopularsResDatabase.self).toArray(ofType: PopularsResDatabase.self)
           try! realm.write {
               realm.delete(list)
@@ -112,7 +112,7 @@ class PopularsViewController: UIViewController {
       }
 
     
-    func getListPopularData(isLoadMore : Bool, page : Int) {
+    private func getListPopularData(isLoadMore : Bool, page : Int) {
         getDataService.getInstance.getListPopular(pageIndex: page, pageSize : 10) { (data, isSuccess) in
             if isSuccess == 1 {
                 let result = data!
