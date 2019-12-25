@@ -116,7 +116,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jT9-MV-jZ0">
-                    <rect key="frame" x="324" y="59" width="60" height="35"/>
+                    <rect key="frame" x="319" y="59" width="60" height="35"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="5Jb-ZQ-t7U"/>
                         <constraint firstAttribute="height" constant="35" id="93G-9t-QYh"/>
@@ -152,7 +152,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cHz-Sr-6kK" secondAttribute="bottom" id="ctR-2d-oEB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WOj-lG-9ui" secondAttribute="trailing" id="e24-T6-Xy2"/>
                 <constraint firstItem="jT9-MV-jZ0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="eJX-ba-YnN"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jT9-MV-jZ0" secondAttribute="trailing" constant="30" id="iug-Fh-R3j"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jT9-MV-jZ0" secondAttribute="trailing" constant="35" id="iug-Fh-R3j"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <connections>

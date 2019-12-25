@@ -1192,8 +1192,8 @@
                   urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/EventDetailVC/EventDetailController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "109"
-                  endingLineNumber = "109"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
                   offsetFromSymbolStart = "28">
                </Location>
                <Location
@@ -1207,8 +1207,8 @@
                   urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/EventDetailVC/EventDetailController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "110"
-                  endingLineNumber = "110"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
                   offsetFromSymbolStart = "148">
                </Location>
             </Locations>

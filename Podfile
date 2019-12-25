@@ -9,5 +9,5 @@ target 'Training' do
 	pod 'Alamofire', '~> 4.6'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'RealmSwift'
-  pod 'CarbonKit'
+pod 'SwiftLint'
 end

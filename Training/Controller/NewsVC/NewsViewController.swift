@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 
+
 class NewsViewController: UIViewController {
     
   // MARK: - Outlets
@@ -24,15 +25,38 @@ class NewsViewController: UIViewController {
     var newsResponse : [NewsDataResponse] = []
     let dateformatted = DateFormatter()
     let userToken = UserDefaults.standard.string(forKey: "userToken")
+    var isLoadmore : Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
         checkFirstLaunchDaily()
         checkTokenExpired()
+        checkConnection()
     }
     
     // MARK: - Function check before get data
+    
+    func checkConnection() {
+        NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.networkStatusChanged(_:)), name: Notification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
+       Reach().monitorReachabilityChanges()
+    }
+    
+      @objc func networkStatusChanged(_ notification: Notification) {
+         if let userInfo = notification.userInfo {
+            let statusConnect = userInfo["Status"] as! String
+            print(statusConnect)
+        }
+        let status = Reach().connectionStatus()
+            switch status {
+                case .unknown, .offline:
+                    isLoadmore = false
+                case .online(.wwan):
+                    isLoadmore = true
+                case .online(.wiFi):
+                    isLoadmore = true
+            }
+     }
     
     func checkFirstLaunchDaily() {
         if detechDailyFirstLaunch() == false {
@@ -138,9 +162,7 @@ class NewsViewController: UIViewController {
             } else {
                 self.updateObject()
                 self.newsTable.reloadData()
-                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
-                print("Failed to load Data")
-                ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -169,10 +191,13 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == newsResponse.count - 2 {
+        if indexPath.row == newsResponse.count - 2 && isLoadmore == true {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             currentPage += 1
             self.getNewsData(shoudLoadmore: true, page: currentPage)
+        } else {
+            dismiss(animated: true, completion: nil)
+            ToastView.shared.short(self.view, txt_msg: "No internet connection")
         }
     }
 

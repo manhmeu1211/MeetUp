@@ -12,34 +12,27 @@ import RealmSwift
 class SearchViewController: UIViewController {
 
     @IBOutlet weak var txtSearch: UITextField!
-    
     @IBOutlet weak var searchTable: UITableView!
-    
     @IBOutlet weak var viewBtn: UIView!
- 
     @IBOutlet weak var incaditorView: UIView!
-    
-    
     @IBOutlet weak var incaditorLeading: NSLayoutConstraint!
-    
     @IBOutlet weak var noResults: UILabel!
     
-    
     private let refreshControl = UIRefreshControl()
-     
-    var currentPage = 1
-    var currentClick = false
-    var pastClick = false
-    var searchResponse : [SearchResponseDatabase] = []
-    let realm = try! Realm()
-    var alertLoading = UIAlertController()
+    private let usertoken = UserDefaults.standard.string(forKey: "userToken")
+    private var currentPage = 1
+    private var searchResponse : [SearchResponseDatabase] = []
+    private let realm = try! Realm()
+    private var alertLoading = UIAlertController()
+    private var isHaveConnection : Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpVỉew()
+        checkConnection()
     }
     
-    func setUpVỉew() {
+    private func setUpVỉew() {
         self.tabBarController?.tabBar.isHidden = true
         noResults.isHidden = true
         txtSearch.delegate = self
@@ -56,60 +49,90 @@ class SearchViewController: UIViewController {
         
     }
     
-    func updateObject() {
+    
+    private func checkConnection() {
+        NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.networkStatusChanged(_:)), name: Notification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
+       Reach().monitorReachabilityChanges()
+    }
+    
+      @objc func networkStatusChanged(_ notification: Notification) {
+         if let userInfo = notification.userInfo {
+            let statusConnect = userInfo["Status"] as! String
+            print(statusConnect)
+        }
+        let status = Reach().connectionStatus()
+            switch status {
+                case .unknown, .offline:
+                    self.noResults.text = "No internet connection"
+                    self.noResults.isHidden = false
+                    isHaveConnection = false
+                case .online(.wwan):
+                    self.noResults.isHidden = true
+                    isHaveConnection = true
+                case .online(.wiFi):
+                    self.noResults.isHidden = true
+                    isHaveConnection = true
+            }
+        print(isHaveConnection!)
+     }
+
+    
+    private func updateObject() {
           self.searchResponse = RealmDataBaseQuery.getInstance.getObjects(type: SearchResponseDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: SearchResponseDatabase.self)
       }
       
-    func deleteObject() {
+    private func deleteObject() {
         let list = realm.objects(SearchResponseDatabase.self).toArray(ofType: SearchResponseDatabase.self)
         try! realm.write {
             realm.delete(list)
         }
     }
     
-    func handleSearch(isLoadMore : Bool, page : Int) {
+    private func handleSearch(isLoadMore : Bool, page : Int) {
         let keyword = txtSearch.text!
-        let usertoken = UserDefaults.standard.string(forKey: "userToken")
-        if usertoken == nil {
-            ToastView.shared.short(self.view, txt_msg: "Not need to login first !")
-        } else {
-            let headers = [ "token": usertoken!,
+        
+        let headers = [ "token": usertoken!,
                                 "Content-Type": "application/json"  ]
-            getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
-                if errcode == 1 {
-                    ToastView.shared.short(self.view, txt_msg: "Cannot search data from sever !")
-                    self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
-                } else if errcode == 2 {
-                    let data = json!
-                    if isLoadMore == false {
-                        self.deleteObject()
-                        self.searchResponse.removeAll()
-                        _ = data.array?.forEach({ (search) in
-                        let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
-                                RealmDataBaseQuery.getInstance.addData(object: searchRes)
-                        })
-                    } else {
-                        _ = data.array?.forEach({ (search) in
-                        let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
-                        RealmDataBaseQuery.getInstance.addData(object: searchRes)
-                        })
-                    }
-                    self.updateObject()
-                    self.searchTable.reloadData()
-                    if self.searchResponse.isEmpty {
-                        self.noResults.isHidden = false
-                    } else {
-                        self.noResults.isHidden = true
-                    }
-                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+        getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
+            if errcode == 1 {
+                ToastView.shared.short(self.view, txt_msg: "Cannot search data from sever !")
+                self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
+            } else if errcode == 2 {
+                let data = json!
+                if isLoadMore == false {
+                    self.deleteObject()
+                    self.searchResponse.removeAll()
+                    _ = data.array?.forEach({ (search) in
+                    let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
+                            RealmDataBaseQuery.getInstance.addData(object: searchRes)
+                    })
                 } else {
-                    self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
-                    ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
-                    self.noResults.text = "Failed to load data from sever"
-                    self.noResults.isHidden = false
+                    _ = data.array?.forEach({ (search) in
+                    let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
+                    RealmDataBaseQuery.getInstance.addData(object: searchRes)
+                    })
                 }
+                self.updateObject()
+                self.searchTable.reloadData()
+                if self.searchResponse.isEmpty {
+                    self.noResults.isHidden = false
+                } else {
+                    self.noResults.isHidden = true
+                }
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.dismiss(animated: true, completion: nil)
+                self.noResults.text = "Failed to load data, check your connection!"
+                self.noResults.isHidden = false
             }
         }
+    }
+    
+    private func handleLogin() {
+        isLoginVC = true
+        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+        UIApplication.shared.windows.first?.rootViewController = vc
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
     
     @objc func updateDataSeacrch() {
@@ -146,11 +169,23 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        alertLoading.createAlertLoading(target: self, isShowLoading: true)
-        view.endEditing(true)
-         handleSearch(isLoadMore: false, page: currentPage)
-         return true
-     }
+        if isHaveConnection == true {
+            if usertoken == nil {
+                alertLoading.createAlertWithHandle(target: self, title: "You need to login first", message: nil, titleBtn: "Login") {
+                    self.handleLogin()
+                }
+                return true
+            } else {
+                alertLoading.createAlertLoading(target: self, isShowLoading: true)
+                view.endEditing(true)
+                handleSearch(isLoadMore: false, page: currentPage)
+                return true
+            }
+        } else {
+            dismiss(animated: true, completion: nil)
+            return true
+        }
+    }
 }
 
 extension SearchViewController : UITableViewDelegate, UITableViewDataSource {

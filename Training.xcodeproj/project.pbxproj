@@ -44,6 +44,7 @@
 		0D59676123A07D490060015E /* NewsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D59675F23A07D490060015E /* NewsView.xib */; };
 		0D59676423A07D690060015E /* PopularsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D59676223A07D690060015E /* PopularsViewController.swift */; };
 		0D59676523A07D690060015E /* PopularsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D59676323A07D690060015E /* PopularsView.xib */; };
+		0D5D6BDD23B2F11C0022BA3A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5D6BDC23B2F11C0022BA3A /* Reachability.swift */; };
 		0D5E459023A875BA0029CE1A /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5E458E23A875BA0029CE1A /* NewsCell.swift */; };
 		0D5E459123A875BA0029CE1A /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D5E458F23A875BA0029CE1A /* NewsCell.xib */; };
 		0D6C31CC23B058A7007605D2 /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6C31CB23B058A7007605D2 /* EventDetail.swift */; };
@@ -122,6 +123,7 @@
 		0D59675F23A07D490060015E /* NewsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsView.xib; sourceTree = "<group>"; };
 		0D59676223A07D690060015E /* PopularsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularsViewController.swift; sourceTree = "<group>"; };
 		0D59676323A07D690060015E /* PopularsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopularsView.xib; sourceTree = "<group>"; };
+		0D5D6BDC23B2F11C0022BA3A /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		0D5E458E23A875BA0029CE1A /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		0D5E458F23A875BA0029CE1A /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
 		0D6C31CB23B058A7007605D2 /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				0D462B0E23A71A1A000332F4 /* SplashScreen.swift */,
 				0DC433C0239F3BF1000C9505 /* SceneDelegate.swift */,
 				0DC433C2239F3BF1000C9505 /* ViewController.swift */,
+				0D5D6BDC23B2F11C0022BA3A /* Reachability.swift */,
 				0DC433C9239F3BF4000C9505 /* LaunchScreen.storyboard */,
 				0DC433E1239F3FCB000C9505 /* Main.storyboard */,
 				0D462B0F23A71A1A000332F4 /* SplashScreen.xib */,
@@ -665,6 +668,7 @@
 				0D44379723AC6AC4003A8D96 /* MyPageWentViewController.swift in Sources */,
 				0DC433C3239F3BF1000C9505 /* ViewController.swift in Sources */,
 				0DD8F5F823A246AB00C50F22 /* PopularsResDatabase.swift in Sources */,
+				0D5D6BDD23B2F11C0022BA3A /* Reachability.swift in Sources */,
 				0D6C31CC23B058A7007605D2 /* EventDetail.swift in Sources */,
 				0DECAD9323AB2D10008BC805 /* EventsByCategoriesViewController.swift in Sources */,
 				0DE3B8B623A0CCAF00843C80 /* DateTimeFormatter.swift in Sources */,
@@ -764,7 +768,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -818,7 +822,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

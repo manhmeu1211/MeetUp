@@ -21,20 +21,47 @@ class PopularsViewController: UIViewController {
     var popularResponse : [PopularsResDatabase] = []
     var currentPage = 1
     let realm = try! Realm()
+    var isLoadmore : Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         if detechDailyFirstLaunch() == false {
+        setUpTable()
+        getDataFirstLaunch()
+        checkConnection()
+    }
+    
+    // MARK: - Function check before get data
+    
+    func checkConnection() {
+          NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.networkStatusChanged(_:)), name: Notification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
+         Reach().monitorReachabilityChanges()
+      }
+      
+    @objc func networkStatusChanged(_ notification: Notification) {
+        if let userInfo = notification.userInfo {
+            let statusConnect = userInfo["Status"] as! String
+            print(statusConnect)
+        }
+        let status = Reach().connectionStatus()
+            switch status {
+                case .unknown, .offline:
+                    isLoadmore = false
+                case .online(.wwan):
+                    isLoadmore = true
+                case .online(.wiFi):
+                    isLoadmore = true
+            }
+       }
+    
+    func getDataFirstLaunch() {
+        if detechDailyFirstLaunch() == false {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             updateObject()
         } else {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             upDateDataV2()
         }
-        setUpTable()
     }
-    
-    // MARK: - Function check before get data
     
     func detechDailyFirstLaunch() -> Bool {
            let today = NSDate().formatted
@@ -107,8 +134,8 @@ class PopularsViewController: UIViewController {
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
             } else {
                 self.updateObject()
-                ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
                 print("Failed to load Data")
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -140,10 +167,13 @@ extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
     
   
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == popularResponse.count - 2 {
+        if indexPath.row == popularResponse.count - 2 && isLoadmore == true {
             self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
             self.getListPopularData(isLoadMore: true, page: self.currentPage + 1 )
             self.currentPage += 1
+        } else {
+            dismiss(animated: true, completion: nil)
+            ToastView.shared.short(self.view, txt_msg: "No internet connection")
         }
     }
     

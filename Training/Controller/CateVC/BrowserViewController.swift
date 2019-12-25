@@ -25,16 +25,17 @@ class BrowserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertLoading.createAlertLoading(target: self, isShowLoading: true)
         setUpBarButton()
         setupTable()
     }
     
     override func viewWillAppear(_ animated: Bool) {
          if userToken == nil {
-            alertLoading.createAlertLoading(target: self, isShowLoading: true)
             getListCategories()
         } else {
             updateObject()
+            alertLoading.createAlertLoading(target: self, isShowLoading: false)
         }
     }
     
@@ -98,7 +99,7 @@ class BrowserViewController: UIViewController {
                 self.categoriesTable.reloadData()
                 ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
             }
-            self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
