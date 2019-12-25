@@ -34,10 +34,10 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         alertNotLogin.createAlertLoading(target: self, isShowLoading: true)
-        updateObject()
         setUpCollectionView()
         getLocation()
         getListEventV2()
+        updateObject()
     }
     
     
