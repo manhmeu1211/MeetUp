@@ -28,19 +28,19 @@ class BrowserViewController: UIViewController {
         alertLoading.createAlertLoading(target: self, isShowLoading: true)
         setUpBarButton()
         setupTable()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-         if userToken == nil {
-            getListCategories()
-        } else {
-            updateObject()
-            alertLoading.createAlertLoading(target: self, isShowLoading: false)
-        }
+        getCateGories()
     }
     
      // MARK: - setup View
     
+    private func getCateGories() {
+        let list = realm.objects(CategoriesResDatabase.self).toArray(ofType: CategoriesResDatabase.self)
+        if list == [] {
+            getListCategories()
+        } else {
+            updateObject()
+        }
+    }
     private func setUpBarButton() {
         self.title = "Categories"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.search, target: self, action: #selector(handleSearchViewController))
@@ -70,7 +70,7 @@ class BrowserViewController: UIViewController {
     private func updateObject() {
         let list = (RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)?.toArray(ofType: CategoriesResDatabase.self))!
         cateList = list
-        alertLoading.createAlertLoading(target: self, isShowLoading: false)
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -99,8 +99,8 @@ class BrowserViewController: UIViewController {
                 self.categoriesTable.reloadData()
                 ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
             }
-            self.dismiss(animated: true, completion: nil)
         }
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func handleSearchViewController() {

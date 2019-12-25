@@ -13,9 +13,12 @@ class MyPageGoingViewController: UIViewController {
     
 
 
+    @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var noEvents: UILabel!
     @IBOutlet weak var goingTable: UITableView!
     private let refreshControl = UIRefreshControl()
+    
+    
     var alertLoading = UIAlertController()
     let status = 1
     var goingEvents : [MyPageGoingResDatabase] = []
@@ -26,11 +29,10 @@ class MyPageGoingViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         getListGoingEvent()
-        checkEvent()
     }
 
     private func checkEvent() {
-        if realm.objects(MyPageGoingResDatabase.self).toArray(ofType: MyPageGoingResDatabase.self) == [] {
+        if goingEvents == [] {
             noEvents.isHidden = false
         } else {
             noEvents.isHidden = true
@@ -38,6 +40,7 @@ class MyPageGoingViewController: UIViewController {
     }
     
     private func setupView() {
+        loading.handleLoading(isLoading: true)
         noEvents.isHidden = true
         goingTable.delegate = self
         goingTable.dataSource = self
@@ -79,6 +82,7 @@ class MyPageGoingViewController: UIViewController {
     
     private func getListGoingEvent() {
         if userToken == nil {
+            loading.handleLoading(isLoading: false)
             ToastView.shared.short(self.view, txt_msg: "You need to login first !")
         } else {
             let headers = [ "Authorization": "Bearer \(userToken!)",
@@ -98,10 +102,12 @@ class MyPageGoingViewController: UIViewController {
                 })
                     self.updateObject()
                     self.goingTable.reloadData()
+                    self.checkEvent()
                 }  else {
                     self.updateObject()
                     self.goingTable.reloadData()
                 }
+                self.loading.handleLoading(isLoading: false)
             }
         }
     }
@@ -125,6 +131,9 @@ extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource
         cell.date.text = "\(goingEvents[indexPath.row].scheduleStartDate) - \(goingEvents[indexPath.row].goingCount) people going"
         cell.title.text = goingEvents[indexPath.row].name
         cell.lblDes.text = goingEvents[indexPath.row].descriptionHtml
+        cell.backgroundStatusView.isHidden = true
+        cell.statusLabel.isHidden = true
+        cell.statusImage.isHidden = true
         return cell
     }
     

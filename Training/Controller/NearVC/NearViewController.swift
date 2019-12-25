@@ -191,11 +191,17 @@ extension NearViewController : UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        centerMapOnLocation(location: CLLocation(latitude: eventLat[indexPath.row], longitude: eventLong[indexPath.row]))
-        print(eventLat[indexPath.row], eventLong[indexPath.row])
+        let userToken = UserDefaults.standard.string(forKey: "userToken")
+        if userToken == nil {
+            alertNotLogin.createAlert(target: self, title: "You must to login first", message: nil, titleBtn: "OK")
+        } else {
+            if eventLat == [] || eventLong == [] {
+                print("No event near")
+            } else {
+                centerMapOnLocation(location: CLLocation(latitude: eventLat[indexPath.row], longitude: eventLong[indexPath.row]))
+            }
+        }
     }
-    
-    
 }
 
 

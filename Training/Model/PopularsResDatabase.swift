@@ -22,8 +22,10 @@ class PopularsResDatabase: Object {
     @objc dynamic var scheduleEndTime = ""
     @objc dynamic var schedulePermanent = ""
     @objc dynamic var goingCount = 0
+    @objc dynamic var myStatus = 0
+
     
-    convenience init(id: Int, photo :String , name: String, descriptionHtml : String, scheduleStartDate : String, scheduleEndDate : String, scheduleStartTime: String, scheduleEndTime : String, schedulePermanent : String, goingCount: Int ) {
+    convenience init(id: Int, photo :String , name: String, descriptionHtml : String, scheduleStartDate : String, scheduleEndDate : String, scheduleStartTime: String, scheduleEndTime : String, schedulePermanent : String, goingCount: Int, myStatus: Int ) {
         self.init()
         self.id = id
         var url = URL(string: photo)
@@ -50,5 +52,6 @@ class PopularsResDatabase: Object {
         self.scheduleEndTime = scheduleEndTime
         self.schedulePermanent = schedulePermanent
         self.goingCount = goingCount
+        self.myStatus = myStatus
     }
 }

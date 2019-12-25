@@ -19,7 +19,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var noResults: UILabel!
     
     private let refreshControl = UIRefreshControl()
-    private let usertoken = UserDefaults.standard.string(forKey: "userToken")
+    private let userToken = UserDefaults.standard.string(forKey: "userToken")
     private var currentPage = 1
     private var searchResponse : [SearchResponseDatabase] = []
     private let realm = try! Realm()
@@ -29,6 +29,7 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpVỉew()
+        
         checkConnection()
     }
     
@@ -91,8 +92,8 @@ class SearchViewController: UIViewController {
     private func handleSearch(isLoadMore : Bool, page : Int) {
         let keyword = txtSearch.text!
         
-        let headers = [ "token": usertoken!,
-                                "Content-Type": "application/json"  ]
+        let headers = [ "Authorization": "Bearer " + userToken!,
+                        "Content-Type": "application/json"  ]
         getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "Cannot search data from sever !")
@@ -168,20 +169,22 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController : UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
         if isHaveConnection == true {
-            if usertoken == nil {
+            if userToken == nil {
                 alertLoading.createAlertWithHandle(target: self, title: "You need to login first", message: nil, titleBtn: "Login") {
                     self.handleLogin()
                 }
                 return true
             } else {
                 alertLoading.createAlertLoading(target: self, isShowLoading: true)
-                view.endEditing(true)
                 handleSearch(isLoadMore: false, page: currentPage)
                 return true
             }
         } else {
+            view.endEditing(true)
             dismiss(animated: true, completion: nil)
             return true
         }

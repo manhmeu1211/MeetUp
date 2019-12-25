@@ -187,6 +187,9 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.lblDes.text = "By \(newsResponse[indexPath.row].author) - From \(newsResponse[indexPath.row].feed)"
         cell.title.text = newsResponse[indexPath.row].title
         cell.date.text = "\(newsResponse[indexPath.row].publishdate)"
+        cell.backgroundStatusView.isHidden = true
+        cell.statusImage.isHidden = true
+        cell.statusLabel.isHidden = true
         return cell
     }
 
@@ -197,13 +200,12 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
             self.getNewsData(shoudLoadmore: true, page: currentPage)
         } else {
             dismiss(animated: true, completion: nil)
-            ToastView.shared.short(self.view, txt_msg: "No internet connection")
         }
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let vc = WebViewController()
-        vc.urlToOpen = newsResponse[indexPath.row].url
+        vc.urlToOpen = newsResponse[indexPath.row + 1 ].url
         present(vc, animated: true, completion: nil)
     }
 

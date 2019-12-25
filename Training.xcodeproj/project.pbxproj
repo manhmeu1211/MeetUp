@@ -48,6 +48,8 @@
 		0D5E459023A875BA0029CE1A /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5E458E23A875BA0029CE1A /* NewsCell.swift */; };
 		0D5E459123A875BA0029CE1A /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D5E458F23A875BA0029CE1A /* NewsCell.xib */; };
 		0D6C31CC23B058A7007605D2 /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6C31CB23B058A7007605D2 /* EventDetail.swift */; };
+		0D8CCED823B3106F00EDE7F4 /* ExtensionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CCED723B3106F00EDE7F4 /* ExtensionColor.swift */; };
+		0D8CCEDA23B310A100EDE7F4 /* ExtensionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CCED923B310A100EDE7F4 /* ExtensionAlert.swift */; };
 		0DC433BF239F3BF1000C9505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC433BE239F3BF1000C9505 /* AppDelegate.swift */; };
 		0DC433C1239F3BF1000C9505 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC433C0239F3BF1000C9505 /* SceneDelegate.swift */; };
 		0DC433C3239F3BF1000C9505 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC433C2239F3BF1000C9505 /* ViewController.swift */; };
@@ -65,7 +67,7 @@
 		0DD8F5F623A2442500C50F22 /* NewsResDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD8F5F523A2442500C50F22 /* NewsResDataBase.swift */; };
 		0DD8F5F823A246AB00C50F22 /* PopularsResDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD8F5F723A246AB00C50F22 /* PopularsResDatabase.swift */; };
 		0DD8F5FA23A24A5400C50F22 /* noImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8F5F923A24A5400C50F22 /* noImage.png */; };
-		0DE3B8B623A0CCAF00843C80 /* DateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8B523A0CCAF00843C80 /* DateTimeFormatter.swift */; };
+		0DE3B8B623A0CCAF00843C80 /* ExtensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8B523A0CCAF00843C80 /* ExtensionDate.swift */; };
 		0DE3B8B923A0D15F00843C80 /* PopularsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8B723A0D15F00843C80 /* PopularsTableViewCell.swift */; };
 		0DE3B8C023A0E9BE00843C80 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8BF23A0E9BE00843C80 /* BrowserViewController.swift */; };
 		0DE3B8C323A0F05E00843C80 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3B8C123A0F05E00843C80 /* CategoriesTableViewCell.swift */; };
@@ -127,6 +129,8 @@
 		0D5E458E23A875BA0029CE1A /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		0D5E458F23A875BA0029CE1A /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
 		0D6C31CB23B058A7007605D2 /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
+		0D8CCED723B3106F00EDE7F4 /* ExtensionColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionColor.swift; sourceTree = "<group>"; };
+		0D8CCED923B310A100EDE7F4 /* ExtensionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAlert.swift; sourceTree = "<group>"; };
 		0DC433BB239F3BF1000C9505 /* Training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Training.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC433BE239F3BF1000C9505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DC433C0239F3BF1000C9505 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +150,7 @@
 		0DD8F5F523A2442500C50F22 /* NewsResDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResDataBase.swift; sourceTree = "<group>"; };
 		0DD8F5F723A246AB00C50F22 /* PopularsResDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularsResDatabase.swift; sourceTree = "<group>"; };
 		0DD8F5F923A24A5400C50F22 /* noImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noImage.png; sourceTree = "<group>"; };
-		0DE3B8B523A0CCAF00843C80 /* DateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeFormatter.swift; sourceTree = "<group>"; };
+		0DE3B8B523A0CCAF00843C80 /* ExtensionDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDate.swift; sourceTree = "<group>"; };
 		0DE3B8B723A0D15F00843C80 /* PopularsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularsTableViewCell.swift; sourceTree = "<group>"; };
 		0DE3B8BF23A0E9BE00843C80 /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		0DE3B8C123A0F05E00843C80 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
@@ -184,7 +188,9 @@
 			isa = PBXGroup;
 			children = (
 				0DE62E5323A3500700D927FA /* ExtensionView.swift */,
-				0DE3B8B523A0CCAF00843C80 /* DateTimeFormatter.swift */,
+				0D8CCED723B3106F00EDE7F4 /* ExtensionColor.swift */,
+				0DE3B8B523A0CCAF00843C80 /* ExtensionDate.swift */,
+				0D8CCED923B310A100EDE7F4 /* ExtensionAlert.swift */,
 				0D478DF623AA18680061644E /* Validated.swift */,
 				0DC433DA239F3D67000C9505 /* ShowToastMessage.swift */,
 				0DE3B8C923A0FB2800843C80 /* RealmDataBaseQuery.swift */,
@@ -410,15 +416,15 @@
 		0DC433BD239F3BF1000C9505 /* Training */ = {
 			isa = PBXGroup;
 			children = (
-				0D6C31DE23B0CD7E007605D2 /* Application */,
 				0D478DF523AA12060061644E /* Base */,
 				0DD8F5FB23A24A5600C50F22 /* Image */,
 				0DC433D5239F3C7E000C9505 /* Model */,
 				0DC433D4239F3C79000C9505 /* Views */,
 				0DFBA8F023A22D2600C8BF31 /* Controller */,
 				0DC433D6239F3C84000C9505 /* MyService */,
-				0DC433C7239F3BF4000C9505 /* Assets.xcassets */,
+				0D6C31DE23B0CD7E007605D2 /* Application */,
 				0DC433CC239F3BF4000C9505 /* Info.plist */,
+				0DC433C7239F3BF4000C9505 /* Assets.xcassets */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -671,7 +677,7 @@
 				0D5D6BDD23B2F11C0022BA3A /* Reachability.swift in Sources */,
 				0D6C31CC23B058A7007605D2 /* EventDetail.swift in Sources */,
 				0DECAD9323AB2D10008BC805 /* EventsByCategoriesViewController.swift in Sources */,
-				0DE3B8B623A0CCAF00843C80 /* DateTimeFormatter.swift in Sources */,
+				0DE3B8B623A0CCAF00843C80 /* ExtensionDate.swift in Sources */,
 				0D45DC1023ACD951006C6CB7 /* EventDetailController.swift in Sources */,
 				0D44379323AC6AB0003A8D96 /* MyPageGoingViewController.swift in Sources */,
 				0DE62E5723A370CF00D927FA /* ResetPassViewController.swift in Sources */,
@@ -691,12 +697,14 @@
 				0DD8F5F323A23C4100C50F22 /* SearchViewController.swift in Sources */,
 				0D462B1A23A76319000332F4 /* EventsCell.swift in Sources */,
 				0DC433EF239F5388000C9505 /* APIService.swift in Sources */,
+				0D8CCEDA23B310A100EDE7F4 /* ExtensionAlert.swift in Sources */,
 				0D45DC0023ACCCBB006C6CB7 /* DetailVenueCell.swift in Sources */,
 				0DC433DB239F3D67000C9505 /* ShowToastMessage.swift in Sources */,
 				0D51DD2423A8B84500544A1B /* SignUpMainViewController.swift in Sources */,
 				0D462B1423A734B4000332F4 /* MyPageViewController.swift in Sources */,
 				0DD8F5F623A2442500C50F22 /* NewsResDataBase.swift in Sources */,
 				0DE62E5A23A373AB00D927FA /* NearViewController.swift in Sources */,
+				0D8CCED823B3106F00EDE7F4 /* ExtensionColor.swift in Sources */,
 				0D51DD2C23A8E0C700544A1B /* EventsNearResponse.swift in Sources */,
 				0DD8F5EA23A235BB00C50F22 /* CategoriesResDatabase.swift in Sources */,
 				0D478DF423A9D9FE0061644E /* SearchResponseDatabase.swift in Sources */,

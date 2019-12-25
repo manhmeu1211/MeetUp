@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPageGoingViewController" customModule="Training" customModuleProvider="target">
             <connections>
                 <outlet property="goingTable" destination="zB9-xo-ZeH" id="oav-3Y-J8y"/>
+                <outlet property="loading" destination="1Mf-hN-Diz" id="6DB-8u-9E1"/>
                 <outlet property="noEvents" destination="fTp-mq-ATd" id="muG-6p-rmC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,12 +24,19 @@
                     <rect key="frame" x="10" y="44" width="394" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No events going" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTp-mq-ATd">
-                    <rect key="frame" x="20" y="442.5" width="374" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No events " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTp-mq-ATd">
+                    <rect key="frame" x="20" y="441.5" width="374" height="23"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="1Mf-hN-Diz">
+                    <rect key="frame" x="187" y="433" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="QTA-6r-zRi"/>
+                        <constraint firstAttribute="height" constant="40" id="XVM-JB-a64"/>
+                    </constraints>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -36,7 +44,9 @@
                 <constraint firstItem="fTp-mq-ATd" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="59A-xe-jN4"/>
                 <constraint firstItem="fTp-mq-ATd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Ish-yV-BOQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fTp-mq-ATd" secondAttribute="trailing" constant="20" id="JGy-aB-gkI"/>
+                <constraint firstItem="1Mf-hN-Diz" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="JIC-OW-9ey"/>
                 <constraint firstItem="zB9-xo-ZeH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="PQu-DL-49b"/>
+                <constraint firstItem="1Mf-hN-Diz" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="XWi-nJ-jOc"/>
                 <constraint firstItem="fTp-mq-ATd" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="aPU-Ya-Jim"/>
                 <constraint firstItem="zB9-xo-ZeH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="cp1-qB-49y"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="zB9-xo-ZeH" secondAttribute="bottom" id="zJ4-om-c2k"/>

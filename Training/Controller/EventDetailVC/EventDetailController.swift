@@ -171,6 +171,21 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.date.text = "\(eventDetail.scheduleStartDate) - \(eventDetail.goingCount) people going"
             }
+            if eventDetail.mystatus == 1 {
+                DispatchQueue.main.async {
+                    cell.statusImage.image = UIImage(named: "icon_starRed")
+                    cell.statusLabel.text = "Can participate"
+                    cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
+                    cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
+                }
+            } else if eventDetail.mystatus == 2 {
+                DispatchQueue.main.async {
+                    cell.statusImage.image = UIImage(named: "icon_starGreen")
+                    cell.statusLabel.text = "Joined"
+                    cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xE5F9F4)
+                    cell.statusLabel.textColor = UIColor(rgb: 0x00C491)
+                }
+            }
             return cell
         }
         else if indexPath.row == 1 {

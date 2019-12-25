@@ -35,8 +35,8 @@ class getDataService {
         }
     }
     
-    func getListPopular(pageIndex: Int, pageSize: Int, completionHandler : @escaping (JSON?, Int) -> ()) {
-        Alamofire.request(baseURL + "listPopularEvents?pageIndex=\(pageIndex)&pageSize=\(pageSize)" , method: .get, encoding: JSONEncoding.default).validate().responseJSON { response in
+    func getListPopular(pageIndex: Int, pageSize: Int, headers: HTTPHeaders, completionHandler : @escaping (JSON?, Int) -> ()) {
+        Alamofire.request(baseURL + "listPopularEvents?pageIndex=\(pageIndex)&pageSize=\(pageSize)" , method: .get, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { response in
                 switch response.result {
                 case .success(let value):
                 let response = JSON(value)

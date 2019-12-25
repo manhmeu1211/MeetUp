@@ -20,7 +20,11 @@ class NewsCell: UITableViewCell {
     
     @IBOutlet weak var lblDes: UILabel!
     
+    @IBOutlet weak var backgroundStatusView: UIView!
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var statusImage: UIImageView!
+    
+    @IBOutlet weak var statusLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         imgNews.roundCorners()
@@ -32,6 +36,7 @@ class NewsCell: UITableViewCell {
         super.layoutSubviews()
         containerView.layoutIfNeeded()
         containerView.roundCornersView(corners: [.topLeft, .topRight], radius: 30)
+        backgroundStatusView.setUpBGView()
     }
    
     override func setSelected(_ selected: Bool, animated: Bool) {

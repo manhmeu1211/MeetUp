@@ -22,13 +22,19 @@ class PopularsViewController: UIViewController {
     private var currentPage = 1
     private let realm = try! Realm()
     private var isLoadmore : Bool!
+    private var changeColor : Int!
+    private var userToken = UserDefaults.standard.string(forKey: "userToken")
+    private var headers : [String : String] = [:]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
+        setHeaders()
         getDataFirstLaunch()
         checkConnection()
     }
+
     
     // MARK: - Function check before get data
     
@@ -57,6 +63,7 @@ class PopularsViewController: UIViewController {
         if detechDailyFirstLaunch() == false {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             updateObject()
+            popularsTable.reloadData()
         } else {
             alertLoading.createAlertLoading(target: self, isShowLoading: true)
             upDateDataV2()
@@ -74,6 +81,16 @@ class PopularsViewController: UIViewController {
                return true
            }
        }
+    
+    private func setHeaders() {
+        if userToken == nil {
+            headers = [ "Authorization": "No Auth",
+                         "Content-Type": "application/json"  ]
+         } else {
+             headers = [ "Authorization": "Bearer " + userToken!,
+                         "Content-Type": "application/json"  ]
+         }
+    }
     
     // MARK: - Function set up table and get data
  
@@ -113,19 +130,19 @@ class PopularsViewController: UIViewController {
 
     
     private func getListPopularData(isLoadMore : Bool, page : Int) {
-        getDataService.getInstance.getListPopular(pageIndex: page, pageSize : 10) { (data, isSuccess) in
+        getDataService.getInstance.getListPopular(pageIndex: page, pageSize : 10, headers: headers) { (data, isSuccess) in
             if isSuccess == 1 {
                 let result = data!
                 if isLoadMore == false {
                     self.deleteObject()
                     self.popularResponse.removeAll()
                     _ = result.array?.forEach({ (populars) in
-                        let populars = PopularsResDatabase(id: populars["id"].intValue, photo: populars["photo"].stringValue, name: populars["name"].stringValue, descriptionHtml: populars["description_html"].stringValue, scheduleStartDate: populars["schedule_start_date"].stringValue, scheduleEndDate: populars["schedule_end_date"].stringValue, scheduleStartTime: populars["schedule_start_time"].stringValue, scheduleEndTime: populars["schedule_end_time"].stringValue, schedulePermanent: populars["schedule_permanent"].stringValue, goingCount: populars["going_count"].intValue)
+                        let populars = PopularsResDatabase(id: populars["id"].intValue, photo: populars["photo"].stringValue, name: populars["name"].stringValue, descriptionHtml: populars["description_html"].stringValue, scheduleStartDate: populars["schedule_start_date"].stringValue, scheduleEndDate: populars["schedule_end_date"].stringValue, scheduleStartTime: populars["schedule_start_time"].stringValue, scheduleEndTime: populars["schedule_end_time"].stringValue, schedulePermanent: populars["schedule_permanent"].stringValue, goingCount: populars["going_count"].intValue, myStatus: populars["my_status"].intValue)
                         RealmDataBaseQuery.getInstance.addData(object: populars)
                     })
                 } else {
                     _ = result.array?.forEach({ (populars) in
-                        let populars = PopularsResDatabase(id: populars["id"].intValue, photo: populars["photo"].stringValue, name: populars["name"].stringValue, descriptionHtml: populars["description_html"].stringValue, scheduleStartDate: populars["schedule_start_date"].stringValue, scheduleEndDate: populars["schedule_end_date"].stringValue, scheduleStartTime: populars["schedule_start_time"].stringValue, scheduleEndTime: populars["schedule_end_time"].stringValue, schedulePermanent: populars["schedule_permanent"].stringValue, goingCount: populars["going_count"].intValue)
+                        let populars = PopularsResDatabase(id: populars["id"].intValue, photo: populars["photo"].stringValue, name: populars["name"].stringValue, descriptionHtml: populars["description_html"].stringValue, scheduleStartDate: populars["schedule_start_date"].stringValue, scheduleEndDate: populars["schedule_end_date"].stringValue, scheduleStartTime: populars["schedule_start_time"].stringValue, scheduleEndTime: populars["schedule_end_time"].stringValue, schedulePermanent: populars["schedule_permanent"].stringValue, goingCount: populars["going_count"].intValue, myStatus: populars["my_status"].intValue)
                         RealmDataBaseQuery.getInstance.addData(object: populars)
                     })
                 }
@@ -162,6 +179,28 @@ extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
         cell.date.text = "\(popularResponse[indexPath.row].scheduleStartDate) - \(popularResponse[indexPath.row].goingCount) people going"
         cell.title.text = popularResponse[indexPath.row].name
         cell.lblDes.text = popularResponse[indexPath.row].descriptionHtml
+        if popularResponse[indexPath.row].myStatus == 1 {
+            DispatchQueue.main.async {
+                cell.statusImage.image = UIImage(named: "icon_starRed")
+                cell.statusLabel.text = "Can participate"
+                cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
+                cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
+            }
+        } else if popularResponse[indexPath.row].myStatus == 2 {
+            DispatchQueue.main.async {
+                cell.statusImage.image = UIImage(named: "icon_starGreen")
+                cell.statusLabel.text = "Joined"
+                cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xE5F9F4)
+                cell.statusLabel.textColor = UIColor(rgb: 0x00C491)
+            }
+        } else {
+            DispatchQueue.main.async {
+                cell.statusImage.image = UIImage(named: "icon_star")
+                cell.statusLabel.text = "Tham gia"
+                cell.backgroundStatusView.backgroundColor = UIColor.systemGray6
+                cell.statusLabel.textColor = UIColor.systemGray
+            }
+        }
         return cell
     }
     
@@ -173,7 +212,6 @@ extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
             self.currentPage += 1
         } else {
             dismiss(animated: true, completion: nil)
-            ToastView.shared.short(self.view, txt_msg: "No internet connection")
         }
     }
     

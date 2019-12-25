@@ -36,7 +36,7 @@ class MyPageWentViewController: UIViewController {
     }
     
     private func checkEvent() {
-         if realm.objects(MyPageWentResDatabase.self).toArray(ofType: MyPageWentResDatabase.self) == [] {
+         if wentEvents == [] {
              noEvents.isHidden = false
          } else {
              noEvents.isHidden = true
@@ -77,6 +77,7 @@ class MyPageWentViewController: UIViewController {
                     })
                         self.updateObject()
                         self.wentTable.reloadData()
+                        self.checkEvent()
                     }  else {
                         self.updateObject()
                         self.wentTable.reloadData()
@@ -106,6 +107,9 @@ extension MyPageWentViewController : UITableViewDelegate, UITableViewDataSource 
         cell.date.text = "\(wentEvents[indexPath.row].scheduleStartDate) - \(wentEvents[indexPath.row].goingCount) people going"
         cell.title.text = wentEvents[indexPath.row].name
         cell.lblDes.text = wentEvents[indexPath.row].descriptionHtml
+        cell.backgroundStatusView.isHidden = true
+        cell.statusLabel.isHidden = true
+        cell.statusImage.isHidden = true
         return cell
     }
     

@@ -406,7 +406,7 @@
         <scene sceneID="Rlv-Sn-8Bi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Yj3-Hn-bgT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="icon-home-filled" selectedImage="icon-home-filled" id="N6t-iC-Zid"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="icon-home" selectedImage="icon-home" id="N6t-iC-Zid"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BV6-78-hpt">
                         <autoresizingMask key="autoresizingMask"/>
@@ -480,7 +480,7 @@
         <image name="Group1" width="18.333333969116211" height="24.666666030883789"/>
         <image name="Mask Group" width="375" height="132"/>
         <image name="icon-browse" width="24" height="24"/>
-        <image name="icon-home-filled" width="24" height="24"/>
+        <image name="icon-home" width="24" height="24"/>
         <image name="icon-profile-filled-1" width="24" height="24"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
     </resources>
