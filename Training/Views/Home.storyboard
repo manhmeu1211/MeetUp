@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h3c-fc-lvt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h3c-fc-lvt">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -38,14 +38,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ldr-zh-5kQ">
+                                <rect key="frame" x="167.66666666666666" y="366.66666666666669" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Gdu-Ej-Nhg"/>
+                                    <constraint firstAttribute="width" constant="40" id="Mwz-OC-hRD"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Gls-yg-VrB" firstAttribute="top" secondItem="XDE-yE-qOn" secondAttribute="top" constant="50" id="0ff-J3-F0A"/>
                             <constraint firstItem="TQZ-GV-pqR" firstAttribute="leading" secondItem="XDE-yE-qOn" secondAttribute="leading" constant="20" id="0gX-st-dEp"/>
+                            <constraint firstItem="ldr-zh-5kQ" firstAttribute="centerY" secondItem="XDE-yE-qOn" secondAttribute="centerY" id="3bX-dl-66Q"/>
                             <constraint firstItem="Q3r-Rq-ck8" firstAttribute="leading" secondItem="XDE-yE-qOn" secondAttribute="leading" id="CMM-5k-Qmh"/>
                             <constraint firstItem="Gls-yg-VrB" firstAttribute="leading" secondItem="XDE-yE-qOn" secondAttribute="leading" id="J7e-LT-Lvv"/>
                             <constraint firstItem="XDE-yE-qOn" firstAttribute="trailing" secondItem="Q3r-Rq-ck8" secondAttribute="trailing" id="NCT-IW-DuK"/>
+                            <constraint firstItem="ldr-zh-5kQ" firstAttribute="centerX" secondItem="XDE-yE-qOn" secondAttribute="centerX" id="Q2o-Z1-rRV"/>
                             <constraint firstItem="v9E-Pv-fbL" firstAttribute="top" secondItem="Gls-yg-VrB" secondAttribute="bottom" id="ScE-Ni-YRq"/>
                             <constraint firstItem="TQZ-GV-pqR" firstAttribute="top" secondItem="XDE-yE-qOn" secondAttribute="top" constant="20" id="bKu-7O-v5n"/>
                             <constraint firstItem="v9E-Pv-fbL" firstAttribute="leading" secondItem="XDE-yE-qOn" secondAttribute="leading" id="eX6-qe-GdM"/>
@@ -62,6 +71,7 @@
                     <navigationItem key="navigationItem" id="NFr-e4-7FM"/>
                     <connections>
                         <outlet property="collectionVIew" destination="v9E-Pv-fbL" id="MQk-hV-axg"/>
+                        <outlet property="loading" destination="ldr-zh-5kQ" id="wSM-qr-IHK"/>
                         <outlet property="map" destination="Gls-yg-VrB" id="zGO-gO-izR"/>
                     </connections>
                 </viewController>

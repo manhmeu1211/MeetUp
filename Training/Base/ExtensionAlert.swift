@@ -35,7 +35,7 @@ extension UIAlertController {
             alert.view.addSubview(loadingIndicator)
             target.present(alert, animated: true, completion: nil)
         } else {
-            target.dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
     }
 }

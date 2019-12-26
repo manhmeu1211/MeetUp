@@ -8,7 +8,7 @@
 
 import Foundation
 import RealmSwift
-
+import SwiftyJSON
 
 class SearchResponseDatabase: Object {
     
@@ -23,10 +23,10 @@ class SearchResponseDatabase: Object {
     @objc dynamic var schedulePermanent = ""
     @objc dynamic var goingCount = 0
     
-    convenience init(id: Int, photo :String , name: String, descriptionHtml : String, scheduleStartDate : String, scheduleEndDate : String, scheduleStartTime: String, scheduleEndTime : String, schedulePermanent : String, goingCount: Int ) {
+    convenience init(search : JSON ) {
         self.init()
-        self.id = id
-        var url = URL(string: photo)
+        self.id = search["id"].intValue
+        var url = URL(string: search["photo"].stringValue)
         let image = UIImage(named: "noImage.png")
         if url != nil {
             do {
@@ -44,13 +44,13 @@ class SearchResponseDatabase: Object {
         self.photo = (image?.pngData())!
         }
         
-        self.name = name
-        self.descriptionHtml = descriptionHtml
-        self.scheduleStartDate = scheduleStartDate
-        self.scheduleEndDate = scheduleEndDate
-        self.scheduleStartTime = scheduleStartTime
-        self.scheduleEndTime = scheduleEndTime
-        self.schedulePermanent = schedulePermanent
-        self.goingCount = goingCount
+        self.name = search["name"].stringValue
+        self.descriptionHtml = search["description_html"].stringValue
+        self.scheduleStartDate = search["schedule_start_date"].stringValue
+        self.scheduleEndDate = search["schedule_end_date"].stringValue
+        self.scheduleStartTime = search["schedule_start_time"].stringValue
+        self.scheduleEndTime = search["schedule_end_time"].stringValue
+        self.schedulePermanent = search["schedule_permanent"].stringValue
+        self.goingCount = search["going_count"].intValue
     }
 }

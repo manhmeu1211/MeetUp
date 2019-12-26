@@ -285,8 +285,7 @@
 		0D6C31D323B0CCBE007605D2 /* CateVC */ = {
 			isa = PBXGroup;
 			children = (
-				0DECAD9223AB2D10008BC805 /* EventsByCategoriesView.xib */,
-				0DECAD9123AB2D10008BC805 /* EventsByCategoriesViewController.swift */,
+				0D743CC423B48D8F004671B3 /* EventsByCategories */,
 				0DE3B8BF23A0E9BE00843C80 /* BrowserViewController.swift */,
 			);
 			path = CateVC;
@@ -393,6 +392,15 @@
 				0D462B0F23A71A1A000332F4 /* SplashScreen.xib */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		0D743CC423B48D8F004671B3 /* EventsByCategories */ = {
+			isa = PBXGroup;
+			children = (
+				0DECAD9223AB2D10008BC805 /* EventsByCategoriesView.xib */,
+				0DECAD9123AB2D10008BC805 /* EventsByCategoriesViewController.swift */,
+			);
+			path = EventsByCategories;
 			sourceTree = "<group>";
 		};
 		0DC433B2239F3BF1000C9505 = {

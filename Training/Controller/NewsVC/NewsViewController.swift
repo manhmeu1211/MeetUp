@@ -147,12 +147,12 @@ class NewsViewController: UIViewController {
                     self.deleteObject()
                     self.newsResponse.removeAll()
                     _ = result.array?.forEach({ (news) in
-                        let news = NewsDataResponse(id: news["id"].intValue, feed:news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
+                        let news = NewsDataResponse(news: news)
                         RealmDataBaseQuery.getInstance.addData(object: news)
                     })
                 } else {
                     _ = result.array?.forEach({ (news) in
-                    let news = NewsDataResponse(id: news["id"].intValue, feed: news["feed"].stringValue, title: news["title"].stringValue, thumbImg: news["thumb_img"].stringValue, author: news["author"].stringValue, publishdate: news["publish_date"].stringValue, url: news["detail_url"].stringValue)
+                    let news = NewsDataResponse(news: news)
                         RealmDataBaseQuery.getInstance.addData(object: news)
                     })
                 }

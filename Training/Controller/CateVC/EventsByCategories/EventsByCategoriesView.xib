@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,6 +12,7 @@
                 <outlet property="eventTable" destination="thH-94-KkI" id="e0I-HA-hLK"/>
                 <outlet property="incaditorLeading" destination="RCC-dZ-n2J" id="2Ce-5l-pEt"/>
                 <outlet property="incaditorView" destination="za7-Ve-1mi" id="jnS-y0-Ln2"/>
+                <outlet property="loading" destination="K49-dM-han" id="CnV-q7-6zq"/>
                 <outlet property="noResults" destination="U8N-eV-Toj" id="fwp-cI-QGl"/>
                 <outlet property="titleCategories" destination="6fX-QX-ogc" id="dGU-YB-7AY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -102,11 +103,18 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to login first" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8N-eV-Toj">
-                    <rect key="frame" x="124" y="442.5" width="166.5" height="21"/>
+                    <rect key="frame" x="124" y="488" width="166.5" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="K49-dM-han">
+                    <rect key="frame" x="187" y="478.5" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="deT-HL-CDk"/>
+                        <constraint firstAttribute="width" constant="40" id="lqB-dd-QO1"/>
+                    </constraints>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -116,10 +124,12 @@
                 <constraint firstItem="xpF-I9-y6E" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8K1-e1-uuN"/>
                 <constraint firstItem="za7-Ve-1mi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9L7-iy-Nl1"/>
                 <constraint firstItem="mcE-gB-qba" firstAttribute="leading" secondItem="6fX-QX-ogc" secondAttribute="trailing" id="AOl-Qc-EZP"/>
-                <constraint firstItem="U8N-eV-Toj" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="I9C-SE-XVb"/>
+                <constraint firstItem="K49-dM-han" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" multiplier="1.1" id="Cda-g5-9gd"/>
+                <constraint firstItem="U8N-eV-Toj" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" multiplier="1.1" id="I9C-SE-XVb"/>
                 <constraint firstItem="thH-94-KkI" firstAttribute="top" secondItem="za7-Ve-1mi" secondAttribute="bottom" id="IbC-Fr-zBr"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="thH-94-KkI" secondAttribute="bottom" id="Mhy-8X-ZgD"/>
                 <constraint firstItem="xpF-I9-y6E" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.15" id="R1K-Ey-LOM"/>
+                <constraint firstItem="K49-dM-han" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="UGE-bR-VAD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6fX-QX-ogc" secondAttribute="trailing" constant="50" id="Y47-1W-gHE"/>
                 <constraint firstItem="za7-Ve-1mi" firstAttribute="top" secondItem="xpF-I9-y6E" secondAttribute="bottom" id="ZCY-Jd-nna"/>
                 <constraint firstItem="U8N-eV-Toj" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="fIv-Le-427"/>

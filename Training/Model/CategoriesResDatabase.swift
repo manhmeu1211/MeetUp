@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
 
 class CategoriesResDatabase: Object {
@@ -17,12 +18,12 @@ class CategoriesResDatabase: Object {
     @objc dynamic var parentId = 0
   
  
-    convenience init(id: Int, name :String , slug : String, parentId: Int) {
+    convenience init(cate: JSON) {
         self.init()
-        self.id = id
-        self.name = name
-        self.slug = slug
-        self.parentId = parentId
+        self.id = cate["id"].intValue
+        self.name = cate["name"].stringValue
+        self.slug = cate["slug"].stringValue
+        self.parentId = cate["parent_id"].intValue
     }
 }
 

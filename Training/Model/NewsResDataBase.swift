@@ -10,6 +10,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
 class NewsDataResponse: Object {
     @objc dynamic var id = 0
@@ -19,15 +20,15 @@ class NewsDataResponse: Object {
     @objc dynamic var author = ""
     @objc dynamic var publishdate = ""
     @objc dynamic var url = ""
+
    
-    convenience init(id: Int, feed :String , title: String, thumbImg : String, author : String, publishdate : String, url: String) {
+    convenience init(news : JSON) {
         self.init()
-        self.id = id
-        self.feed = feed
-        self.title = title
-        var urlImg = URL(string: thumbImg)
+        self.id = news["id"].intValue
+        self.feed = news["feed"].stringValue
+        self.title = news["title"].stringValue
+        var urlImg = URL(string: news["thumb_img"].stringValue)
         let image = UIImage(named: "noImage.png")
-        
         if urlImg != nil {
             do {
                 self.thumbImg = try Data(contentsOf: urlImg!)
@@ -42,8 +43,8 @@ class NewsDataResponse: Object {
         } catch {
             self.thumbImg = (image?.pngData())!
         }
-        self.author = author
-        self.publishdate = publishdate
-        self.url = url
+        self.author = news["author"].stringValue
+        self.publishdate = news["publish_date"].stringValue
+        self.url = news["detail_url"].stringValue
     }
 }

@@ -137,12 +137,12 @@ class PopularsViewController: UIViewController {
                     self.deleteObject()
                     self.popularResponse.removeAll()
                     _ = result.array?.forEach({ (populars) in
-                        let populars = PopularsResDatabase(id: populars["id"].intValue, photo: populars["photo"].stringValue, name: populars["name"].stringValue, descriptionHtml: populars["description_html"].stringValue, scheduleStartDate: populars["schedule_start_date"].stringValue, scheduleEndDate: populars["schedule_end_date"].stringValue, scheduleStartTime: populars["schedule_start_time"].stringValue, scheduleEndTime: populars["schedule_end_time"].stringValue, schedulePermanent: populars["schedule_permanent"].stringValue, goingCount: populars["going_count"].intValue, myStatus: populars["my_status"].intValue)
+                        let populars = PopularsResDatabase(populars: populars)
                         RealmDataBaseQuery.getInstance.addData(object: populars)
                     })
                 } else {
                     _ = result.array?.forEach({ (populars) in
-                        let populars = PopularsResDatabase(id: populars["id"].intValue, photo: populars["photo"].stringValue, name: populars["name"].stringValue, descriptionHtml: populars["description_html"].stringValue, scheduleStartDate: populars["schedule_start_date"].stringValue, scheduleEndDate: populars["schedule_end_date"].stringValue, scheduleStartTime: populars["schedule_start_time"].stringValue, scheduleEndTime: populars["schedule_end_time"].stringValue, schedulePermanent: populars["schedule_permanent"].stringValue, goingCount: populars["going_count"].intValue, myStatus: populars["my_status"].intValue)
+                         let populars = PopularsResDatabase(populars: populars)
                         RealmDataBaseQuery.getInstance.addData(object: populars)
                     })
                 }

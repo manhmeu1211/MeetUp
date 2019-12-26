@@ -21,6 +21,7 @@ class getDataService {
          }
          return Static.instance
      }
+
     
     func getListNews(pageIndex : Int, pageSize : Int, completionHandler: @escaping (JSON?, Int) -> ()) {
         Alamofire.request(baseURL + "listNews?pageIndex=\(pageIndex)&pageSize=\(pageSize)", method: .get, encoding: JSONEncoding.default).validate().responseJSON { (response) in

@@ -9,6 +9,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
 class EventsByCategoriesDatabase: Object {
     
@@ -23,10 +24,10 @@ class EventsByCategoriesDatabase: Object {
     @objc dynamic var schedulePermanent = ""
     @objc dynamic var goingCount = 0
     
-    convenience init(id: Int, photo :String , name: String, descriptionHtml : String, scheduleStartDate : String, scheduleEndDate : String, scheduleStartTime: String, scheduleEndTime : String, schedulePermanent : String, goingCount: Int ) {
+    convenience init(event : JSON) {
         self.init()
-        self.id = id
-        var url = URL(string: photo)
+        self.id = event["id"].intValue
+        var url = URL(string: event["photo"].stringValue)
         let image = UIImage(named: "noImage.png")
         if url != nil {
             do {
@@ -42,13 +43,13 @@ class EventsByCategoriesDatabase: Object {
         } catch {
             self.photo = (image?.pngData())!
         }
-        self.name = name
-        self.descriptionHtml = descriptionHtml
-        self.scheduleStartDate = scheduleStartDate
-        self.scheduleEndDate = scheduleEndDate
-        self.scheduleStartTime = scheduleStartTime
-        self.scheduleEndTime = scheduleEndTime
-        self.schedulePermanent = schedulePermanent
-        self.goingCount = goingCount
+        self.name = event["name"].stringValue
+        self.descriptionHtml = event["description_html"].stringValue
+        self.scheduleStartDate = event["schedule_start_date"].stringValue
+        self.scheduleEndDate = event["schedule_end_date"].stringValue
+        self.scheduleStartTime = event["schedule_start_time"].stringValue
+        self.scheduleEndTime = event["schedule_end_time"].stringValue
+        self.schedulePermanent = event["schedule_permanent"].stringValue
+        self.goingCount = event["going_count"].intValue
     }
 }

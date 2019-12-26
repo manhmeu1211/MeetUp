@@ -17,7 +17,8 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     // MARK: - Outlets
     @IBOutlet weak var collectionVIew: UICollectionView!
     @IBOutlet weak var map: MKMapView!
-    
+    @IBOutlet weak var loading: UIActivityIndicatorView!
+    var alert = UIAlertController()
     // MARK: - Varribles
     let realm = try! Realm()
     var events : [EventsNearResponse] = []
@@ -29,11 +30,11 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     var initLong, initLat : Double?
     var eventLong : [Double] = []
     var eventLat : [Double] = []
-    let alertNotLogin = UIAlertController()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        alertNotLogin.createAlertLoading(target: self, isShowLoading: true)
+        loading.handleLoading(isLoading: true)
         setUpCollectionView()
         getLocation()
         getListEventV2()
@@ -56,7 +57,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
                 initLat =  21.044895
             }
         addArtwork()
-         alertNotLogin.createAlertLoading(target: self, isShowLoading: false)
+        
     }
     
     private func addArtwork() {
@@ -82,7 +83,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         if token != nil {
             getListEvent()
         } else {
-            alertNotLogin.createAlertWithHandle(target: self, title: "Not logged in", message: "You must to login", titleBtn: "Login") {
+            alert.createAlertWithHandle(target: self, title: "Not logged in", message: "You must to login", titleBtn: "Login") {
                 self.handleLoginView()
             }
         }
@@ -125,21 +126,21 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
                 self.events.removeAll()
                 let anotionLC = json!
                 _ = anotionLC.array?.forEach({ (anotion) in
-                    let anotionArt = Artwork(title: anotion["venue"]["name"].stringValue, locationName: anotion["venue"]["name"].stringValue, discipline: anotion["venue"]["description"].stringValue, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
+                    let anotionArt = Artwork(anotion: anotion, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
                     self.map.addAnnotation(anotionArt)
                     self.eventLong.append(anotion["venue"]["geo_long"].doubleValue)
                     self.eventLat.append(anotion["venue"]["geo_lat"].doubleValue)
                 })
                 _ = anotionLC.array?.forEach({ (events) in
-                    let events = EventsNearResponse(id: events["id"].intValue, photo: events["photo"].stringValue, name: events["name"].stringValue, descriptionHtml: events["description_html"].stringValue, scheduleStartDate: events["schedule_start_date"].stringValue, scheduleEndDate: events["schedule_end_date"].stringValue, scheduleStartTime: events["schedule_start_time"].stringValue, scheduleEndTime: events["schedule_end_time"].stringValue, schedulePermanent: events["schedule_permanent"].stringValue, goingCount: events["going_count"].intValue)
+                    let events = EventsNearResponse(events: events)
                 RealmDataBaseQuery.getInstance.addData(object: events)
                 })
                 self.updateObject()
                 self.collectionVIew.reloadData()
-                self.alertNotLogin.createAlertLoading(target: self, isShowLoading: false)
             } else {
                 print("failed")
             }
+            self.loading.handleLoading(isLoading: false)
         }
     }
     
@@ -193,7 +194,7 @@ extension NearViewController : UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let userToken = UserDefaults.standard.string(forKey: "userToken")
         if userToken == nil {
-            alertNotLogin.createAlert(target: self, title: "You must to login first", message: nil, titleBtn: "OK")
+            loading.handleLoading(isLoading: false)
         } else {
             if eventLat == [] || eventLong == [] {
                 print("No event near")

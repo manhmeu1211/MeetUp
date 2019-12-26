@@ -29,7 +29,6 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpVỉew()
-        
         checkConnection()
     }
     
@@ -55,6 +54,7 @@ class SearchViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(NewsViewController.networkStatusChanged(_:)), name: Notification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
        Reach().monitorReachabilityChanges()
     }
+    
     
       @objc func networkStatusChanged(_ notification: Notification) {
          if let userInfo = notification.userInfo {
@@ -91,12 +91,11 @@ class SearchViewController: UIViewController {
     
     private func handleSearch(isLoadMore : Bool, page : Int) {
         let keyword = txtSearch.text!
-        
         let headers = [ "Authorization": "Bearer " + userToken!,
                         "Content-Type": "application/json"  ]
         getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
             if errcode == 1 {
-                ToastView.shared.short(self.view, txt_msg: "Cannot search data from sever !")
+                self.noResults.text = "No results"
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
             } else if errcode == 2 {
                 let data = json!
@@ -104,13 +103,13 @@ class SearchViewController: UIViewController {
                     self.deleteObject()
                     self.searchResponse.removeAll()
                     _ = data.array?.forEach({ (search) in
-                    let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
-                            RealmDataBaseQuery.getInstance.addData(object: searchRes)
+                        let searchRes = SearchResponseDatabase(search: search)
+                        RealmDataBaseQuery.getInstance.addData(object: searchRes)
                     })
                 } else {
                     _ = data.array?.forEach({ (search) in
-                    let searchRes = SearchResponseDatabase(id: search["id"].intValue, photo: search["photo"].stringValue, name: search["name"].stringValue, descriptionHtml: search["description_html"].stringValue, scheduleStartDate: search["schedule_start_date"].stringValue, scheduleEndDate: search["schedule_end_date"].stringValue, scheduleStartTime: search["schedule_start_time"].stringValue, scheduleEndTime: search["schedule_end_time"].stringValue, schedulePermanent: search["schedule_permanent"].stringValue, goingCount: search["going_count"].intValue)
-                    RealmDataBaseQuery.getInstance.addData(object: searchRes)
+                        let searchRes = SearchResponseDatabase(search: search)
+                        RealmDataBaseQuery.getInstance.addData(object: searchRes)
                     })
                 }
                 self.updateObject()
@@ -123,7 +122,7 @@ class SearchViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             } else {
                 self.dismiss(animated: true, completion: nil)
-                self.noResults.text = "Failed to load data, check your connection!"
+                self.noResults.text = "Failed to load data !"
                 self.noResults.isHidden = false
             }
         }
@@ -168,6 +167,8 @@ class SearchViewController: UIViewController {
     }
 }
 
+
+
 extension SearchViewController : UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -190,6 +191,8 @@ extension SearchViewController : UITextFieldDelegate {
         }
     }
 }
+
+
 
 extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

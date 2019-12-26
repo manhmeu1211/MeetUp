@@ -9,6 +9,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
 class EventDetail: Object {
     
@@ -31,10 +32,10 @@ class EventDetail: Object {
     @objc dynamic var mystatus = 0
     
     
-    convenience init(id: Int, photo :String , name: String, descriptionHtml : String, scheduleStartDate : String, scheduleEndDate : String, scheduleStartTime: String, scheduleEndTime : String, schedulePermanent : String, goingCount: Int, nameGenre : String, vnLocation : String, vnContact : String, vnName : String, latValue : Double, longValue : Double, mystatus : Int) {
+    convenience init(detail : JSON, detailVenue : JSON, detailGenre : JSON) {
         self.init()
-        self.id = id
-        var url = URL(string: photo)
+        self.id = detail["id"].intValue
+        var url = URL(string: detail["photo"].stringValue)
         let image = UIImage(named: "noImage.png")
         if url != nil {
             do {
@@ -50,21 +51,21 @@ class EventDetail: Object {
         } catch {
             self.photo = (image?.pngData())!
         }
-        self.name = name
-        self.descriptionHtml = descriptionHtml
-        self.scheduleStartDate = scheduleStartDate
-        self.scheduleEndDate = scheduleEndDate
-        self.scheduleStartTime = scheduleStartTime
-        self.scheduleEndTime = scheduleEndTime
-        self.schedulePermanent = schedulePermanent
-        self.goingCount = goingCount
-        self.vnName = vnName
-        self.vnContact = vnContact
-        self.vnLocation = vnLocation
-        self.nameGenre = nameGenre
-        self.latValue = latValue
-        self.longValue = longValue
-        self.mystatus = mystatus
+        self.name = detail["name"].stringValue
+        self.descriptionHtml = detail["description_html"].stringValue
+        self.scheduleStartDate = detail["schedule_start_date"].stringValue
+        self.scheduleEndDate = detail["schedule_end_date"].stringValue
+        self.scheduleStartTime = detail["schedule_start_time"].stringValue
+        self.scheduleEndTime = detail["schedule_end_time"].stringValue
+        self.schedulePermanent = detail["schedule_permanent"].stringValue
+        self.goingCount = detail["going_count"].intValue
+        self.vnName = detailVenue["name"].stringValue
+        self.vnContact = detailVenue["contact_phone"].stringValue
+        self.vnLocation = detailVenue["contact_address"].stringValue
+        self.nameGenre = detailGenre["name"].stringValue
+        self.latValue = detailVenue["geo_lat"].doubleValue
+        self.longValue = detailVenue["geo_long"].doubleValue
+        self.mystatus = detail["my_status"].intValue
     }
 }
 

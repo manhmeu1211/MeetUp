@@ -89,7 +89,7 @@ class BrowserViewController: UIViewController {
                 self.cateList.removeAll()
                 let data = json!
                 _ = data.array?.forEach({ (cate) in
-                    let categories = CategoriesResDatabase(id: cate["id"].intValue, name: cate["name"].stringValue, slug: cate["slug"].stringValue, parentId: cate["parent_id"].intValue)
+                    let categories = CategoriesResDatabase(cate: cate)
                 RealmDataBaseQuery.getInstance.addData(object: categories)
                 })
                 self.updateObject()
