@@ -109,36 +109,28 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
       
-    private func deleteObject() {
-        let list = realm.objects(EventsNearResponse.self).toArray(ofType: EventsNearResponse.self)
-        try! realm.write {
-            realm.delete(list)
-        }
-    }
-
     private func getListEvent() {
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer \(usertoken!)",
         "Content-Type": "application/json"  ]
-        getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (json, errcode) in
+        getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (eventsNear, anotionLC ,errcode) in
             if errcode == 1 {
-                self.deleteObject()
+                self.updateObject()
+                self.collectionVIew.reloadData()
+            } else if errcode == 2 {
                 self.events.removeAll()
-                let anotionLC = json!
                 _ = anotionLC.array?.forEach({ (anotion) in
                     let anotionArt = Artwork(anotion: anotion, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
                     self.map.addAnnotation(anotionArt)
-                    self.eventLong.append(anotion["venue"]["geo_long"].doubleValue)
+                self.eventLong.append(anotion["venue"]["geo_long"].doubleValue)
                     self.eventLat.append(anotion["venue"]["geo_lat"].doubleValue)
                 })
-                _ = anotionLC.array?.forEach({ (events) in
-                    let events = EventsNearResponse(events: events)
-                RealmDataBaseQuery.getInstance.addData(object: events)
-                })
+                self.events = eventsNear
                 self.updateObject()
                 self.collectionVIew.reloadData()
             } else {
-                print("failed")
+                self.updateObject()
+                self.collectionVIew.reloadData()
             }
             self.loading.handleLoading(isLoading: false)
         }

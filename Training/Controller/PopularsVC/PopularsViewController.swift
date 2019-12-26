@@ -80,7 +80,7 @@ class PopularsViewController: UIViewController {
                UserDefaults.standard.setValue(today, forKey:"FIRSTLAUNCHPOPULARS")
                return true
            }
-       }
+    }
     
     private func setHeaders() {
         if userToken == nil {
@@ -121,36 +121,18 @@ class PopularsViewController: UIViewController {
     }
     
     
-    private func deleteObject() {
-          let list = realm.objects(PopularsResDatabase.self).toArray(ofType: PopularsResDatabase.self)
-          try! realm.write {
-              realm.delete(list)
-          }
-      }
-
-    
     private func getListPopularData(isLoadMore : Bool, page : Int) {
-        getDataService.getInstance.getListPopular(pageIndex: page, pageSize : 10, headers: headers) { (data, isSuccess) in
+        getDataService.getInstance.getListPopular(pageIndex: page, pageSize : 10, headers: headers, isLoadmore: isLoadMore) { (popularData, isSuccess) in
             if isSuccess == 1 {
-                let result = data!
                 if isLoadMore == false {
-                    self.deleteObject()
                     self.popularResponse.removeAll()
-                    _ = result.array?.forEach({ (populars) in
-                        let populars = PopularsResDatabase(populars: populars)
-                        RealmDataBaseQuery.getInstance.addData(object: populars)
-                    })
+                    self.popularResponse = popularData
                 } else {
-                    _ = result.array?.forEach({ (populars) in
-                         let populars = PopularsResDatabase(populars: populars)
-                        RealmDataBaseQuery.getInstance.addData(object: populars)
-                    })
+                    self.popularResponse = popularData
                 }
-                self.updateObject()
                 self.popularsTable.reloadData()
-                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+                self.alertLoading.dismiss(animated: true, completion: nil)
             } else {
-                self.updateObject()
                 print("Failed to load Data")
                 self.dismiss(animated: true, completion: nil)
             }
@@ -179,21 +161,22 @@ extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
         cell.date.text = "\(popularResponse[indexPath.row].scheduleStartDate) - \(popularResponse[indexPath.row].goingCount) people going"
         cell.title.text = popularResponse[indexPath.row].name
         cell.lblDes.text = popularResponse[indexPath.row].descriptionHtml
-        if popularResponse[indexPath.row].myStatus == 1 {
+        switch popularResponse[indexPath.row].myStatus {
+        case 1:
             DispatchQueue.main.async {
                 cell.statusImage.image = UIImage(named: "icon_starRed")
                 cell.statusLabel.text = "Can participate"
                 cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
                 cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
             }
-        } else if popularResponse[indexPath.row].myStatus == 2 {
+        case 2:
             DispatchQueue.main.async {
                 cell.statusImage.image = UIImage(named: "icon_starGreen")
                 cell.statusLabel.text = "Joined"
                 cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xE5F9F4)
                 cell.statusLabel.textColor = UIColor(rgb: 0x00C491)
             }
-        } else {
+        default:
             DispatchQueue.main.async {
                 cell.statusImage.image = UIImage(named: "icon_star")
                 cell.statusLabel.text = "Tham gia"

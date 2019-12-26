@@ -137,31 +137,20 @@ class NewsViewController: UIViewController {
         let list = RealmDataBaseQuery.getInstance.getObjects(type: NewsDataResponse.self)!.toArray(ofType: NewsDataResponse.self)
         newsResponse = list
     }
-
+    
     private func getNewsData(shoudLoadmore: Bool, page: Int) {
-        print("getNewsData")
-        getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10) { (json, errCode) in
+        getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10, shoudLoadmore: shoudLoadmore) { (news, errCode) in
             if errCode == 1 {
-                let result = json!
                 if shoudLoadmore == false {
-                    self.deleteObject()
                     self.newsResponse.removeAll()
-                    _ = result.array?.forEach({ (news) in
-                        let news = NewsDataResponse(news: news)
-                        RealmDataBaseQuery.getInstance.addData(object: news)
-                    })
+                    self.newsResponse = news
                 } else {
-                    _ = result.array?.forEach({ (news) in
-                    let news = NewsDataResponse(news: news)
-                        RealmDataBaseQuery.getInstance.addData(object: news)
-                    })
+                    self.newsResponse = news
                 }
-                self.updateObject()
                 self.newsTable.reloadData()
-                self.alertLoading.createAlertLoading(target: self, isShowLoading: false)
+                self.dismiss(animated: true, completion: nil)
             } else {
-                self.updateObject()
-                self.newsTable.reloadData()
+                print("No data")
                 self.dismiss(animated: true, completion: nil)
             }
         }

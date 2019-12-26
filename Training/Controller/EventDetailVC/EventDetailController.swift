@@ -15,7 +15,7 @@ class EventDetailController: UIViewController {
     
     private let realm = try! Realm()
     private var eventDetail = EventDetail()
-    private var events : [EventsNearResponse] = []
+    private var eventsNear : [EventsNearResponse] = []
     var id : Int?
     private let userToken = UserDefaults.standard.string(forKey: "userToken")
     private var alertLogin = UIAlertController()
@@ -60,13 +60,7 @@ class EventDetailController: UIViewController {
         }
         return false
     }
-    
-    private func deleteObject() {
-       let list = realm.objects(EventDetail.self).toArray(ofType: EventDetail.self)
-        try! realm.write {
-            realm.delete(list)
-        }
-    }
+
     
     private func handleLoginView() {
          isLoginVC = true
@@ -104,18 +98,12 @@ class EventDetailController: UIViewController {
     }
     
     private func getDetailEvent() {
-        getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (json, errcode) in
+        getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (eventDetail, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "You need to login first")
                 self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
             } else if errcode == 2 {
-                self.deleteObject()
-                let detail = json!
-                let detailVenue = detail["venue"]
-                let detailGenre = detail["category"]
-                self.eventDetail = EventDetail(detail: detail, detailVenue: detailVenue, detailGenre: detailGenre)
-   
-                RealmDataBaseQuery.getInstance.addData(object: self.eventDetail)
+                self.eventDetail = eventDetail
                 self.detailTable.reloadData()
             } else {
                 self.alertLogin.createAlert(target: self, title: "No internet connection", message: nil, titleBtn: "OK")
@@ -125,20 +113,19 @@ class EventDetailController: UIViewController {
     
 
     private func getListEvent() {
-        getDataService.getInstance.getListNearEvent(radius: 5000, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: self.headers) { (json, errcode) in
-                if errcode == 1 {
-                    self.events.removeAll()
-                    let anotionLC = json!
-                    _ = anotionLC.array?.forEach({ (events) in
-                        let events = EventsNearResponse(events: events)
-                    self.events.append(events)
-                    })
-                } else {
-                    print("failed")
-                }
+        let usertoken = UserDefaults.standard.string(forKey: "userToken")
+        let headers = [ "Authorization": "Bearer \(usertoken!)",
+        "Content-Type": "application/json"  ]
+        getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: headers) { (eventsNear, anotionLC ,errcode) in
+            if errcode == 1 {
+                print("Failed")
+            } else if errcode == 2 {
+                self.eventsNear = eventsNear
+            } else {
+                print("Failed")
             }
-      }
-
+        }
+    }
     
     
     @IBAction func backtoHome(_ sender: Any) {
@@ -216,7 +203,7 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
              return cell
         case 6:
             let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailNearCell", for: indexPath) as! DetailNearCell
-            cell.updateData(eventLoaded: events)
+            cell.updateData(eventLoaded: eventsNear)
             return cell
         case 7:
             let cell = detailTable.dequeueReusableCell(withIdentifier: "ButtonFooterCell", for: indexPath) as! ButtonFooterCell

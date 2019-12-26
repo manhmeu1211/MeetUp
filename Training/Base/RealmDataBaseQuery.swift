@@ -32,15 +32,15 @@ class RealmDataBaseQuery {
     
     open func deleteAllData() {
         try! self.realm.write {
-        self.realm.deleteAll()
+            self.realm.deleteAll()
         }
     }
 
     
     open func deleteData(object: Object) {
         try! self.realm.write {
-                 self.realm.delete(object)
-             }
+            self.realm.delete(object)
+        }
     }
     
     
@@ -61,7 +61,6 @@ extension Results {
                 array.append(result)
             }
         }
-
         return array
     }
 }

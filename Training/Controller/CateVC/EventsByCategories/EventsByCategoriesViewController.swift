@@ -80,12 +80,14 @@ class EventsByCategoriesViewController: UIViewController {
     private func updateObjectByPopulars() {
         self.eventsByCate = RealmDataBaseQuery.getInstance.getObjects(type: EventsByCategoriesDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsByCategoriesDatabase.self)
         checkEvent()
+        eventTable.reloadData()
         self.titleCategories.text = "\(self.headerTitle!)(\(self.eventsByCate.count))"
     }
     
     private func updateObjectByDate() {
         self.eventsByCate = RealmDataBaseQuery.getInstance.getObjects(type: EventsByCategoriesDatabase.self)!.sorted(byKeyPath: "scheduleStartDate", ascending: false).toArray(ofType: EventsByCategoriesDatabase.self)
         checkEvent()
+        eventTable.reloadData()
         self.titleCategories.text = "\(self.headerTitle!)(\(self.eventsByCate.count))"
     }
     
@@ -108,34 +110,24 @@ class EventsByCategoriesViewController: UIViewController {
 
     func getDataEventsByCategories(isLoadMore : Bool, page: Int) {
         let categoriesID = id!
-        let usertoken = UserDefaults.standard.string(forKey: "userToken")
-        let headers = [ "token": usertoken!,
-                        "Content-Type": "application/json" ]
-        getDataService.getInstance.getListEventsByCategories(id: categoriesID, pageIndex: page, headers: headers) { (json, errcode) in
+        let userToken = UserDefaults.standard.string(forKey: "userToken")
+        let headers = [ "Authorization": "Bearer " + userToken!,
+                    "Content-Type": "application/json"  ]
+        getDataService.getInstance.getListEventsByCategories(id: categoriesID, pageIndex: page, headers: headers, isLoadMore: isLoadMore) { (eventsCate, errcode) in
             if errcode == 1 {
                 self.loading.handleLoading(isLoading: false)
                 self.updateObjectByPopulars()
             } else if errcode == 2 {
-                let data = json!
                 if isLoadMore == false {
-                    self.deleteObject()
                     self.eventsByCate.removeAll()
-                    _ = data.array?.forEach({ (event) in
-                    let eventsRes = EventsByCategoriesDatabase(event: event)
-                    RealmDataBaseQuery.getInstance.addData(object: eventsRes)
-                    })
+                    self.eventsByCate = eventsCate
                 } else {
-                    _ = data.array?.forEach({ (event) in
-                    let eventsRes = EventsByCategoriesDatabase(event: event)
-                    RealmDataBaseQuery.getInstance.addData(object: eventsRes)
-                    })
+                    self.eventsByCate = eventsCate
                 }
-                self.updateObjectByPopulars()
                 self.eventTable.reloadData()
                 self.loading.handleLoading(isLoading: false)
             } else {
                 self.updateObjectByPopulars()
-                ToastView.shared.short(self.view, txt_msg: "Failed to load data, check your connection!")
                 self.loading.handleLoading(isLoading: false)
             }
         }

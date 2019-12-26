@@ -74,29 +74,16 @@ class BrowserViewController: UIViewController {
     }
     
     
-    private func deleteObject() {
-        let list = realm.objects(CategoriesResDatabase.self).toArray(ofType: CategoriesResDatabase.self)
-        try! realm.write {
-            realm.delete(list)
-        }
-    }
-       
-    
     private func getListCategories() {
-        getDataService.getInstance.getListCategories { (json, errcode) in
+        getDataService.getInstance.getListCategories { (cateData, errcode) in
             if errcode == 1 {
-                self.deleteObject()
                 self.cateList.removeAll()
-                let data = json!
-                _ = data.array?.forEach({ (cate) in
-                    let categories = CategoriesResDatabase(cate: cate)
-                RealmDataBaseQuery.getInstance.addData(object: categories)
-                })
-                self.updateObject()
+                self.cateList = cateData
                 self.categoriesTable.reloadData()
+                self.dismiss(animated: true, completion: nil)
             } else {
-                self.updateObject()
-                self.categoriesTable.reloadData()
+                print("Failed")
+                self.dismiss(animated: true, completion: nil)
                 ToastView.shared.short(self.view, txt_msg: "Failed to load data from server")
             }
         }

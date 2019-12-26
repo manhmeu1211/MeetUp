@@ -82,35 +82,23 @@ class SearchViewController: UIViewController {
           self.searchResponse = RealmDataBaseQuery.getInstance.getObjects(type: SearchResponseDatabase.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: SearchResponseDatabase.self)
       }
       
-    private func deleteObject() {
-        let list = realm.objects(SearchResponseDatabase.self).toArray(ofType: SearchResponseDatabase.self)
-        try! realm.write {
-            realm.delete(list)
-        }
-    }
-    
+
     private func handleSearch(isLoadMore : Bool, page : Int) {
+        
         let keyword = txtSearch.text!
         let headers = [ "Authorization": "Bearer " + userToken!,
                         "Content-Type": "application/json"  ]
-        getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers) { (json, errcode) in
+        
+        getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers, isLoadMore: isLoadMore) { (result, errcode) in
             if errcode == 1 {
                 self.noResults.text = "No results"
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
             } else if errcode == 2 {
-                let data = json!
                 if isLoadMore == false {
-                    self.deleteObject()
                     self.searchResponse.removeAll()
-                    _ = data.array?.forEach({ (search) in
-                        let searchRes = SearchResponseDatabase(search: search)
-                        RealmDataBaseQuery.getInstance.addData(object: searchRes)
-                    })
+                    self.searchResponse = result
                 } else {
-                    _ = data.array?.forEach({ (search) in
-                        let searchRes = SearchResponseDatabase(search: search)
-                        RealmDataBaseQuery.getInstance.addData(object: searchRes)
-                    })
+                    self.searchResponse = result
                 }
                 self.updateObject()
                 self.searchTable.reloadData()
