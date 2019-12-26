@@ -152,47 +152,47 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = detailTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-            let queue = DispatchQueue(label: "loadImageDetail")
-            queue.async {
-                DispatchQueue.main.async {
-                    cell.imgTimer.image = UIImage(named: "Group15")
-                    cell.date.textColor = UIColor(rgb: 0x5D20CD)
-                    cell.imgNews.image = UIImage(data: self.eventDetail.photo)
-                }
-            }
-           
-            cell.title.text = eventDetail.name
-            cell.lblDes.isHidden = true
+        switch indexPath.row {
+        case 0:
+             let cell = detailTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+             let queue = DispatchQueue(label: "loadImageDetail")
+             queue.async {
+                 DispatchQueue.main.async {
+                     cell.imgTimer.image = UIImage(named: "Group15")
+                     cell.date.textColor = UIColor(rgb: 0x5D20CD)
+                     cell.imgNews.image = UIImage(data: self.eventDetail.photo)
+                 }
+             }
+            
+             cell.title.text = eventDetail.name
+             cell.lblDes.isHidden = true
 
-            if eventDetail.goingCount == 0 {
-                cell.date.text = "\(eventDetail.scheduleStartDate) "
-            } else {
-                cell.date.text = "\(eventDetail.scheduleStartDate) - \(eventDetail.goingCount) people going"
-            }
-            if eventDetail.mystatus == 1 {
-                DispatchQueue.main.async {
-                    cell.statusImage.image = UIImage(named: "icon_starRed")
-                    cell.statusLabel.text = "Can participate"
-                    cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
-                    cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
-                }
-            } else if eventDetail.mystatus == 2 {
-                DispatchQueue.main.async {
-                    cell.statusImage.image = UIImage(named: "icon_starGreen")
-                    cell.statusLabel.text = "Joined"
-                    cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xE5F9F4)
-                    cell.statusLabel.textColor = UIColor(rgb: 0x00C491)
-                }
-            }
-            return cell
-        }
-        else if indexPath.row == 1 {
+             if eventDetail.goingCount == 0 {
+                 cell.date.text = "\(eventDetail.scheduleStartDate) "
+             } else {
+                 cell.date.text = "\(eventDetail.scheduleStartDate) - \(eventDetail.goingCount) people going"
+             }
+             if eventDetail.mystatus == 1 {
+                 DispatchQueue.main.async {
+                     cell.statusImage.image = UIImage(named: "icon_starRed")
+                     cell.statusLabel.text = "Can participate"
+                     cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
+                     cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
+                 }
+             } else if eventDetail.mystatus == 2 {
+                 DispatchQueue.main.async {
+                     cell.statusImage.image = UIImage(named: "icon_starGreen")
+                     cell.statusLabel.text = "Joined"
+                     cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xE5F9F4)
+                     cell.statusLabel.textColor = UIColor(rgb: 0x00C491)
+                 }
+             }
+             return cell
+        case 1:
             let cell = detailTable.dequeueReusableCell(withIdentifier: "TextAreaCell", for: indexPath) as! TextAreaCell
             cell.txtView.text = eventDetail.descriptionHtml.replacingOccurrences(of: "[|<>/]", with: "", options: [.regularExpression])
             return cell
-        } else if indexPath.row == 2 {
+        case 2:
             let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
             cell.btnFollow.isHidden = false
             cell.vnName.text = "Venue: "
@@ -202,23 +202,23 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
                 cell.btnFollow.setTitle("Followed", for: .normal)
             }
             return cell
-        }  else if indexPath.row == 3 {
-           let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
+        case 3:
+            let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
             cell.btnFollow.isHidden = true
             cell.vnName.text = "Genre: "
             cell.vnDetail.text = eventDetail.nameGenre
             return cell
-        } else if indexPath.row == 4 {
-           let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
-            cell.btnFollow.isHidden = true
-            cell.vnName.text = "Location: "
-            cell.vnDetail.text = eventDetail.vnLocation
-            return cell
-        } else if indexPath.row == 6  {
+        case 4:
+            let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
+             cell.btnFollow.isHidden = true
+             cell.vnName.text = "Location: "
+             cell.vnDetail.text = eventDetail.vnLocation
+             return cell
+        case 6:
             let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailNearCell", for: indexPath) as! DetailNearCell
             cell.updateData(eventLoaded: events)
             return cell
-        } else if indexPath.row == 7  {
+        case 7:
             let cell = detailTable.dequeueReusableCell(withIdentifier: "ButtonFooterCell", for: indexPath) as! ButtonFooterCell
             cell.btnWent.addTarget(self, action: #selector(handleWent), for: UIControl.Event.touchUpInside)
             cell.btnGoing.addTarget(self, action: #selector(handleGoing), for: UIControl.Event.touchUpInside)
@@ -227,7 +227,7 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
                 cell.btnWent.backgroundColor = UIColor.systemGray6
             } else {
                 if eventDetail.mystatus == 1 {
-                     cell.btnGoing.backgroundColor = UIColor.red
+                    cell.btnGoing.backgroundColor = UIColor.red
                 } else if eventDetail.mystatus == 2 {
                     cell.btnWent.backgroundColor = UIColor.systemOrange
                     cell.btnWent.isEnabled = false
@@ -235,12 +235,12 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
                 }
             }
             return cell
-        } else {
-           let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
-            cell.btnFollow.isHidden = true
-            cell.vnName.text = "Contact: "
-            cell.vnDetail.text = eventDetail.vnContact
-            return cell
+        default:
+            let cell = detailTable.dequeueReusableCell(withIdentifier: "DetailVenueCell", for: indexPath) as! DetailVenueCell
+             cell.btnFollow.isHidden = true
+             cell.vnName.text = "Contact: "
+             cell.vnDetail.text = eventDetail.vnContact
+             return cell
         }
     }
     
