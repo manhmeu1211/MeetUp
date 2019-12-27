@@ -12,11 +12,13 @@ import RealmSwift
 class EventDetailController: UIViewController {
 
     @IBOutlet weak var detailTable: UITableView!
+    @IBOutlet var swipeGes: UISwipeGestureRecognizer!
     
     private let realm = try! Realm()
     private var eventDetail = EventDetail()
     private var eventsNear : [EventsNearResponse] = []
     var id : Int?
+    var idPrev : Int!
     private let userToken = UserDefaults.standard.string(forKey: "userToken")
     private var alertLogin = UIAlertController()
 
@@ -26,11 +28,12 @@ class EventDetailController: UIViewController {
         super.viewDidLoad()
         setUpView()
         setHeaders()
-        getDetailEvent()
+        getDetailEvent(eventID: id!)
         getListEvent()
     }
     
     private func setUpView() {
+        
         detailTable.dataSource = self
         detailTable.delegate = self
         detailTable.register(UINib(nibName: "ImgDetailCell", bundle: nil), forCellReuseIdentifier: "ImgDetailCell")
@@ -42,6 +45,12 @@ class EventDetailController: UIViewController {
         detailTable.allowsSelection = false
         detailTable.showsVerticalScrollIndicator = false
         self.tabBarController?.tabBar.isHidden = true
+        let swipeRight = UISwipeGestureRecognizer(target: self, action:  #selector(swiped))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
     
     private func setHeaders() {
@@ -73,10 +82,10 @@ class EventDetailController: UIViewController {
         let params = ["status": 1, "event_id": id! ]
         getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
-                ToastView.shared.short(self.view, txt_msg: "System error")
+                self.alertLogin.createAlert(target: self, title: "Success", message: "Error, please re-login", titleBtn: "OK")
             } else if errcode == 2 {
                 self.alertLogin.createAlert(target: self, title: "Success", message: "You're going this event", titleBtn: "OK")
-                 self.getDetailEvent()
+                 self.getDetailEvent(eventID: self.id!)
             } else {
                 ToastView.shared.short(self.view, txt_msg: "Check your connection")
             }
@@ -87,18 +96,19 @@ class EventDetailController: UIViewController {
         let params = ["status": 2, "event_id": id! ]
         getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
-                ToastView.shared.short(self.view, txt_msg: "System error")
+                self.alertLogin.createAlert(target: self, title: "Success", message: "Error, please re-login", titleBtn: "OK")
             } else if errcode == 2 {
                 self.alertLogin.createAlert(target: self, title: "Success", message: "You went this event", titleBtn: "OK")
-                self.getDetailEvent()
+                self.getDetailEvent(eventID: self.id!)
             } else {
                 ToastView.shared.short(self.view, txt_msg: "Check your connection")
             }
         }
     }
     
-    private func getDetailEvent() {
-        getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (eventDetail, errcode) in
+    private func getDetailEvent(eventID : Int) {
+        print("getData")
+        getDataService.getInstance.getEventDetail(idEvent: eventID, headers: self.headers) { (eventDetail, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "You need to login first")
                 self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
@@ -127,6 +137,19 @@ class EventDetailController: UIViewController {
         }
     }
     
+    @objc func swiped(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.direction == .left {
+            if id! > 0 {
+                idPrev = id! - 1
+                getDetailEvent(eventID: idPrev)
+            }
+        } else if gesture.direction == .right {
+            if id! > 0 {
+                idPrev = id! + 1
+                getDetailEvent(eventID: idPrev)
+            }
+        }
+    }
     
     @IBAction func backtoHome(_ sender: Any) {
         dismiss(animated: true, completion: nil)

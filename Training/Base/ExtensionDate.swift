@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 extension Date {
+    
     enum StyleDate: String {
         case dayAndDate = "EEE yyyy/MM/dd"
         case dateOnly = "yyyy/MM/dd"
@@ -35,6 +36,13 @@ extension Date {
         dateFormatter.dateFormat = formatter.rawValue
         let dateString = dateFormatter.string(from: self)
         return dateString
+    }
+    
+    func converStringToDate(formatter : Date.StyleDate, dateString : String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = formatter.rawValue
+        let date = dateFormatter.date(from: dateString)
+        return date
     }
 }
 extension NSDate {

@@ -17,7 +17,8 @@ class MyPageWentViewController: UIViewController {
     private let status = 2
     private let realm = try! Realm()
     private var wentEvents : [MyPageWentResDatabase] = []
-    
+    private var wentEventsEnd : [MyPageWentResDatabase] = []
+    private let today = Date()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -36,7 +37,7 @@ class MyPageWentViewController: UIViewController {
     }
     
     private func checkEvent() {
-         if wentEvents == [] {
+         if wentEvents == [] && wentEventsEnd == [] {
              noEvents.isHidden = false
          } else {
              noEvents.isHidden = true
@@ -62,7 +63,15 @@ class MyPageWentViewController: UIViewController {
                         ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
                     } else if errCode == 2 {
                         self.wentEvents.removeAll()
-                        self.wentEvents = events
+                    let dateFormatter = Date()
+                        for i in events {
+                             let date = dateFormatter.converStringToDate(formatter: Date.StyleDate.dateOnly, dateString: i.scheduleStartDate)
+                             if date! < self.today {
+                                self.wentEventsEnd.append(i)
+                             } else {
+                                self.wentEvents.append(i)
+                            }
+                         }
                         self.wentTable.reloadData()
                         self.checkEvent()
                     }  else {
@@ -77,27 +86,74 @@ class MyPageWentViewController: UIViewController {
 
 
 extension MyPageWentViewController : UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return wentEvents.count
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = wentTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-        let queue = DispatchQueue(label: "getListGoingEvent")
-        queue.async {
-            DispatchQueue.main.async {
-                cell.imgTimer.image = UIImage(named: "Group15")
-                cell.date.textColor = UIColor(rgb: 0x5D20CD)
-                cell.imgNews.image = UIImage(data: self.wentEvents[indexPath.row].photo)
-            }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return wentEvents.count
+        default:
+            return wentEventsEnd.count
         }
-        cell.date.text = "\(wentEvents[indexPath.row].scheduleStartDate) - \(wentEvents[indexPath.row].goingCount) people going"
-        cell.title.text = wentEvents[indexPath.row].name
-        cell.lblDes.text = wentEvents[indexPath.row].descriptionHtml
-        cell.backgroundStatusView.isHidden = true
-        cell.statusLabel.isHidden = true
-        cell.statusImage.isHidden = true
-        return cell
+    }
+      
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            if wentEvents.count == 0 {
+                  return ""
+            }
+            return "Events is going"
+        default:
+            if wentEventsEnd.count == 0 {
+                  return ""
+            }
+            return "Events end"
+        }
+    }
+    
+
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            let cell = wentTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+            let queue = DispatchQueue(label: "getListGoingEvent")
+            queue.async {
+                DispatchQueue.main.async {
+                    cell.imgTimer.image = UIImage(named: "Group15")
+                    cell.date.textColor = UIColor(rgb: 0x5D20CD)
+                    cell.imgNews.image = UIImage(data: self.wentEvents[indexPath.row].photo)
+                }
+            }
+            cell.date.text = "\(wentEvents[indexPath.row].scheduleStartDate) - \(wentEvents[indexPath.row].goingCount) people going"
+            cell.title.text = wentEvents[indexPath.row].name
+            cell.lblDes.text = wentEvents[indexPath.row].descriptionHtml
+            cell.backgroundStatusView.isHidden = true
+            cell.statusLabel.isHidden = true
+            cell.statusImage.isHidden = true
+            return cell
+        default:
+            let cell = wentTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+            let queue = DispatchQueue(label: "getListGoingEvent")
+            queue.async {
+                DispatchQueue.main.async {
+                    cell.imgTimer.image = UIImage(named: "Group15")
+                    cell.date.textColor = UIColor(rgb: 0x5D20CD)
+                    cell.imgNews.image = UIImage(data: self.wentEventsEnd[indexPath.row].photo)
+                }
+            }
+            cell.date.text = "\(wentEventsEnd[indexPath.row].scheduleStartDate) - \(wentEventsEnd[indexPath.row].goingCount) people going"
+            cell.title.text = wentEventsEnd[indexPath.row].name
+            cell.lblDes.text = wentEventsEnd[indexPath.row].descriptionHtml
+            cell.backgroundStatusView.isHidden = true
+            cell.statusLabel.isHidden = true
+            cell.statusImage.isHidden = true
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

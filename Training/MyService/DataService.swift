@@ -24,6 +24,7 @@ class getDataService {
      }
     
     let realm = try! Realm()
+  
     
     private func deleteObject(object : Object.Type) {
            let list = realm.objects(object).toArray(ofType: object)
@@ -193,7 +194,6 @@ class getDataService {
     }
     
    func getMyEventGoing(status : Int, headers : HTTPHeaders, completionHandler : @escaping([MyPageGoingResDatabase], Int) -> ()) {
-
         NetWorkService.getInstance.getRequestAPI(url: baseURL + "listMyEvents?status=\(status)", headers: headers, params: nil) { (response, errCode) in
             if errCode == 1 {
                 let status = response!["status"]
@@ -209,6 +209,7 @@ class getDataService {
                        RealmDataBaseQuery.getInstance.addData(object: goingEvents)
                    })
                     let dataLoaded = RealmDataBaseQuery.getInstance.getObjects(type: MyPageGoingResDatabase.self)?.toArray(ofType: MyPageGoingResDatabase.self)
+                 
                     completionHandler(dataLoaded!, 2)
                 }
             } else {

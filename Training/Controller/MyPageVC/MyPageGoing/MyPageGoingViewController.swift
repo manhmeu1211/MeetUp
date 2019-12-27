@@ -19,11 +19,12 @@ class MyPageGoingViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     
     
-    var alertLoading = UIAlertController()
-    let status = 1
-    var goingEvents : [MyPageGoingResDatabase] = []
-    let userToken = UserDefaults.standard.string(forKey: "userToken")
-    let realm = try! Realm()
+    private var alertLoading = UIAlertController()
+    private let status = 1
+    private var goingEvents : [MyPageGoingResDatabase] = []
+    private var goingEventsEnd : [MyPageGoingResDatabase] = []
+    private let userToken = UserDefaults.standard.string(forKey: "userToken")
+    private let today = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class MyPageGoingViewController: UIViewController {
     }
 
     private func checkEvent() {
-        if goingEvents == [] {
+        if goingEvents == [] && goingEventsEnd == [] {
             noEvents.isHidden = false
         } else {
             noEvents.isHidden = true
@@ -45,17 +46,7 @@ class MyPageGoingViewController: UIViewController {
         goingTable.delegate = self
         goingTable.dataSource = self
         goingTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
-        if #available(iOS 10.0, *) {
-            self.goingTable.refreshControl = refreshControl
-        } else {
-            self.goingTable.addSubview(refreshControl)
-        }
-            self.refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
-    }
-    
-    @objc func updateData() {
-       getListGoingEvent()
-        refreshControl.endRefreshing()
+
     }
     
     private func updateObject() {
@@ -63,13 +54,6 @@ class MyPageGoingViewController: UIViewController {
         goingEvents = list
     }
        
-       
-    private func deleteObject() {
-        let list = realm.objects(MyPageGoingResDatabase.self).toArray(ofType: MyPageGoingResDatabase.self)
-        try! realm.write {
-            realm.delete(list)
-        }
-    }
     
     private func handleLogOut() {
         isLoginVC = true
@@ -93,7 +77,15 @@ class MyPageGoingViewController: UIViewController {
                     ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
                 } else if errCode == 2 {
                     self.goingEvents.removeAll()
-                    self.goingEvents = events
+                    let dateFormatter = Date()
+                    for i in events {
+                         let date = dateFormatter.converStringToDate(formatter: Date.StyleDate.dateOnly, dateString: i.scheduleStartDate)
+                         if date! < self.today {
+                            self.goingEventsEnd.append(i)
+                         } else {
+                            self.goingEvents.append(i)
+                        }
+                     }
                     self.goingTable.reloadData()
                     self.checkEvent()
                 }  else {
@@ -108,27 +100,73 @@ class MyPageGoingViewController: UIViewController {
 }
 
 extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+  
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return goingEvents.count
+        switch section {
+        case 0:
+            return goingEvents.count
+        default:
+            return goingEventsEnd.count
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = goingTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-        let queue = DispatchQueue(label: "loadImageGoing")
-        queue.async {
-            DispatchQueue.main.async {
-                cell.imgTimer.image = UIImage(named: "Group15")
-                cell.date.textColor = UIColor(rgb: 0x5D20CD)
-                cell.imgNews.image = UIImage(data: self.goingEvents[indexPath.row].photo)
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            if goingEvents.count == 0 {
+                return ""
             }
+            return "Events is going"
+        default:
+            if goingEventsEnd.count == 0 {
+                return ""
+            }
+            return "Events end"
         }
-        cell.date.text = "\(goingEvents[indexPath.row].scheduleStartDate) - \(goingEvents[indexPath.row].goingCount) people going"
-        cell.title.text = goingEvents[indexPath.row].name
-        cell.lblDes.text = goingEvents[indexPath.row].descriptionHtml
-        cell.backgroundStatusView.isHidden = true
-        cell.statusLabel.isHidden = true
-        cell.statusImage.isHidden = true
-        return cell
+    }
+    
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            let cell = goingTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+            let queue = DispatchQueue(label: "loadImageGoing")
+            queue.async {
+                DispatchQueue.main.async {
+                    cell.imgTimer.image = UIImage(named: "Group15")
+                    cell.date.textColor = UIColor(rgb: 0x5D20CD)
+                    cell.imgNews.image = UIImage(data: self.goingEvents[indexPath.row].photo)
+                }
+            }
+            cell.date.text = "\(goingEvents[indexPath.row].scheduleStartDate) - \(goingEvents[indexPath.row].goingCount) people going"
+            cell.title.text = goingEvents[indexPath.row].name
+            cell.lblDes.text = goingEvents[indexPath.row].descriptionHtml
+            cell.backgroundStatusView.isHidden = true
+            cell.statusLabel.isHidden = true
+            cell.statusImage.isHidden = true
+            return cell
+        default:
+            let cell = goingTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+            let queue = DispatchQueue(label: "loadImageGoing")
+            queue.async {
+                DispatchQueue.main.async {
+                    cell.imgTimer.image = UIImage(named: "Group15")
+                    cell.date.textColor = UIColor(rgb: 0x5D20CD)
+                    cell.imgNews.image = UIImage(data: self.goingEventsEnd[indexPath.row].photo)
+                }
+            }
+            cell.date.text = "\(goingEventsEnd[indexPath.row].scheduleStartDate) - \(goingEventsEnd[indexPath.row].goingCount) people going"
+            cell.title.text = goingEventsEnd[indexPath.row].name
+            cell.lblDes.text = goingEventsEnd[indexPath.row].descriptionHtml
+            cell.backgroundStatusView.isHidden = true
+            cell.statusLabel.isHidden = true
+            cell.statusImage.isHidden = true
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
