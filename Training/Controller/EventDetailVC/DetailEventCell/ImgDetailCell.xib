@@ -39,6 +39,35 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ujq-W0-Z3M">
+                        <rect key="frame" x="305" y="20" width="86" height="30"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_star" translatesAutoresizingMaskIntoConstraints="NO" id="zI9-yf-kt0">
+                                <rect key="frame" x="9" y="5" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="IWp-Wf-R9s"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hn4-ou-70Y">
+                                <rect key="frame" x="34" y="5" width="42" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zI9-yf-kt0" firstAttribute="centerY" secondItem="Ujq-W0-Z3M" secondAttribute="centerY" id="BrC-Le-d8j"/>
+                            <constraint firstAttribute="bottom" secondItem="hn4-ou-70Y" secondAttribute="bottom" constant="5" id="HO8-0a-3I4"/>
+                            <constraint firstItem="hn4-ou-70Y" firstAttribute="top" secondItem="Ujq-W0-Z3M" secondAttribute="top" constant="5" id="QFe-VB-bEU"/>
+                            <constraint firstAttribute="trailing" secondItem="hn4-ou-70Y" secondAttribute="trailing" constant="10" id="Vl0-wY-iSw"/>
+                            <constraint firstItem="zI9-yf-kt0" firstAttribute="top" secondItem="Ujq-W0-Z3M" secondAttribute="top" constant="5" id="X37-LQ-L1p"/>
+                            <constraint firstAttribute="bottom" secondItem="zI9-yf-kt0" secondAttribute="bottom" constant="5" id="YKU-V9-TTb"/>
+                            <constraint firstAttribute="height" constant="30" id="ZDV-cS-zWI"/>
+                            <constraint firstItem="hn4-ou-70Y" firstAttribute="leading" secondItem="zI9-yf-kt0" secondAttribute="trailing" constant="5" id="lCX-UP-jww"/>
+                            <constraint firstItem="zI9-yf-kt0" firstAttribute="leading" secondItem="Ujq-W0-Z3M" secondAttribute="leading" constant="9" id="v3U-PJ-XQR"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="RUT-Sl-YwK" firstAttribute="top" secondItem="TCX-8R-E8J" secondAttribute="bottom" constant="10" id="2Xu-cA-wok"/>
@@ -47,6 +76,8 @@
                     <constraint firstItem="Fyt-Wh-cl7" firstAttribute="centerY" secondItem="RUT-Sl-YwK" secondAttribute="centerY" id="IKE-qf-hfU"/>
                     <constraint firstAttribute="trailing" secondItem="Fyt-Wh-cl7" secondAttribute="trailing" constant="20" id="LOd-ww-vea"/>
                     <constraint firstItem="RUT-Sl-YwK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="Ukd-05-se2"/>
+                    <constraint firstItem="Ujq-W0-Z3M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="YCX-Mm-0rL"/>
+                    <constraint firstAttribute="trailing" secondItem="Ujq-W0-Z3M" secondAttribute="trailing" constant="20" id="YU6-VA-FiZ"/>
                     <constraint firstItem="Fyt-Wh-cl7" firstAttribute="leading" secondItem="RUT-Sl-YwK" secondAttribute="trailing" constant="5" id="d96-EV-EBG"/>
                     <constraint firstItem="Hhr-6b-bZP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="dNT-0u-4dc"/>
                     <constraint firstItem="TCX-8R-E8J" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.719101" id="lB9-au-Jhn"/>
@@ -59,14 +90,18 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="backGroundStatus" destination="Ujq-W0-Z3M" id="qvu-aX-JkU"/>
                 <outlet property="detailDate" destination="Fyt-Wh-cl7" id="Hxs-6d-u4U"/>
                 <outlet property="detailTitle" destination="Hhr-6b-bZP" id="vd5-9g-uoj"/>
                 <outlet property="imgDetail" destination="TCX-8R-E8J" id="1s8-Vx-Un1"/>
+                <outlet property="imgStar" destination="zI9-yf-kt0" id="l7p-Ul-6cP"/>
+                <outlet property="status" destination="hn4-ou-70Y" id="FYQ-IJ-FYu"/>
             </connections>
             <point key="canvasLocation" x="-128.2608695652174" y="63.950892857142854"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="calendar" catalog="system" width="64" height="52"/>
+        <image name="icon_star" width="14" height="14"/>
     </resources>
 </document>

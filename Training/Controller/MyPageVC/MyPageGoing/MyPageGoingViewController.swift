@@ -145,9 +145,12 @@ extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource
             cell.date.text = "\(goingEvents[indexPath.row].scheduleStartDate) - \(goingEvents[indexPath.row].goingCount) people going"
             cell.title.text = goingEvents[indexPath.row].name
             cell.lblDes.text = goingEvents[indexPath.row].descriptionHtml
-            cell.backgroundStatusView.isHidden = true
-            cell.statusLabel.isHidden = true
-            cell.statusImage.isHidden = true
+            DispatchQueue.main.async {
+                cell.statusImage.image = UIImage(named: "icon_starRed")
+                cell.statusLabel.text = "Can participate"
+                cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
+                cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
+            }
             return cell
         default:
             let cell = goingTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
@@ -159,19 +162,27 @@ extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource
                     cell.imgNews.image = UIImage(data: self.goingEventsEnd[indexPath.row].photo)
                 }
             }
+            DispatchQueue.main.async {
+                cell.statusImage.image = UIImage(named: "icon_starRed")
+                cell.statusLabel.text = "Can participate"
+                cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
+                cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
+            }
             cell.date.text = "\(goingEventsEnd[indexPath.row].scheduleStartDate) - \(goingEventsEnd[indexPath.row].goingCount) people going"
             cell.title.text = goingEventsEnd[indexPath.row].name
             cell.lblDes.text = goingEventsEnd[indexPath.row].descriptionHtml
-            cell.backgroundStatusView.isHidden = true
-            cell.statusLabel.isHidden = true
-            cell.statusImage.isHidden = true
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
-        vc.id = goingEvents[indexPath.row + 1].id
+        switch indexPath.section {
+        case 0:
+            vc.id = goingEvents[indexPath.row].id
+        default:
+            vc.id = goingEventsEnd[indexPath.row].id
+        }
         present(vc, animated: true, completion: nil)
     }
     

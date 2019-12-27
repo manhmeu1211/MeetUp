@@ -132,9 +132,12 @@ extension MyPageWentViewController : UITableViewDelegate, UITableViewDataSource 
             cell.date.text = "\(wentEvents[indexPath.row].scheduleStartDate) - \(wentEvents[indexPath.row].goingCount) people going"
             cell.title.text = wentEvents[indexPath.row].name
             cell.lblDes.text = wentEvents[indexPath.row].descriptionHtml
-            cell.backgroundStatusView.isHidden = true
-            cell.statusLabel.isHidden = true
-            cell.statusImage.isHidden = true
+            DispatchQueue.main.async {
+                cell.statusImage.image = UIImage(named: "icon_starGreen")
+                cell.statusLabel.text = "Joined"
+                cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xE5F9F4)
+                cell.statusLabel.textColor = UIColor(rgb: 0x00C491)
+            }
             return cell
         default:
             let cell = wentTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
@@ -149,16 +152,24 @@ extension MyPageWentViewController : UITableViewDelegate, UITableViewDataSource 
             cell.date.text = "\(wentEventsEnd[indexPath.row].scheduleStartDate) - \(wentEventsEnd[indexPath.row].goingCount) people going"
             cell.title.text = wentEventsEnd[indexPath.row].name
             cell.lblDes.text = wentEventsEnd[indexPath.row].descriptionHtml
-            cell.backgroundStatusView.isHidden = true
-            cell.statusLabel.isHidden = true
-            cell.statusImage.isHidden = true
+            DispatchQueue.main.async {
+                cell.statusImage.image = UIImage(named: "icon_starGreen")
+                cell.statusLabel.text = "Joined"
+                cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xE5F9F4)
+                cell.statusLabel.textColor = UIColor(rgb: 0x00C491)
+            }
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let vc = EventDetailController(nibName: "EventDetailView", bundle: nil)
-        vc.id = wentEvents[indexPath.row].id
+        switch indexPath.section {
+        case 0:
+            vc.id = wentEvents[indexPath.row].id
+        default:
+            vc.id = wentEventsEnd[indexPath.row].id
+        }
         present(vc, animated: true, completion: nil)
     }
 
