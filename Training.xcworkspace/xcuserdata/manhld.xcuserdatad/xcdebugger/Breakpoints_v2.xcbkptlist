@@ -1176,8 +1176,8 @@
             filePath = "Training/Controller/EventDetailVC/EventDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "EventDetailController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1192,8 +1192,8 @@
             filePath = "Training/Controller/EventDetailVC/EventDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "getDetailEvent(eventID:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1320,9 +1320,9 @@
             filePath = "Training/Controller/NewsVC/NewsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "updateData()"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "updateObject()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1356,38 +1356,6 @@
             endingLineNumber = "124"
             landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "343FACA8-ACBC-492B-952A-B5D22C2B4A92 - 7fbf3b325e65e916"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Training.EventsByCategoriesViewController.getDataEventsByCategories(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
-                  moduleName = "Training"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/CateVC/EventsByCategories/EventsByCategoriesViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "116"
-                  endingLineNumber = "116"
-                  offsetFromSymbolStart = "1266">
-               </Location>
-               <Location
-                  uuid = "343FACA8-ACBC-492B-952A-B5D22C2B4A92 - bef6727f4491617"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;Training.EventsByCategoriesDatabase&gt;, Swift.Int) -&gt; () in Training.EventsByCategoriesViewController.getDataEventsByCategories(isLoadMore: Swift.Bool, page: Swift.Int) -&gt; ()"
-                  moduleName = "Training"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/manhld/Desktop/Training/Training/Controller/CateVC/EventsByCategories/EventsByCategoriesViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "117"
-                  endingLineNumber = "117"
-                  offsetFromSymbolStart = "152">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1512,9 +1480,25 @@
             filePath = "Training/Controller/EventDetailVC/EventDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "getListEvent()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E499F93D-7A38-48B4-BE4F-75FCC538255C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NewsVC/NewsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "checkTokenExpired()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

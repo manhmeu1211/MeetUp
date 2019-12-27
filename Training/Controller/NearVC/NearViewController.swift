@@ -19,6 +19,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var loading: UIActivityIndicatorView!
     var alert = UIAlertController()
+    
     // MARK: - Varribles
     let realm = try! Realm()
     var events : [EventsNearResponse] = []
@@ -57,7 +58,6 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
                 initLat =  21.044895
             }
         addArtwork()
-        
     }
     
     private func addArtwork() {

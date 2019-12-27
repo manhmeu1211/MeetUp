@@ -34,6 +34,7 @@ class NewsViewController: UIViewController {
         checkTokenExpired()
         checkConnection()
     }
+
     
     // MARK: - Function check before get data
     
@@ -75,9 +76,7 @@ class NewsViewController: UIViewController {
                         "Content-Type": "application/json"  ]
             getDataService.getInstance.getMyEventGoing(status: 1, headers: headers) { (json, errCode) in
                 if errCode == 1 {
-                    self.alertLoading.createAlertWithHandle(target: self, title: "Login session expired", message: "Please re-login !", titleBtn: "OK") {
-                        self.handleLogOut()
-                    }
+                    UserDefaults.standard.removeObject(forKey: "userToken")
                 } else {
                     print("Token is avaible")
                 }
@@ -87,10 +86,7 @@ class NewsViewController: UIViewController {
         }
     }
     
-    private func handleLogOut() {
-        UserDefaults.standard.removeObject(forKey: "userToken")
-    }
-    
+
   
     private func detechDailyFirstLaunch() -> Bool {
          let today = NSDate().formatted

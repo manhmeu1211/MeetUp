@@ -18,7 +18,6 @@ class EventDetailController: UIViewController {
     private var eventDetail = EventDetail()
     private var eventsNear : [EventsNearResponse] = []
     var id : Int?
-    var idPrev : Int!
     private let userToken = UserDefaults.standard.string(forKey: "userToken")
     private var alertLogin = UIAlertController()
 
@@ -33,7 +32,6 @@ class EventDetailController: UIViewController {
     }
     
     private func setUpView() {
-        
         detailTable.dataSource = self
         detailTable.delegate = self
         detailTable.register(UINib(nibName: "ImgDetailCell", bundle: nil), forCellReuseIdentifier: "ImgDetailCell")
@@ -139,15 +137,11 @@ class EventDetailController: UIViewController {
     
     @objc func swiped(_ gesture: UISwipeGestureRecognizer) {
         if gesture.direction == .left {
-            if id! > 0 {
-                idPrev = id! - 1
-                getDetailEvent(eventID: idPrev)
-            }
+            id! += 1
+            getDetailEvent(eventID: id!)
         } else if gesture.direction == .right {
-            if id! > 0 {
-                idPrev = id! + 1
-                getDetailEvent(eventID: idPrev)
-            }
+            id! -= 1
+            getDetailEvent(eventID: id!)
         }
     }
     
