@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: DataService {
+class LoginViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var emailView: UIView!
@@ -86,19 +86,22 @@ class LoginViewController: DataService {
             txtEmail.text = ""
             loading.handleLoading(isLoading: false)
         } else {
-            login(params: params) { (json, errcode) in
-                if errcode == 1 {
-                    self.alertLoginFailed.createAlert(target: self, title: "Login failed", message: "Wrong password or email!", titleBtn: "OK")
-                    self.loading.handleLoading(isLoading: false)
-                    self.txtPassword.text = ""
-                } else if errcode == 2 {
-                    let data = json!
-                    let token = data["token"].stringValue
-                    self.saveToken(token: token)
-                    self.handleMyPage()
-                } else {
-                    self.alertLoginFailed.createAlert(target: self, title: "Login failed", message: "Check your internet connection !", titleBtn: "OK")
-                    self.loading.handleLoading(isLoading: false)
+            let queue = DispatchQueue(label: "Login")
+            queue.async {
+                getDataService.getInstance.login(params: params) { (json, errcode) in
+                    if errcode == 1 {
+                        self.alertLoginFailed.createAlert(target: self, title: "Login failed", message: "Wrong password or email!", titleBtn: "OK")
+                        self.loading.handleLoading(isLoading: false)
+                        self.txtPassword.text = ""
+                    } else if errcode == 2 {
+                        let data = json!
+                        let token = data["token"].stringValue
+                        self.saveToken(token: token)
+                        self.handleMyPage()
+                    } else {
+                        self.alertLoginFailed.createAlert(target: self, title: "Login failed", message: "Check your internet connection !", titleBtn: "OK")
+                        self.loading.handleLoading(isLoading: false)
+                    }
                 }
             }
         }

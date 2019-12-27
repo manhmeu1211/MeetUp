@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class MyPageGoingViewController: DataService {
+class MyPageGoingViewController: UIViewController {
     
 
 
@@ -23,7 +23,7 @@ class MyPageGoingViewController: DataService {
     let status = 1
     var goingEvents : [MyPageGoingResDatabase] = []
     let userToken = UserDefaults.standard.string(forKey: "userToken")
-
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +64,12 @@ class MyPageGoingViewController: DataService {
     }
        
        
-
+    private func deleteObject() {
+        let list = realm.objects(MyPageGoingResDatabase.self).toArray(ofType: MyPageGoingResDatabase.self)
+        try! realm.write {
+            realm.delete(list)
+        }
+    }
     
     private func handleLogOut() {
         isLoginVC = true
@@ -83,7 +88,7 @@ class MyPageGoingViewController: DataService {
            let headers = [ "Authorization": "Bearer \(usertoken!)",
                            "Content-Type": "application/json"  ]
          
-        getMyEventGoing(status: self.status, headers: headers) { (events, errCode) in
+        getDataService.getInstance.getMyEventGoing(status: self.status, headers: headers) { (events, errCode) in
                 if errCode == 1 {
                     ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
                 } else if errCode == 2 {

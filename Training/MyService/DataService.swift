@@ -10,12 +10,18 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import RealmSwift
-import UIKit
 
 
-class DataService : UIViewController {
+class getDataService {
     
    let baseURL = "http://meetup.rikkei.org/api/v0/"
+    
+    class var getInstance: getDataService {
+         struct Static {
+             static let instance: getDataService = getDataService()
+         }
+         return Static.instance
+     }
     
     let realm = try! Realm()
     

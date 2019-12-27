@@ -1176,8 +1176,8 @@
             filePath = "Training/Controller/EventDetailVC/EventDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "getDetailEvent()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1192,8 +1192,8 @@
             filePath = "Training/Controller/EventDetailVC/EventDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "getDetailEvent()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1202,54 +1202,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "39F5A1AD-10B2-47E7-B9A4-07D8A817EFB7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Training/Controller/NearVC/NearViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "getLocation()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D15A9C9B-B1A1-49A3-A414-03922BCDEDFA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Training/Controller/NearVC/NearViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "getLocation()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C0B3EFE5-522F-4EEF-AB17-15EF2D86ADFD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Training/Controller/NearVC/NearViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "getLocation()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3D6D677E-DAC8-4874-A190-506ED4411092"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1265,6 +1217,54 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "D15A9C9B-B1A1-49A3-A414-03922BCDEDFA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NearVC/NearViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "getLocation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C0B3EFE5-522F-4EEF-AB17-15EF2D86ADFD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NearVC/NearViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "getLocation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3D6D677E-DAC8-4874-A190-506ED4411092"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Training/Controller/NearVC/NearViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "getLocation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "9A716771-5046-4D30-9862-464579DA4AF0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1272,8 +1272,8 @@
             filePath = "Training/Controller/NearVC/NearViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "getLocation()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1288,8 +1288,8 @@
             filePath = "Training/Controller/NearVC/NearViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "getLocation()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1322,7 +1322,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "133"
             endingLineNumber = "133"
-            landmarkName = "getNewsData(shoudLoadmore:page:)"
+            landmarkName = "updateData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1336,8 +1336,8 @@
             filePath = "Training/Controller/CateVC/EventsByCategories/EventsByCategoriesViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1352,8 +1352,8 @@
             filePath = "Training/Controller/CateVC/EventsByCategories/EventsByCategoriesViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "getDataEventsByCategories(isLoadMore:page:)"
             landmarkType = "7">
             <Locations>
@@ -1400,8 +1400,8 @@
             filePath = "Training/MyService/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "getListEventsByCategories(id:pageIndex:headers:isLoadMore:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1416,8 +1416,8 @@
             filePath = "Training/MyService/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "getListEventsByCategories(id:pageIndex:headers:isLoadMore:completionHandler:)"
             landmarkType = "7">
             <Locations>
@@ -1464,8 +1464,8 @@
             filePath = "Training/MyService/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "getListEventsByCategories(id:pageIndex:headers:isLoadMore:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1480,8 +1480,8 @@
             filePath = "Training/MyService/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
             landmarkName = "getEventDetail(idEvent:headers:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1496,8 +1496,8 @@
             filePath = "Training/MyService/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
             landmarkName = "getEventDetail(idEvent:headers:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1512,10 +1512,10 @@
             filePath = "Training/Controller/EventDetailVC/EventDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "EventDetailController"
-            landmarkType = "3">
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "getListEvent()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

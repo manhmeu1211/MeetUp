@@ -12,16 +12,15 @@ import CoreLocation
 import Alamofire
 import RealmSwift
 
-class NearViewController: DataService, CLLocationManagerDelegate {
+class NearViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var collectionVIew: UICollectionView!
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var loading: UIActivityIndicatorView!
     var alert = UIAlertController()
-    
-    
     // MARK: - Varribles
+    let realm = try! Realm()
     var events : [EventsNearResponse] = []
     var anotion : [Artwork] = []
     let locationManager = CLLocationManager()
@@ -114,7 +113,7 @@ class NearViewController: DataService, CLLocationManagerDelegate {
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer \(usertoken!)",
         "Content-Type": "application/json"  ]
-        getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (eventsNear, anotionLC ,errcode) in
+        getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (eventsNear, anotionLC ,errcode) in
             if errcode == 1 {
                 self.updateObject()
                 self.collectionVIew.reloadData()

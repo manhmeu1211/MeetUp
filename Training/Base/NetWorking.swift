@@ -21,7 +21,6 @@ class NetWorkService {
          return Static.instance
      }
     
-    
     public func getRequestAPI(url: String, headers : HTTPHeaders? = nil, params : [String : Any]? = nil, completionHandler: @escaping (JSON?, Int) -> ()) {
           Alamofire.request(url , method: .get, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
               switch response.result {

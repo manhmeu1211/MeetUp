@@ -9,10 +9,11 @@
 import UIKit
 import RealmSwift
 
-class EventDetailController: DataService {
+class EventDetailController: UIViewController {
 
     @IBOutlet weak var detailTable: UITableView!
     
+    private let realm = try! Realm()
     private var eventDetail = EventDetail()
     private var eventsNear : [EventsNearResponse] = []
     var id : Int?
@@ -70,7 +71,7 @@ class EventDetailController: DataService {
     
     private func goingEvent() {
         let params = ["status": 1, "event_id": id! ]
-        doUpdateEvent(params: params, headers: headers) { (json, errcode) in
+        getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "System error")
             } else if errcode == 2 {
@@ -84,7 +85,7 @@ class EventDetailController: DataService {
     
     private func wentEvent() {
         let params = ["status": 2, "event_id": id! ]
-        doUpdateEvent(params: params, headers: headers) { (json, errcode) in
+        getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "System error")
             } else if errcode == 2 {
@@ -97,7 +98,7 @@ class EventDetailController: DataService {
     }
     
     private func getDetailEvent() {
-        getEventDetail(idEvent: self.id!, headers: self.headers) { (eventDetail, errcode) in
+        getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (eventDetail, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "You need to login first")
                 self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
@@ -115,7 +116,7 @@ class EventDetailController: DataService {
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer \(usertoken!)",
         "Content-Type": "application/json"  ]
-        getListNearEvent(radius: 10, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: headers) { (eventsNear, anotionLC ,errcode) in
+        getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: headers) { (eventsNear, anotionLC ,errcode) in
             if errcode == 1 {
                 print("Failed")
             } else if errcode == 2 {

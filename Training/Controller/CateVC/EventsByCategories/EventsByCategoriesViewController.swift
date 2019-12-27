@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class EventsByCategoriesViewController: DataService {
+class EventsByCategoriesViewController: UIViewController {
     
     // MARK: - Outlets
     
@@ -28,6 +28,7 @@ class EventsByCategoriesViewController: DataService {
     private var currentPage = 1
     private var eventsByCate : [EventsByCategoriesDatabase] = []
     private let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+    private let realm = try! Realm()
     private let token = UserDefaults.standard.string(forKey: "userToken")
     
     
@@ -99,13 +100,20 @@ class EventsByCategoriesViewController: DataService {
         }
     }
     
+        
+    private func deleteObject() {
+        let list = realm.objects(EventsByCategoriesDatabase.self).toArray(ofType: EventsByCategoriesDatabase.self)
+        try! realm.write {
+            realm.delete(list)
+        }
+    }
 
     func getDataEventsByCategories(isLoadMore : Bool, page: Int) {
         let categoriesID = id!
         let userToken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer " + userToken!,
                     "Content-Type": "application/json"  ]
-        getListEventsByCategories(id: categoriesID, pageIndex: page, headers: headers, isLoadMore: isLoadMore) { (eventsCate, errcode) in
+        getDataService.getInstance.getListEventsByCategories(id: categoriesID, pageIndex: page, headers: headers, isLoadMore: isLoadMore) { (eventsCate, errcode) in
             if errcode == 1 {
                 self.loading.handleLoading(isLoading: false)
                 self.updateObjectByPopulars()

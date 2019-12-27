@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResetPassViewController: DataService {
+class ResetPassViewController: UIViewController {
     // MARK: - Outlets
 
     @IBOutlet weak var containerView: UIView!
@@ -62,7 +62,7 @@ class ResetPassViewController: DataService {
             txtEmail.text = ""
         } else {
             let params = ["email" : email!]
-            resetPassword(params: params) { (json, errCode) in
+            getDataService.getInstance.resetPassword(params: params) { (json, errCode) in
                 if errCode == 1 {
                     self.alert.createAlert(target: self, title: "System error", message: "Email does not exits in system", titleBtn: "OK")
                 } else if errCode == 2 {

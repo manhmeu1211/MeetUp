@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpViewController: DataService {
+class SignUpViewController: UIViewController {
     
     // MARK: - Outlets
     
@@ -87,7 +87,7 @@ class SignUpViewController: DataService {
                 ]
             let queue = DispatchQueue(label: "Register")
             queue.async {
-                self.register(params: params) { (json, errcode) in
+                getDataService.getInstance.register(params: params) { (json, errcode) in
                     if errcode == 1 {
                         ToastView.shared.short(self.view, txt_msg: "Register Success")
                         self.handleLoginView()

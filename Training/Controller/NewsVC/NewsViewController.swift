@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 
-class NewsViewController: DataService {
+class NewsViewController: UIViewController {
     
   // MARK: - Outlets
  
@@ -73,7 +73,7 @@ class NewsViewController: DataService {
         if userToken != nil {
             let headers = [ "Authorization": "Bearer \(userToken!)",
                         "Content-Type": "application/json"  ]
-            getMyEventGoing(status: 1, headers: headers) { (json, errCode) in
+            getDataService.getInstance.getMyEventGoing(status: 1, headers: headers) { (json, errCode) in
                 if errCode == 1 {
                     self.alertLoading.createAlertWithHandle(target: self, title: "Login session expired", message: "Please re-login !", titleBtn: "OK") {
                         self.handleLogOut()
@@ -131,7 +131,7 @@ class NewsViewController: DataService {
     }
     
     private func getNewsData(shoudLoadmore: Bool, page: Int) {
-        getListNews(pageIndex: page, pageSize: 10, shoudLoadmore: shoudLoadmore) { (news, errCode) in
+        getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10, shoudLoadmore: shoudLoadmore) { (news, errCode) in
             if errCode == 1 {
                 if shoudLoadmore == false {
                     self.newsResponse.removeAll()

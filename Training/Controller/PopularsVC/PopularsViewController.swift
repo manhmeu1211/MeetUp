@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class PopularsViewController: DataService {
+class PopularsViewController: UIViewController {
     
     
     // MARK: - Outlet
@@ -56,7 +56,7 @@ class PopularsViewController: DataService {
                 case .online(.wiFi):
                     isLoadmore = true
             }
-       }
+    }
     
     private func getDataFirstLaunch() {
         if detechDailyFirstLaunch() == false {
@@ -121,7 +121,7 @@ class PopularsViewController: DataService {
     
     
     private func getListPopularData(isLoadMore : Bool, page : Int) {
-        getListPopular(pageIndex: page, pageSize: 10, headers: headers, isLoadmore: isLoadMore) { (popularData, isSuccess) in
+        getDataService.getInstance.getListPopular(pageIndex: page, pageSize : 10, headers: headers, isLoadmore: isLoadMore) { (popularData, isSuccess) in
             if isSuccess == 1 {
                 if isLoadMore == false {
                     self.popularResponse.removeAll()
@@ -159,7 +159,7 @@ extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
         cell.date.textColor = UIColor(rgb: 0x5D20CD)
         cell.date.text = "\(popularResponse[indexPath.row].scheduleStartDate) - \(popularResponse[indexPath.row].goingCount) people going"
         cell.title.text = popularResponse[indexPath.row].name
-        cell.lblDes.text = popularResponse[indexPath.row].descriptionHtml.replacingOccurrences(of: "[|<>/]", with: "", options: [.regularExpression])
+        cell.lblDes.text = popularResponse[indexPath.row].descriptionHtml
         switch popularResponse[indexPath.row].myStatus {
         case 1:
             DispatchQueue.main.async {

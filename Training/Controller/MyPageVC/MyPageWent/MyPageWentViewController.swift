@@ -9,13 +9,13 @@
 import UIKit
 import RealmSwift
 
-class MyPageWentViewController: DataService {
+class MyPageWentViewController: UIViewController {
 
     @IBOutlet weak var noEvents: UILabel!
     @IBOutlet weak var wentTable: UITableView!
     let userToken = UserDefaults.standard.string(forKey: "userToken")
     private let status = 2
-
+    private let realm = try! Realm()
     private var wentEvents : [MyPageWentResDatabase] = []
     
     override func viewDidLoad() {
@@ -57,7 +57,7 @@ class MyPageWentViewController: DataService {
                let headers = [ "Authorization": "Bearer \(usertoken!)",
                                "Content-Type": "application/json"  ]
              
-            getMyEventWent(status: self.status, headers: headers) { (events, errCode) in
+            getDataService.getInstance.getMyEventWent(status: self.status, headers: headers) { (events, errCode) in
                     if errCode == 1 {
                         ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
                     } else if errCode == 2 {
