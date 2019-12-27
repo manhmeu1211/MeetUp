@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class PopularsViewController: UIViewController {
+class PopularsViewController: DataService {
     
     
     // MARK: - Outlet
@@ -20,7 +20,6 @@ class PopularsViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     private var popularResponse : [PopularsResDatabase] = []
     private var currentPage = 1
-    private let realm = try! Realm()
     private var isLoadmore : Bool!
     private var changeColor : Int!
     private var userToken = UserDefaults.standard.string(forKey: "userToken")
@@ -122,7 +121,7 @@ class PopularsViewController: UIViewController {
     
     
     private func getListPopularData(isLoadMore : Bool, page : Int) {
-        getDataService.getInstance.getListPopular(pageIndex: page, pageSize : 10, headers: headers, isLoadmore: isLoadMore) { (popularData, isSuccess) in
+        getListPopular(pageIndex: page, pageSize: 10, headers: headers, isLoadmore: isLoadMore) { (popularData, isSuccess) in
             if isSuccess == 1 {
                 if isLoadMore == false {
                     self.popularResponse.removeAll()
@@ -160,7 +159,7 @@ extension PopularsViewController : UITableViewDataSource, UITableViewDelegate {
         cell.date.textColor = UIColor(rgb: 0x5D20CD)
         cell.date.text = "\(popularResponse[indexPath.row].scheduleStartDate) - \(popularResponse[indexPath.row].goingCount) people going"
         cell.title.text = popularResponse[indexPath.row].name
-        cell.lblDes.text = popularResponse[indexPath.row].descriptionHtml
+        cell.lblDes.text = popularResponse[indexPath.row].descriptionHtml.replacingOccurrences(of: "[|<>/]", with: "", options: [.regularExpression])
         switch popularResponse[indexPath.row].myStatus {
         case 1:
             DispatchQueue.main.async {

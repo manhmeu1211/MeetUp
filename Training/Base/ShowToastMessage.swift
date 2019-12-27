@@ -15,7 +15,6 @@ open class ToastView: UILabel {
     var lbl = UILabel()
     
     class var shared: ToastView {
-        
         struct Static {
             static let instance: ToastView = ToastView()
         }

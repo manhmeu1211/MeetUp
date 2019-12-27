@@ -25,6 +25,8 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var statusImage: UIImageView!
     
     @IBOutlet weak var statusLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         imgNews.roundCorners()

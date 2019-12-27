@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class MyPageGoingViewController: UIViewController {
+class MyPageGoingViewController: DataService {
     
 
 
@@ -23,7 +23,7 @@ class MyPageGoingViewController: UIViewController {
     let status = 1
     var goingEvents : [MyPageGoingResDatabase] = []
     let userToken = UserDefaults.standard.string(forKey: "userToken")
-    let realm = try! Realm()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,12 +64,7 @@ class MyPageGoingViewController: UIViewController {
     }
        
        
-    private func deleteObject() {
-        let list = realm.objects(MyPageGoingResDatabase.self).toArray(ofType: MyPageGoingResDatabase.self)
-        try! realm.write {
-            realm.delete(list)
-        }
-    }
+
     
     private func handleLogOut() {
         isLoginVC = true
@@ -81,33 +76,27 @@ class MyPageGoingViewController: UIViewController {
 
     
     private func getListGoingEvent() {
-        if userToken == nil {
-            loading.handleLoading(isLoading: false)
-            ToastView.shared.short(self.view, txt_msg: "You need to login first !")
-        } else {
-            let headers = [ "Authorization": "Bearer \(userToken!)",
-                            "Content-Type": "application/json"  ]
-            getDataService.getInstance.getMyEventGoing(status: self.status, headers: headers) { (json, errCode) in
+       let usertoken = UserDefaults.standard.string(forKey: "userToken")
+       if usertoken == nil {
+           ToastView.shared.short(self.view, txt_msg: "Not need to login first !")
+       } else {
+           let headers = [ "Authorization": "Bearer \(usertoken!)",
+                           "Content-Type": "application/json"  ]
+         
+        getMyEventGoing(status: self.status, headers: headers) { (events, errCode) in
                 if errCode == 1 {
-                    self.alertLoading.createAlertWithHandle(target: self, title: "Login session expired", message: "Please re-login !", titleBtn: "OK") {
-                        self.handleLogOut()
-                    }
+                    ToastView.shared.short(self.view, txt_msg: "Cannot load data from server!")
                 } else if errCode == 2 {
-                    let data = json!
-                    self.deleteObject()
                     self.goingEvents.removeAll()
-                    _ = data.array?.forEach({ (goingEvents) in
-                    let goingEvents = MyPageGoingResDatabase(id: goingEvents["id"].intValue, photo: goingEvents["photo"].stringValue, name: goingEvents["name"].stringValue, descriptionHtml: goingEvents["description_html"].stringValue, scheduleStartDate: goingEvents["schedule_start_date"].stringValue, scheduleEndDate: goingEvents["schedule_end_date"].stringValue, scheduleStartTime: goingEvents["schedule_start_time"].stringValue, scheduleEndTime: goingEvents["schedule_end_time"].stringValue, schedulePermanent: goingEvents["schedule_permanent"].stringValue, goingCount: goingEvents["going_count"].intValue)
-                        RealmDataBaseQuery.getInstance.addData(object: goingEvents)
-                })
-                    self.updateObject()
+                    self.goingEvents = events
                     self.goingTable.reloadData()
                     self.checkEvent()
                 }  else {
                     self.updateObject()
                     self.goingTable.reloadData()
+                    ToastView.shared.short(self.view, txt_msg: "Check your connetion !")
                 }
-                self.loading.handleLoading(isLoading: false)
+             self.loading.handleLoading(isLoading: false)
             }
         }
     }

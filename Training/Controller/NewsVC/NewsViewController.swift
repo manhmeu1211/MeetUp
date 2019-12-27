@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 
-class NewsViewController: UIViewController {
+class NewsViewController: DataService {
     
   // MARK: - Outlets
  
@@ -20,7 +20,7 @@ class NewsViewController: UIViewController {
     
     // MARK: - Varrible
     
-    private let realm = try! Realm()
+
     private var currentPage = 1
     private var newsResponse : [NewsDataResponse] = []
     private let dateformatted = DateFormatter()
@@ -73,7 +73,7 @@ class NewsViewController: UIViewController {
         if userToken != nil {
             let headers = [ "Authorization": "Bearer \(userToken!)",
                         "Content-Type": "application/json"  ]
-            getDataService.getInstance.getMyEventGoing(status: 1, headers: headers) { (json, errCode) in
+            getMyEventGoing(status: 1, headers: headers) { (json, errCode) in
                 if errCode == 1 {
                     self.alertLoading.createAlertWithHandle(target: self, title: "Login session expired", message: "Please re-login !", titleBtn: "OK") {
                         self.handleLogOut()
@@ -124,22 +124,14 @@ class NewsViewController: UIViewController {
         getNewsData(shoudLoadmore: false, page: currentPage)
         self.refreshControl.endRefreshing()
     }
-    
-       
-    private func deleteObject() {
-        let list = realm.objects(NewsDataResponse.self).toArray(ofType: NewsDataResponse.self)
-        try! realm.write {
-            realm.delete(list)
-        }
-    }
-    
+
     private func updateObject() {
         let list = RealmDataBaseQuery.getInstance.getObjects(type: NewsDataResponse.self)!.toArray(ofType: NewsDataResponse.self)
         newsResponse = list
     }
     
     private func getNewsData(shoudLoadmore: Bool, page: Int) {
-        getDataService.getInstance.getListNews(pageIndex: page, pageSize: 10, shoudLoadmore: shoudLoadmore) { (news, errCode) in
+        getListNews(pageIndex: page, pageSize: 10, shoudLoadmore: shoudLoadmore) { (news, errCode) in
             if errCode == 1 {
                 if shoudLoadmore == false {
                     self.newsResponse.removeAll()
@@ -151,6 +143,7 @@ class NewsViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             } else {
                 print("No data")
+                self.updateObject()
                 self.dismiss(animated: true, completion: nil)
             }
         }

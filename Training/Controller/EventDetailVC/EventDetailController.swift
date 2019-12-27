@@ -9,11 +9,10 @@
 import UIKit
 import RealmSwift
 
-class EventDetailController: UIViewController {
+class EventDetailController: DataService {
 
     @IBOutlet weak var detailTable: UITableView!
     
-    private let realm = try! Realm()
     private var eventDetail = EventDetail()
     private var eventsNear : [EventsNearResponse] = []
     var id : Int?
@@ -33,7 +32,7 @@ class EventDetailController: UIViewController {
     private func setUpView() {
         detailTable.dataSource = self
         detailTable.delegate = self
-        detailTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
+        detailTable.register(UINib(nibName: "ImgDetailCell", bundle: nil), forCellReuseIdentifier: "ImgDetailCell")
         detailTable.register(UINib(nibName: "TextAreaCell", bundle: nil), forCellReuseIdentifier: "TextAreaCell")
         detailTable.register(UINib(nibName: "DetailVenueCell", bundle: nil), forCellReuseIdentifier: "DetailVenueCell")
         detailTable.register(UINib(nibName: "DetailNearCell", bundle: nil), forCellReuseIdentifier: "DetailNearCell")
@@ -71,7 +70,7 @@ class EventDetailController: UIViewController {
     
     private func goingEvent() {
         let params = ["status": 1, "event_id": id! ]
-        getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
+        doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "System error")
             } else if errcode == 2 {
@@ -85,7 +84,7 @@ class EventDetailController: UIViewController {
     
     private func wentEvent() {
         let params = ["status": 2, "event_id": id! ]
-        getDataService.getInstance.doUpdateEvent(params: params, headers: headers) { (json, errcode) in
+        doUpdateEvent(params: params, headers: headers) { (json, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "System error")
             } else if errcode == 2 {
@@ -98,7 +97,7 @@ class EventDetailController: UIViewController {
     }
     
     private func getDetailEvent() {
-        getDataService.getInstance.getEventDetail(idEvent: self.id!, headers: self.headers) { (eventDetail, errcode) in
+        getEventDetail(idEvent: self.id!, headers: self.headers) { (eventDetail, errcode) in
             if errcode == 1 {
                 ToastView.shared.short(self.view, txt_msg: "You need to login first")
                 self.alertLogin.createAlertLoading(target: self, isShowLoading: false)
@@ -116,7 +115,7 @@ class EventDetailController: UIViewController {
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer \(usertoken!)",
         "Content-Type": "application/json"  ]
-        getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: headers) { (eventsNear, anotionLC ,errcode) in
+        getListNearEvent(radius: 10, longitue: self.eventDetail.longValue, latitude: self.eventDetail.latValue, header: headers) { (eventsNear, anotionLC ,errcode) in
             if errcode == 1 {
                 print("Failed")
             } else if errcode == 2 {
@@ -141,39 +140,21 @@ extension EventDetailController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-             let cell = detailTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+             let cell = detailTable.dequeueReusableCell(withIdentifier: "ImgDetailCell", for: indexPath) as! ImageDetailCell
              let queue = DispatchQueue(label: "loadImageDetail")
              queue.async {
                  DispatchQueue.main.async {
-                     cell.imgTimer.image = UIImage(named: "Group15")
-                     cell.date.textColor = UIColor(rgb: 0x5D20CD)
-                     cell.imgNews.image = UIImage(data: self.eventDetail.photo)
+                     cell.imgDetail.image = UIImage(data: self.eventDetail.photo)
                  }
              }
             
-             cell.title.text = eventDetail.name
-             cell.lblDes.isHidden = true
-
+             cell.detailTitle.text = eventDetail.name
              if eventDetail.goingCount == 0 {
-                 cell.date.text = "\(eventDetail.scheduleStartDate) "
+                 cell.detailDate.text = "\(eventDetail.scheduleStartDate) "
              } else {
-                 cell.date.text = "\(eventDetail.scheduleStartDate) - \(eventDetail.goingCount) people going"
+                 cell.detailDate.text = "\(eventDetail.scheduleStartDate) - \(eventDetail.goingCount) people going"
              }
-             if eventDetail.mystatus == 1 {
-                 DispatchQueue.main.async {
-                     cell.statusImage.image = UIImage(named: "icon_starRed")
-                     cell.statusLabel.text = "Can participate"
-                     cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
-                     cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
-                 }
-             } else if eventDetail.mystatus == 2 {
-                 DispatchQueue.main.async {
-                     cell.statusImage.image = UIImage(named: "icon_starGreen")
-                     cell.statusLabel.text = "Joined"
-                     cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xE5F9F4)
-                     cell.statusLabel.textColor = UIColor(rgb: 0x00C491)
-                 }
-             }
+
              return cell
         case 1:
             let cell = detailTable.dequeueReusableCell(withIdentifier: "TextAreaCell", for: indexPath) as! TextAreaCell

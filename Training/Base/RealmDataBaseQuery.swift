@@ -15,45 +15,44 @@ class RealmDataBaseQuery {
     let realm = try! Realm()
     
     class var getInstance: RealmDataBaseQuery {
-    
         struct Static {
-        
            static let instance: RealmDataBaseQuery = RealmDataBaseQuery()
        }
         return Static.instance
-   }
+    }
     
-    
-    open func addData(object: Object) {
+    public func addData(object: Object) {
         try! self.realm.write {
             self.realm.add(object)
         }
     }
     
-    open func deleteAllData() {
+    public func deleteAllData() {
         try! self.realm.write {
             self.realm.deleteAll()
         }
     }
 
-    
-    open func deleteData(object: Object) {
+
+    public func deleteData(object: Object) {
         try! self.realm.write {
             self.realm.delete(object)
         }
     }
     
-    
- 
+    public func deleteListObject(object: Object.Type) {
+        let list = realm.objects(object).toArray(ofType: object)
+        try! self.realm.write {
+            self.realm.delete(list)
+        }
+    }
 
-    func getObjects(type: Object.Type) -> Results<Object>? {
+    public func getObjects(type: Object.Type) -> Results<Object>? {
           return realm.objects(type)
       }
-        
 }
 
 extension Results {
-    
     func toArray<T>(ofType: T.Type) -> [T] {
         var array = [T]()
         for i in 0 ..< count {

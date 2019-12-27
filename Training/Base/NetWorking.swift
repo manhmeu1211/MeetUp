@@ -22,7 +22,7 @@ class NetWorkService {
      }
     
     
-    open func getRequestAPI(url: String, headers : HTTPHeaders? = nil, params : [String : Any]? = nil, completionHandler: @escaping (JSON?, Int) -> ()) {
+    public func getRequestAPI(url: String, headers : HTTPHeaders? = nil, params : [String : Any]? = nil, completionHandler: @escaping (JSON?, Int) -> ()) {
           Alamofire.request(url , method: .get, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
               switch response.result {
                   case .success(let value):
@@ -34,7 +34,7 @@ class NetWorkService {
       }
 
     
-    open func postRequestAPI(url: String, params: [String:Any]?, headers : HTTPHeaders? = nil, completionHandler: @escaping (JSON?, Int) -> ()) {
+    public func postRequestAPI(url: String, params: [String:Any]?, headers : HTTPHeaders? = nil, completionHandler: @escaping (JSON?, Int) -> ()) {
         Alamofire.request(url , method: .post, parameters: params,  encoding: JSONEncoding.default, headers: headers).responseJSON { response in
             switch response.result {
                 case .success(let value):
@@ -46,7 +46,7 @@ class NetWorkService {
     }
     
 
-    func loadImageFromInternet(url : String, completionHandler: @escaping (Data, String) -> ()) {
+    public func loadImageFromInternet(url : String, completionHandler: @escaping (Data, String) -> ()) {
         guard let url = URL(string: url) else { return }
         do {
             let data = try Data(contentsOf: url)

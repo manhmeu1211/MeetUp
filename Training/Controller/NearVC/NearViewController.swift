@@ -12,15 +12,16 @@ import CoreLocation
 import Alamofire
 import RealmSwift
 
-class NearViewController: UIViewController, CLLocationManagerDelegate {
+class NearViewController: DataService, CLLocationManagerDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var collectionVIew: UICollectionView!
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var loading: UIActivityIndicatorView!
     var alert = UIAlertController()
+    
+    
     // MARK: - Varribles
-    let realm = try! Realm()
     var events : [EventsNearResponse] = []
     var anotion : [Artwork] = []
     let locationManager = CLLocationManager()
@@ -103,7 +104,7 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
     private func updateObject() {
         let list = RealmDataBaseQuery.getInstance.getObjects(type: EventsNearResponse.self)!.sorted(byKeyPath: "goingCount", ascending: false).toArray(ofType: EventsNearResponse.self)
         if list == [] {
-            events.append(EventsNearResponse(id: 0, photo: "", name: "Not event near you", descriptionHtml: "", scheduleStartDate: "", scheduleEndDate: "", scheduleStartTime: "", scheduleEndTime: "", schedulePermanent: "", goingCount: 0))
+            events.append(EventsNearResponse(id: 0, photo: "", name: "No event near you", descriptionHtml: "", scheduleStartDate: "", scheduleEndDate: "", scheduleStartTime: "", scheduleEndTime: "", schedulePermanent: "", goingCount: 0))
         } else {
             events = list
         }
@@ -113,13 +114,13 @@ class NearViewController: UIViewController, CLLocationManagerDelegate {
         let usertoken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer \(usertoken!)",
         "Content-Type": "application/json"  ]
-        getDataService.getInstance.getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (eventsNear, anotionLC ,errcode) in
+        getListNearEvent(radius: 10, longitue: self.initLong!, latitude: self.initLat!, header: headers) { (eventsNear, anotionLC ,errcode) in
             if errcode == 1 {
                 self.updateObject()
                 self.collectionVIew.reloadData()
             } else if errcode == 2 {
                 self.events.removeAll()
-                _ = anotionLC.array?.forEach({ (anotion) in
+                _ = anotionLC?.array?.forEach({ (anotion) in
                     let anotionArt = Artwork(anotion: anotion, coordinate: CLLocationCoordinate2D(latitude: anotion["venue"]["geo_lat"].doubleValue, longitude: anotion["venue"]["geo_long"].doubleValue))
                     self.map.addAnnotation(anotionArt)
                 self.eventLong.append(anotion["venue"]["geo_long"].doubleValue)

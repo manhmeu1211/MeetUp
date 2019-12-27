@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class EventsByCategoriesViewController: UIViewController {
+class EventsByCategoriesViewController: DataService {
     
     // MARK: - Outlets
     
@@ -28,7 +28,6 @@ class EventsByCategoriesViewController: UIViewController {
     private var currentPage = 1
     private var eventsByCate : [EventsByCategoriesDatabase] = []
     private let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-    private let realm = try! Realm()
     private let token = UserDefaults.standard.string(forKey: "userToken")
     
     
@@ -60,7 +59,7 @@ class EventsByCategoriesViewController: UIViewController {
         eventTable.dataSource = self
         eventTable.delegate = self
         eventTable.rowHeight = UITableView.automaticDimension
-        eventTable.register(UINib(nibName: "PopularsTableViewCell", bundle: nil), forCellReuseIdentifier: "PopularsTableViewCell")
+        eventTable.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         titleCategories.text = "\(headerTitle!)(\(eventsByCate.count))"
         if #available(iOS 10.0, *) {
             self.eventTable.refreshControl = refreshControl
@@ -100,20 +99,13 @@ class EventsByCategoriesViewController: UIViewController {
         }
     }
     
-        
-    private func deleteObject() {
-        let list = realm.objects(EventsByCategoriesDatabase.self).toArray(ofType: EventsByCategoriesDatabase.self)
-        try! realm.write {
-            realm.delete(list)
-        }
-    }
 
     func getDataEventsByCategories(isLoadMore : Bool, page: Int) {
         let categoriesID = id!
         let userToken = UserDefaults.standard.string(forKey: "userToken")
         let headers = [ "Authorization": "Bearer " + userToken!,
                     "Content-Type": "application/json"  ]
-        getDataService.getInstance.getListEventsByCategories(id: categoriesID, pageIndex: page, headers: headers, isLoadMore: isLoadMore) { (eventsCate, errcode) in
+        getListEventsByCategories(id: categoriesID, pageIndex: page, headers: headers, isLoadMore: isLoadMore) { (eventsCate, errcode) in
             if errcode == 1 {
                 self.loading.handleLoading(isLoading: false)
                 self.updateObjectByPopulars()
@@ -175,21 +167,21 @@ extension EventsByCategoriesViewController : UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = eventTable.dequeueReusableCell(withIdentifier: "PopularsTableViewCell", for: indexPath) as! PopularsTableViewCell
+        let cell = eventTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
         let queue = DispatchQueue(label: "loadImageEventByCate")
         queue.async {
             DispatchQueue.main.async {
-                cell.imgPopulars.image = UIImage(data: self.eventsByCate[indexPath.row].photo)
+                cell.imgTimer.image = UIImage(named: "Group15")
+                cell.imgNews.image = UIImage(data: self.eventsByCate[indexPath.row].photo)
             }
         }
-        cell.eventsName.text = eventsByCate[indexPath.row].name
-        cell.desHTML.text = eventsByCate[indexPath.row].descriptionHtml.replacingOccurrences(of: "[|<>/]", with: "", options: [.regularExpression])
-        
-        if eventsByCate[indexPath.row].goingCount == 0 {
-            cell.dateAndCount.text = "\(eventsByCate[indexPath.row].scheduleStartDate) "
-        } else {
-             cell.dateAndCount.text = "\(eventsByCate[indexPath.row].scheduleStartDate) - \(eventsByCate[indexPath.row].goingCount) people going"
-        }
+        cell.date.textColor = UIColor(rgb: 0x5D20CD)
+        cell.date.text = "\(eventsByCate[indexPath.row].scheduleStartDate) - \(eventsByCate[indexPath.row].goingCount) people going"
+        cell.title.text = eventsByCate[indexPath.row].name
+        cell.lblDes.text = eventsByCate[indexPath.row].descriptionHtml
+        cell.backgroundStatusView.isHidden = true
+        cell.statusImage.isHidden = true
+        cell.statusLabel.isHidden = true
         return cell
     }
     

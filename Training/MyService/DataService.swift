@@ -10,18 +10,13 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import RealmSwift
+import UIKit
 
 
-class getDataService {
+class DataService : UIViewController {
     
    let baseURL = "http://meetup.rikkei.org/api/v0/"
     
-    class var getInstance: getDataService {
-         struct Static {
-             static let instance: getDataService = getDataService()
-         }
-         return Static.instance
-     }
     let realm = try! Realm()
     
     private func deleteObject(object : Object.Type) {
@@ -30,8 +25,6 @@ class getDataService {
                realm.delete(list)
            }
        }
-    
-
     
     func getListNews(pageIndex : Int, pageSize : Int, shoudLoadmore: Bool, completionHandler: @escaping ([NewsDataResponse], Int) -> ()) {
         NetWorkService.getInstance.getRequestAPI(url: baseURL + "listNews?pageIndex=\(pageIndex)&pageSize=\(pageSize)", headers: nil, params: nil) {
@@ -105,7 +98,7 @@ class getDataService {
     }
     
     
-    func getListNearEvent(radius: Double, longitue : Double, latitude : Double, header: HTTPHeaders, completionHandler : @escaping ([EventsNearResponse], JSON, Int) ->()) {
+    func getListNearEvent(radius: Double, longitue : Double, latitude : Double, header: HTTPHeaders, completionHandler : @escaping ([EventsNearResponse], JSON?, Int) ->()) {
         NetWorkService.getInstance.getRequestAPI(url: baseURL + "listNearlyEvents?radius=\(radius)&longitue=\(longitue)&latitude=\(latitude)", headers: header, params: nil) { (response, errCode) in
             if errCode == 1 {
                 let status = response!["status"].intValue
@@ -123,7 +116,7 @@ class getDataService {
                     completionHandler(dataLoaded!, data, 2)
                 }
             } else {
-                completionHandler([], response! ,0)
+                completionHandler([], nil ,0)
             }
         }
     }
@@ -193,45 +186,55 @@ class getDataService {
         }
     }
     
-   func getMyEventGoing(status : Int, headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> ()) {
-        Alamofire.request(baseURL + "listMyEvents?status=\(status)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-             switch response.result {
-                case .success(let value):
-                let response = JSON(value)
-                let status = response["status"]
+   func getMyEventGoing(status : Int, headers : HTTPHeaders, completionHandler : @escaping([MyPageGoingResDatabase], Int) -> ()) {
+
+        NetWorkService.getInstance.getRequestAPI(url: baseURL + "listMyEvents?status=\(status)", headers: headers, params: nil) { (response, errCode) in
+            if errCode == 1 {
+                let status = response!["status"]
                 if status == 0 {
-                    let data = response["error_message"]
-                    completionHandler(data, 1)
+                    let data = response!["error_message"]
+                    print(data)
+                    completionHandler([], 1)
                 } else {
-                    let data = response["response"]["events"]
-                    completionHandler(data, 2)
+                    let data = response!["response"]["events"]
+                    self.deleteObject(object: MyPageGoingResDatabase.self)
+                       _ = data.array?.forEach({ (goingEvents) in
+                       let goingEvents = MyPageGoingResDatabase(goingEvents: goingEvents)
+                       RealmDataBaseQuery.getInstance.addData(object: goingEvents)
+                   })
+                    let dataLoaded = RealmDataBaseQuery.getInstance.getObjects(type: MyPageGoingResDatabase.self)?.toArray(ofType: MyPageGoingResDatabase.self)
+                    completionHandler(dataLoaded!, 2)
                 }
-            case .failure( _):
-                completionHandler(nil, 0)
+            } else {
+                completionHandler([], 0)
             }
         }
     }
     
-    
-    func getMyEventWent(status : Int, headers : HTTPHeaders, completionHandler : @escaping(JSON?, Int) -> ()) {
-           Alamofire.request(baseURL + "listMyEvents?status=\(status)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-                switch response.result {
-                   case .success(let value):
-                   let response = JSON(value)
-                   let status = response["status"]
-                   var data = response["response"]
-                   if status == 0 {
-                       data = response["error_message"]
-                       completionHandler(data, 1)
-                   } else {
-                       data = response["response"]["events"]
-                       completionHandler(data, 2)
-                   }
-               case .failure( _):
-                   completionHandler(nil, 0)
-               }
-           }
-       }
+
+   func getMyEventWent(status : Int, headers : HTTPHeaders, completionHandler : @escaping([MyPageWentResDatabase], Int) -> ()) {
+        NetWorkService.getInstance.getRequestAPI(url: baseURL + "listMyEvents?status=\(status)", headers: headers, params: nil) { (response, errCode) in
+            if errCode == 1 {
+                let status = response!["status"]
+                if status == 0 {
+                    let data = response!["error_message"]
+                    print(data)
+                    completionHandler([], 1)
+                } else {
+                    let data = response!["response"]["events"]
+                    self.deleteObject(object: MyPageWentResDatabase.self)
+                       _ = data.array?.forEach({ (goingEvents) in
+                       let goingEvents = MyPageWentResDatabase(goingEvents: goingEvents)
+                       RealmDataBaseQuery.getInstance.addData(object: goingEvents)
+                   })
+                    let dataLoaded = RealmDataBaseQuery.getInstance.getObjects(type: MyPageWentResDatabase.self)?.toArray(ofType: MyPageWentResDatabase.self)
+                    completionHandler(dataLoaded!, 2)
+                }
+            } else {
+                completionHandler([], 0)
+            }
+        }
+    }
     
     func getEventDetail(idEvent : Int, headers : HTTPHeaders, completionHandler : @escaping(EventDetail, Int) -> () ) {
         NetWorkService.getInstance.getRequestAPI(url: baseURL + "getDetailEvent?event_id=\(idEvent)", headers: headers, params: nil) { (response, errCode) in

@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class BrowserViewController: UIViewController {
+class BrowserViewController: DataService {
     
     // MARK: - Outlets
     
@@ -20,7 +20,6 @@ class BrowserViewController: UIViewController {
     private var alertLoading = UIAlertController()
     private let refreshControl = UIRefreshControl()
     private var cateList : [CategoriesResDatabase] = []
-    private let realm = try! Realm()
     private let userToken = UserDefaults.standard.string(forKey: "userToken")
     
     override func viewDidLoad() {
@@ -34,7 +33,7 @@ class BrowserViewController: UIViewController {
      // MARK: - setup View
     
     private func getCateGories() {
-        let list = realm.objects(CategoriesResDatabase.self).toArray(ofType: CategoriesResDatabase.self)
+        let list = RealmDataBaseQuery.getInstance.getObjects(type: CategoriesResDatabase.self)!.toArray(ofType: CategoriesResDatabase.self)
         if list == [] {
             getListCategories()
         } else {
@@ -75,7 +74,7 @@ class BrowserViewController: UIViewController {
     
     
     private func getListCategories() {
-        getDataService.getInstance.getListCategories { (cateData, errcode) in
+        getListCategories { (cateData, errcode) in
             if errcode == 1 {
                 self.cateList.removeAll()
                 self.cateList = cateData

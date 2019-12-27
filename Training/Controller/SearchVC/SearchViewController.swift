@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class SearchViewController: UIViewController {
+class SearchViewController: DataService {
 
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var searchTable: UITableView!
@@ -22,7 +22,6 @@ class SearchViewController: UIViewController {
     private let userToken = UserDefaults.standard.string(forKey: "userToken")
     private var currentPage = 1
     private var searchResponse : [SearchResponseDatabase] = []
-    private let realm = try! Realm()
     private var alertLoading = UIAlertController()
     private var isHaveConnection : Bool!
     
@@ -89,7 +88,7 @@ class SearchViewController: UIViewController {
         let headers = [ "Authorization": "Bearer " + userToken!,
                         "Content-Type": "application/json"  ]
         
-        getDataService.getInstance.search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers, isLoadMore: isLoadMore) { (result, errcode) in
+        search(pageIndex: page, pageSize: 10, keyword: keyword, header: headers, isLoadMore: isLoadMore) { (result, errcode) in
             if errcode == 1 {
                 self.noResults.text = "No results"
                 self.alertLoading.createAlertLoading(target: self, isShowLoading: true)
