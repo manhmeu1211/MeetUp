@@ -171,6 +171,7 @@
 		0DECAD9123AB2D10008BC805 /* EventsByCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoriesViewController.swift; sourceTree = "<group>"; };
 		0DECAD9223AB2D10008BC805 /* EventsByCategoriesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsByCategoriesView.xib; sourceTree = "<group>"; };
 		0DECAD9523AB3221008BC805 /* EventsByCategoriesDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoriesDatabase.swift; sourceTree = "<group>"; };
+		0DFD357F23B60DEC007E0FBD /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9FB1039C4756A8D4306BB05F /* Pods-Training.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Training.debug.xcconfig"; path = "Target Support Files/Pods-Training/Pods-Training.debug.xcconfig"; sourceTree = "<group>"; };
 		D23177220D1F7DC22C20C13C /* Pods_Training.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Training.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC13DD28AD10A91D83598B2A /* Pods-Training.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Training.release.xcconfig"; path = "Target Support Files/Pods-Training/Pods-Training.release.xcconfig"; sourceTree = "<group>"; };
@@ -578,6 +579,7 @@
 			knownRegions = (
 				en,
 				Base,
+				vi,
 			);
 			mainGroup = 0DC433B2239F3BF1000C9505;
 			productRefGroup = 0DC433BC239F3BF1000C9505 /* Products */;
@@ -735,6 +737,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				0DC433CA239F3BF4000C9505 /* Base */,
+				0DFD357F23B60DEC007E0FBD /* vi */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -746,6 +749,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -806,6 +810,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

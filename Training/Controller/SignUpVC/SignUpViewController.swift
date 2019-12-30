@@ -50,10 +50,7 @@ class SignUpViewController: UIViewController {
        }
     
     private func handleLoginView() {
-        isLoginVC = true
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        navigationController?.popToRootViewController(animated: true)
     }
        
     
@@ -102,9 +99,6 @@ class SignUpViewController: UIViewController {
     }
  
     @IBAction func btnIgnore(_ sender: Any) {
-        isSearchVC = false
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        navigationController?.popToRootViewController(animated: true)
     }
 }

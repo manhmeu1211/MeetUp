@@ -56,11 +56,7 @@ class MyPageGoingViewController: UIViewController {
        
     
     private func handleLogOut() {
-        isLoginVC = true
-        UserDefaults.standard.removeObject(forKey: "userToken")
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        navigationController?.popToRootViewController(animated: true)
     }
 
     
@@ -137,6 +133,10 @@ extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource
             let queue = DispatchQueue(label: "loadImageGoing")
             queue.async {
                 DispatchQueue.main.async {
+                    cell.statusImage.image = UIImage(named: "icon_starRed")
+                    cell.statusLabel.text = "Can participate"
+                    cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
+                    cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
                     cell.imgTimer.image = UIImage(named: "Group15")
                     cell.date.textColor = UIColor(rgb: 0x5D20CD)
                     cell.imgNews.image = UIImage(data: self.goingEvents[indexPath.row].photo)
@@ -145,28 +145,20 @@ extension MyPageGoingViewController : UITableViewDelegate, UITableViewDataSource
             cell.date.text = "\(goingEvents[indexPath.row].scheduleStartDate) - \(goingEvents[indexPath.row].goingCount) people going"
             cell.title.text = goingEvents[indexPath.row].name
             cell.lblDes.text = goingEvents[indexPath.row].descriptionHtml
-            DispatchQueue.main.async {
-                cell.statusImage.image = UIImage(named: "icon_starRed")
-                cell.statusLabel.text = "Can participate"
-                cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
-                cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
-            }
             return cell
         default:
             let cell = goingTable.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
             let queue = DispatchQueue(label: "loadImageGoing")
             queue.async {
                 DispatchQueue.main.async {
+                    cell.statusImage.image = UIImage(named: "icon_starRed")
+                    cell.statusLabel.text = "Can participate"
+                    cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
+                    cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
                     cell.imgTimer.image = UIImage(named: "Group15")
                     cell.date.textColor = UIColor(rgb: 0x5D20CD)
                     cell.imgNews.image = UIImage(data: self.goingEventsEnd[indexPath.row].photo)
                 }
-            }
-            DispatchQueue.main.async {
-                cell.statusImage.image = UIImage(named: "icon_starRed")
-                cell.statusLabel.text = "Can participate"
-                cell.statusLabel.textColor = UIColor(rgb: 0xC63636)
-                cell.backgroundStatusView.backgroundColor = UIColor(rgb: 0xF9EBEB)
             }
             cell.date.text = "\(goingEventsEnd[indexPath.row].scheduleStartDate) - \(goingEventsEnd[indexPath.row].goingCount) people going"
             cell.title.text = goingEventsEnd[indexPath.row].name

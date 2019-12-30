@@ -56,11 +56,8 @@ class MyPageViewController: UIViewController {
     
     func logOut() {
         deleteToken()
-        isSearchVC = false
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
-       }
+        navigationController?.popViewController(animated: true)
+    }
        
     func deleteToken() {
         UserDefaults.standard.removeObject(forKey: "userToken")
@@ -79,10 +76,7 @@ class MyPageViewController: UIViewController {
     }
     
     @IBAction func backHome(_ sender: Any) {
-        isLoginVC = false
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 

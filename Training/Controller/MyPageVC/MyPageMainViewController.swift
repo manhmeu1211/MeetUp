@@ -14,11 +14,17 @@ class MyPageMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        btnLoginUI.roundedButton()
         if UserDefaults.standard.string(forKey: "userToken") != nil {
             handleMypage()
         } else {
-             btnLoginUI.roundedButton()
+             print("Not logged in")
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
     }
     
     func handleMypage() {

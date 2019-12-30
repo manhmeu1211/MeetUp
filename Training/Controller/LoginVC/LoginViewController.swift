@@ -113,10 +113,7 @@ class LoginViewController: UIViewController {
     
   
     @IBAction func ignore(_ sender: Any) {
-        isSearchVC = false
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        navigationController?.popViewController(animated: true)
     }
     
     

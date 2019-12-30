@@ -134,10 +134,7 @@ class SearchViewController: UIViewController {
     }
  
     @IBAction func backBtn(_ sender: Any) {
-        isSearchVC = true
-        let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
-        UIApplication.shared.windows.first?.rootViewController = vc
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        navigationController?.popViewController(animated: true)
     }
  
     @IBAction func clearText(_ sender: Any) {
