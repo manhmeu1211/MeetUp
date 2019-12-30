@@ -63,6 +63,7 @@
 		0DC433E2239F3FCC000C9505 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DC433E1239F3FCB000C9505 /* Main.storyboard */; };
 		0DC433E8239F43F7000C9505 /* HomeNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC433E7239F43F7000C9505 /* HomeNewsViewController.swift */; };
 		0DC433EF239F5388000C9505 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC433EE239F5388000C9505 /* DataService.swift */; };
+		0DC9763A23B98FFA005C44BE /* Xcode.gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0DC9763923B98FFA005C44BE /* Xcode.gitignore */; };
 		0DD8F5EA23A235BB00C50F22 /* CategoriesResDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD8F5E923A235BB00C50F22 /* CategoriesResDatabase.swift */; };
 		0DD8F5F323A23C4100C50F22 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD8F5F123A23C4100C50F22 /* SearchViewController.swift */; };
 		0DD8F5F423A23C4100C50F22 /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8F5F223A23C4100C50F22 /* SearchView.xib */; };
@@ -148,6 +149,7 @@
 		0DC433E1239F3FCB000C9505 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0DC433E7239F43F7000C9505 /* HomeNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsViewController.swift; sourceTree = "<group>"; };
 		0DC433EE239F5388000C9505 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		0DC9763923B98FFA005C44BE /* Xcode.gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = Xcode.gitignore; sourceTree = "<group>"; };
 		0DD8F5E923A235BB00C50F22 /* CategoriesResDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesResDatabase.swift; sourceTree = "<group>"; };
 		0DD8F5F123A23C4100C50F22 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		0DD8F5F223A23C4100C50F22 /* SearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				0DC433D6239F3C84000C9505 /* MyService */,
 				0DC433CC239F3BF4000C9505 /* Info.plist */,
 				0DC433C7239F3BF4000C9505 /* Assets.xcassets */,
+				0DC9763923B98FFA005C44BE /* Xcode.gitignore */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				0D5E459123A875BA0029CE1A /* NewsCell.xib in Resources */,
 				0D9E385923B5AFB600363C8B /* ImgDetailCell.xib in Resources */,
 				0D462B1123A71A1A000332F4 /* SplashScreen.xib in Resources */,
+				0DC9763A23B98FFA005C44BE /* Xcode.gitignore in Resources */,
 				0DE3B8C423A0F05E00843C80 /* CategoriesTableViewCell.xib in Resources */,
 				0DECAD8C23AB08F8008BC805 /* PopularsTableViewCell.xib in Resources */,
 				0DC433C8239F3BF4000C9505 /* Assets.xcassets in Resources */,
