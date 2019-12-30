@@ -48,6 +48,8 @@ class HomeNewsViewController: UIViewController {
         vc2.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         vc2.didMove(toParent: self)
         scrollView.delegate = self
+        titleHeader.text = "Home"
+        let localizedContent = NSLocalizedString("Thanks you for download this app", comment: "")
     }
     
     

@@ -31,6 +31,10 @@ class BrowserViewController: UIViewController {
         getCateGories()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
+    
      // MARK: - setup View
     
     private func getCateGories() {

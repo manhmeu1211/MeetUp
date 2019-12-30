@@ -8,16 +8,14 @@
 
 import UIKit
 
-var isSearchVC = false
+
 var isLoginVC = false
 
 class TabbarViewController: UITabBarController {
     // MARK: - Check index tabbar view
     override func viewDidLoad() {
         super.viewDidLoad()
-        if isSearchVC == true {
-            self.selectedIndex = 2
-        } else if isLoginVC == true {
+        if isLoginVC == true {
             self.selectedIndex = 3
         } else {
             self.selectedIndex = 0
